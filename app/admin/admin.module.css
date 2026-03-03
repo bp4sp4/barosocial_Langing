@@ -1081,6 +1081,11 @@
   border-collapse: collapse;
 }
 
+.trackingTable th:first-child,
+.trackingTable td:first-child {
+  min-width: 160px;
+}
+
 .trackingTable th {
   padding: 12px 16px;
   text-align: left;

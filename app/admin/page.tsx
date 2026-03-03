@@ -1295,7 +1295,7 @@ export default function AdminPage() {
                     >▾</button>
                   </div>
                 </th>
-                <th>이름</th>
+                <th style={{ minWidth: 80 }}>이름</th>
                 <th>연락처</th>
                 <th>최종학력</th>
                 <th>희망과정</th>
