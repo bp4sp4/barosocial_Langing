@@ -271,7 +271,7 @@ function StepFlowContent({ clickSource }: { clickSource: string }) {
                     <div className={styles.infoNumber}>2</div> 온라인 수업
                   </div>
                   <div className={styles.infoDesc}>
-                    모든 수업은 100% 온라인으로 진행(실습제외)
+                    모든 수업은 100% 온라인으로 진행
                   </div>
                 </div>
                 <div className={styles.infoItem}>
