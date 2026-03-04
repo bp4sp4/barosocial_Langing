@@ -16,6 +16,7 @@ interface PrivateCert {
   name: string;
   contact: string;
   education: string | null;
+  major_category: string | null;
   hope_course: string | null;
   reason: string | null;
   click_source: string | null;
@@ -310,9 +311,9 @@ export default function PrivateCertAdminPage() {
 
   const handleExcelDownload = () => {
     const targets = selectedIds.length > 0 ? filteredItems.filter(i => selectedIds.includes(i.id)) : filteredItems;
-    const headers = ['이름', '연락처', '최종학력', '희망과정', '취득사유', '유입경로', '과목비용', '담당자', '거주지', '메모', '고민', '신청일시', '상태'];
+    const headers = ['이름', '연락처', '최종학력', '대분류', '중분류(희망과정)', '취득사유', '유입경로', '과목비용', '담당자', '거주지', '메모', '고민', '신청일시', '상태'];
     const rows = targets.map(i => [
-      i.name, i.contact, i.education || '', i.hope_course || '',
+      i.name, i.contact, i.education || '', i.major_category || '', i.hope_course || '',
       i.reason || '', i.click_source || '',
       i.subject_cost ? i.subject_cost.toLocaleString() : '',
       i.manager || '', i.residence || '', i.memo || '', i.counsel_check || '',
@@ -522,7 +523,8 @@ export default function PrivateCertAdminPage() {
               <th style={{ minWidth: 80 }}>이름</th>
               <th>연락처</th>
               <th>최종학력</th>
-              <th>희망과정</th>
+              <th>대분류</th>
+              <th>중분류(희망과정)</th>
               <th>취득사유</th>
               <th>유입경로</th>
               <th>과목비용</th>
@@ -560,7 +562,7 @@ export default function PrivateCertAdminPage() {
           </thead>
           <tbody>
             {paginatedItems.length === 0 ? (
-              <tr><td colSpan={14} className={styles.empty}>신청 내역이 없습니다.</td></tr>
+              <tr><td colSpan={15} className={styles.empty}>신청 내역이 없습니다.</td></tr>
             ) : (
               paginatedItems.map(item => (
                 <tr key={item.id} className={selectedIds.includes(item.id) ? styles.selectedRow : ''}>
@@ -570,6 +572,7 @@ export default function PrivateCertAdminPage() {
                   <td>{highlightText(item.name, searchText)}</td>
                   <td>{item.contact}</td>
                   <td>{item.education || '-'}</td>
+                  <td>{item.major_category || '-'}</td>
                   <td>{item.hope_course || '-'}</td>
                   <td>
                     <div className={`${styles.memoCell} ${!item.reason ? styles.empty : ''}`}
