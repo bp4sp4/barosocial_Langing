@@ -337,11 +337,11 @@ export default function PrivateCertAdminPage() {
 
   const handleExcelDownload = () => {
     const targets = selectedIds.length > 0 ? filteredItems.filter(i => selectedIds.includes(i.id)) : filteredItems;
-    const headers = ['대분류', '중분류', '이름', '연락처', '희망과정', '취득사유', '유입경로', '과목비용', '담당자', '거주지', '메모', '고민', '신청일시', '상태'];
+    const headers = ['대분류', '중분류', '이름', '연락처', '희망과정', '취득사유', '과목비용', '담당자', '거주지', '메모', '고민', '신청일시', '상태'];
     const rows = targets.map(i => [
       parseClickSource(i.click_source).major, parseClickSource(i.click_source).minor,
       i.name, i.contact, i.hope_course || '',
-      i.reason || '', i.click_source || '',
+      i.reason || '',
       i.subject_cost ? i.subject_cost.toLocaleString() : '',
       i.manager || '', i.residence || '', i.memo || '', i.counsel_check || '',
       formatDate(i.created_at), i.status,
