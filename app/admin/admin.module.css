@@ -858,6 +858,68 @@
   color: #9ca3af;
 }
 
+/* 고민체크 모달 옵션 */
+.counselCheckOptions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.counselCheckOption {
+  padding: 8px 18px;
+  border-radius: 20px;
+  border: 1.5px solid #d1d5db;
+  background: #fff;
+  color: #4e5968;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.counselCheckOption:hover {
+  border-color: #3b82f6;
+  color: #3b82f6;
+}
+
+.counselCheckOptionActive {
+  border-color: #3b82f6;
+  background: #eff6ff;
+  color: #1d4ed8;
+  font-weight: 600;
+}
+
+.counselCheckEtcRow {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.counselCheckEtcInput {
+  flex: 1;
+  padding: 8px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 14px;
+  outline: none;
+}
+
+.counselCheckEtcInput:focus {
+  border-color: #3b82f6;
+}
+
+.counselCheckEtcBtn {
+  padding: 8px 14px;
+  background: #3b82f6;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
 /* 상담체크 셀 */
 .counselCheckCell {
   display: flex;
