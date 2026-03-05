@@ -583,7 +583,7 @@ export default function PrivateCertAdminPage() {
             <span className={styles.statsColLabel}>전체</span>
           </div>
           <div className={`${styles.statsRow} ${styles.statsRowGroup}`}>
-            <span className={styles.statsName}>민간사업부</span>
+            <span className={styles.statsName}>학점사업부</span>
             <div className={styles.statsCell}>
               <span className={styles.statsRate}>{privateCertStats.recent.rate}%</span>
             </div>
