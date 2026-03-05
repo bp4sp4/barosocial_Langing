@@ -805,8 +805,36 @@ export default function PrivateCertAdminPage() {
       {showReasonModal && (
         <div className={styles.modalOverlay} onClick={() => setShowReasonModal(false)}>
           <div className={styles.modalContent} onClick={e => e.stopPropagation()}>
-            <h2 className={styles.modalTitle}>취득사유</h2>
-            <textarea className={styles.memoTextarea} value={reasonText} onChange={e => setReasonText(e.target.value)} rows={3} />
+            <h2 className={styles.modalTitle}>취득사유 편집</h2>
+            {selectedItem && (
+              <div className={styles.memoInfo}>
+                <p><strong>이름:</strong> {selectedItem.name}</p>
+                <p><strong>연락처:</strong> {selectedItem.contact}</p>
+              </div>
+            )}
+            <div className={styles.formGroup}>
+              <label>취득사유 (복수 선택 가능)</label>
+              <div className={styles.checkboxGroup}>
+                {['즉시취업', '이직', '미래준비', '취업'].map((opt) => {
+                  const selected = reasonText.split(', ').filter(Boolean).includes(opt);
+                  return (
+                    <label key={opt} className={`${styles.checkboxOption} ${selected ? styles.checkboxOptionSelected : ''}`}>
+                      <input
+                        type="checkbox"
+                        checked={selected}
+                        onChange={() => {
+                          const current = reasonText.split(', ').filter(Boolean);
+                          const updated = selected ? current.filter(r => r !== opt) : [...current, opt];
+                          setReasonText(updated.join(', '));
+                        }}
+                        style={{ display: 'none' }}
+                      />
+                      {opt}
+                    </label>
+                  );
+                })}
+              </div>
+            </div>
             <div className={styles.modalActions}>
               <button onClick={handleUpdateReason} className={styles.submitButton}>저장</button>
               <button onClick={() => setShowReasonModal(false)} className={styles.cancelButton}>취소</button>
@@ -819,7 +847,14 @@ export default function PrivateCertAdminPage() {
       {showSubjectCostModal && (
         <div className={styles.modalOverlay} onClick={() => setShowSubjectCostModal(false)}>
           <div className={styles.modalContent} onClick={e => e.stopPropagation()}>
-            <h2 className={styles.modalTitle}>과목비용</h2>
+            <h2 className={styles.modalTitle}>과목비용 편집</h2>
+            {selectedItem && (
+              <div className={styles.memoInfo}>
+                <p><strong>이름:</strong> {selectedItem.name}</p>
+                <p><strong>연락처:</strong> {selectedItem.contact}</p>
+              </div>
+            )}
+            <label className={styles.fieldLabel}>과목비용</label>
             <input type="text" className={styles.inputField} value={subjectCostText}
               onChange={e => setSubjectCostText(formatCost(e.target.value))} placeholder="금액 입력" />
             <div className={styles.modalActions}>
@@ -834,7 +869,14 @@ export default function PrivateCertAdminPage() {
       {showManagerModal && (
         <div className={styles.modalOverlay} onClick={() => setShowManagerModal(false)}>
           <div className={styles.modalContent} onClick={e => e.stopPropagation()}>
-            <h2 className={styles.modalTitle}>담당자</h2>
+            <h2 className={styles.modalTitle}>담당자 편집</h2>
+            {selectedItem && (
+              <div className={styles.memoInfo}>
+                <p><strong>이름:</strong> {selectedItem.name}</p>
+                <p><strong>연락처:</strong> {selectedItem.contact}</p>
+              </div>
+            )}
+            <label className={styles.fieldLabel}>담당자</label>
             <input type="text" className={styles.inputField} value={managerText} onChange={e => setManagerText(e.target.value)} placeholder="담당자 이름" />
             <div className={styles.modalActions}>
               <button onClick={handleUpdateManager} className={styles.submitButton}>저장</button>
@@ -848,7 +890,14 @@ export default function PrivateCertAdminPage() {
       {showResidenceModal && (
         <div className={styles.modalOverlay} onClick={() => setShowResidenceModal(false)}>
           <div className={styles.modalContent} onClick={e => e.stopPropagation()}>
-            <h2 className={styles.modalTitle}>거주지</h2>
+            <h2 className={styles.modalTitle}>거주지 수정</h2>
+            {selectedItem && (
+              <div className={styles.memoInfo}>
+                <p><strong>이름:</strong> {selectedItem.name}</p>
+                <p><strong>연락처:</strong> {selectedItem.contact}</p>
+              </div>
+            )}
+            <label className={styles.fieldLabel}>거주지</label>
             <input type="text" className={styles.inputField} value={residenceText} onChange={e => setResidenceText(e.target.value)} placeholder="거주지 입력" />
             <div className={styles.modalActions}>
               <button onClick={handleUpdateResidence} className={styles.submitButton}>저장</button>
@@ -862,7 +911,14 @@ export default function PrivateCertAdminPage() {
       {showCounselCheckModal && (
         <div className={styles.modalOverlay} onClick={() => setShowCounselCheckModal(false)}>
           <div className={styles.modalContent} onClick={e => e.stopPropagation()}>
-            <h2 className={styles.modalTitle}>고민 체크</h2>
+            <h2 className={styles.modalTitle}>고민</h2>
+            {selectedItem && (
+              <div className={styles.memoInfo}>
+                <p><strong>이름:</strong> {selectedItem.name}</p>
+                <p><strong>연락처:</strong> {selectedItem.contact}</p>
+              </div>
+            )}
+            <label className={styles.fieldLabel}>항목 선택 (복수 선택 가능)</label>
             <div className={styles.counselCheckOptions}>
               {COUNSEL_CHECK_OPTIONS.map(opt => {
                 const current = counselCheckText.split(', ').filter(Boolean);
