@@ -1048,6 +1048,9 @@ export default function AdminPage() {
     .sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())
     .slice(0, 30);
   const hakjeomStats = { overall: calcRegRate(hakjeomAll), recent: calcRegRate(hakjeomRecent30) };
+  const topManagerName = managerStats.length > 0
+    ? managerStats.reduce((best, m) => m.recent.rate > best.recent.rate ? m : best).name
+    : null;
 
   const goToPage = (page: number) => {
     setCurrentPage(page);
@@ -1240,17 +1243,23 @@ export default function AdminPage() {
               <span className={styles.statsRate}>{hakjeomStats.overall.rate}%</span>
             </div>
           </div>
-          {managerStats.map(m => (
-            <div key={m.name} className={styles.statsRow}>
-              <span className={styles.statsName}>{m.name}</span>
-              <div className={styles.statsCell}>
-                <span className={styles.statsRate}>{m.recent.rate}%</span>
+          {[...managerStats].sort((a, b) => b.recent.rate - a.recent.rate).map(m => {
+            const isTop = m.name === topManagerName && m.recent.rate > 0;
+            return (
+              <div key={m.name} className={`${styles.statsRow} ${isTop ? styles.statsRowTop : ''}`}>
+                <span className={`${styles.statsName} ${isTop ? styles.statsNameTop : ''}`}>
+                  {m.name}
+                  {isTop && <span className={styles.rankBadge}>🥇</span>}
+                </span>
+                <div className={styles.statsCell}>
+                  <span className={`${styles.statsRate} ${isTop ? styles.statsRateTop : ''}`}>{m.recent.rate}%</span>
+                </div>
+                <div className={styles.statsCell}>
+                  <span className={`${styles.statsRate} ${isTop ? styles.statsRateTop : ''}`}>{m.overall.rate}%</span>
+                </div>
               </div>
-              <div className={styles.statsCell}>
-                <span className={styles.statsRate}>{m.overall.rate}%</span>
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </header>
 

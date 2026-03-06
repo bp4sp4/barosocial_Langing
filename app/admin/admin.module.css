@@ -1809,3 +1809,32 @@
 .statsRowGroup .statBarFill {
   background: #1b64da;
 }
+
+.statsRowTop {
+  background: linear-gradient(90deg, #fffbeb 0%, #fff 100%);
+}
+
+.statsNameTop {
+  color: #92400e !important;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+
+.rankBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  font-size: 10px;
+  font-weight: 700;
+  color: #92400e;
+  border-radius: 99px;
+  padding: 1px 6px;
+  white-space: nowrap;
+  line-height: 1.6;
+}
+
+.statsRateTop {
+  color: #d97706 !important;
+}

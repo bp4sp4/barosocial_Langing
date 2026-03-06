@@ -419,6 +419,9 @@ export default function PrivateCertAdminPage() {
     .sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())
     .slice(0, 30);
   const privateCertStats = { overall: calcRegRate(privateCertAll), recent: calcRegRate(privateCertRecent30) };
+  const topManagerName = managerStats.length > 0
+    ? managerStats.reduce((best, m) => m.recent.rate > best.recent.rate ? m : best).name
+    : null;
 
   // 고유 대분류 / 중분류 목록 (click_source 파싱)
   const uniqueMajorCategories = Array.from(
@@ -506,17 +509,7 @@ export default function PrivateCertAdminPage() {
               placeholder="010-1234-5678" maxLength={13} />
           </div>
           <div className={styles.formGroup}>
-            <label>대분류</label>
-            <input type="text" value={formData.major_category} onChange={e => {
-              const newMajor = e.target.value;
-              const newClickSource = newMajor
-                ? `바로폼_${newMajor}${formData.hope_course ? '_' + formData.hope_course : ''}`
-                : (formData.hope_course ? `바로폼__${formData.hope_course}` : '');
-              setFormData(p => ({ ...p, major_category: newMajor, click_source: newClickSource }));
-            }} placeholder="대분류 입력" />
-          </div>
-          <div className={styles.formGroup}>
-            <label>중분류(희망과정)</label>
+            <label>희망과정</label>
             <div className={styles.tossDropdown} ref={addCourseRef}>
               <button type="button" className={styles.tossDropdownTrigger} onClick={() => setAddCourseOpen(o => !o)}>
                 <span className={formData.hope_course ? '' : styles.tossDropdownPlaceholder}>
@@ -529,21 +522,13 @@ export default function PrivateCertAdminPage() {
               {addCourseOpen && (
                 <div className={styles.tossDropdownMenu}>
                   <button type="button" className={`${styles.tossDropdownItem} ${!formData.hope_course ? styles.tossDropdownItemActive : ''}`}
-                    onClick={() => {
-                      const newClickSource = formData.major_category ? `바로폼_${formData.major_category}` : '';
-                      setFormData(p => ({ ...p, hope_course: '', click_source: newClickSource }));
-                      setAddCourseOpen(false);
-                    }}>
+                    onClick={() => { setFormData(p => ({ ...p, hope_course: '' })); setAddCourseOpen(false); }}>
                     <span>선택 안 함</span>
                   </button>
                   {COURSE_OPTIONS.map(opt => (
                     <button type="button" key={opt}
                       className={`${styles.tossDropdownItem} ${formData.hope_course === opt ? styles.tossDropdownItemActive : ''}`}
-                      onClick={() => {
-                        const newClickSource = `바로폼_${formData.major_category ? formData.major_category + '_' : '_'}${opt}`;
-                        setFormData(p => ({ ...p, hope_course: opt, click_source: newClickSource }));
-                        setAddCourseOpen(false);
-                      }}>
+                      onClick={() => { setFormData(p => ({ ...p, hope_course: opt })); setAddCourseOpen(false); }}>
                       <span>{opt}</span>
                     </button>
                   ))}
@@ -636,7 +621,7 @@ export default function PrivateCertAdminPage() {
             <span className={styles.statsColLabel}>전체</span>
           </div>
           <div className={`${styles.statsRow} ${styles.statsRowGroup}`}>
-            <span className={styles.statsName}>학점사업부</span>
+            <span className={styles.statsName}>민간사업부</span>
             <div className={styles.statsCell}>
               <span className={styles.statsRate}>{privateCertStats.recent.rate}%</span>
             </div>
@@ -644,17 +629,23 @@ export default function PrivateCertAdminPage() {
               <span className={styles.statsRate}>{privateCertStats.overall.rate}%</span>
             </div>
           </div>
-          {managerStats.map(m => (
-            <div key={m.name} className={styles.statsRow}>
-              <span className={styles.statsName}>{m.name}</span>
-              <div className={styles.statsCell}>
-                <span className={styles.statsRate}>{m.recent.rate}%</span>
+          {[...managerStats].sort((a, b) => b.recent.rate - a.recent.rate).map(m => {
+            const isTop = m.name === topManagerName && m.recent.rate > 0;
+            return (
+              <div key={m.name} className={`${styles.statsRow} ${isTop ? styles.statsRowTop : ''}`}>
+                <span className={`${styles.statsName} ${isTop ? styles.statsNameTop : ''}`}>
+                  {m.name}
+                  {isTop && <span className={styles.rankBadge}>🥇</span>}
+                </span>
+                <div className={styles.statsCell}>
+                  <span className={`${styles.statsRate} ${isTop ? styles.statsRateTop : ''}`}>{m.recent.rate}%</span>
+                </div>
+                <div className={styles.statsCell}>
+                  <span className={`${styles.statsRate} ${isTop ? styles.statsRateTop : ''}`}>{m.overall.rate}%</span>
+                </div>
               </div>
-              <div className={styles.statsCell}>
-                <span className={styles.statsRate}>{m.overall.rate}%</span>
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </header>
 
