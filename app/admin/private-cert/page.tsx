@@ -646,8 +646,8 @@ export default function PrivateCertAdminPage() {
                 </svg>
               </button>
               {addCourseOpen && (
-                <div className={styles.tossDropdownMenu} style={{ maxHeight: 320 }}>
-                  <div style={{ padding: '8px 12px', borderBottom: '1px solid #f2f4f6', position: 'sticky', top: 0, background: '#fff', zIndex: 1 }}>
+                <div className={`${styles.tossDropdownMenu} ${styles.courseDropdownMenu}`}>
+                  <div className={styles.courseSearchHeader}>
                     <input
                       type="text"
                       autoFocus
@@ -655,7 +655,7 @@ export default function PrivateCertAdminPage() {
                       onChange={e => setAddCourseSearch(e.target.value)}
                       placeholder="과정 검색..."
                       onClick={e => e.stopPropagation()}
-                      style={{ width: '100%', padding: '8px 10px', border: '1px solid #e5e8eb', borderRadius: 6, fontSize: 13, outline: 'none', boxSizing: 'border-box' }}
+                      className={styles.courseSearchInput}
                     />
                   </div>
                   <button type="button" className={`${styles.tossDropdownItem} ${!formData.hope_course ? styles.tossDropdownItemActive : ''}`}
@@ -674,9 +674,7 @@ export default function PrivateCertAdminPage() {
                         ))
                     : CERT_CATEGORIES.map(cat => (
                         <div key={cat.label}>
-                          <div style={{ padding: '6px 12px 2px', fontSize: 11, fontWeight: 700, color: '#8b95a1', letterSpacing: 0.3, background: '#f9fafb' }}>
-                            {cat.label}
-                          </div>
+                          <div className={styles.courseCategoryLabel}>{cat.label}</div>
                           {cat.options.map(opt => (
                             <button type="button" key={`${cat.label}-${opt}`}
                               className={`${styles.tossDropdownItem} ${formData.hope_course === opt ? styles.tossDropdownItemActive : ''}`}
@@ -735,16 +733,16 @@ export default function PrivateCertAdminPage() {
               </div>
             )}
             {pcSourceMajor === '맘카페' && (
-              <div style={{ marginTop: 8 }}>
+              <div className={styles.mamcafeInputWrapper}>
                 <input
                   type="text"
-                  style={{ width: '100%', padding: '8px 12px', border: '1px solid #e5e8eb', borderRadius: 8, fontSize: 14, boxSizing: 'border-box' }}
+                  className={styles.mamcafeTextInput}
                   placeholder="활동하고 계신 맘카페를 적어주세요 (제휴여부 확인)"
                   value={pcMamcafeTextInput}
                   onChange={e => handlePcMamcafeTextInput(e.target.value)}
                 />
                 {pcMamcafeTextInput && (
-                  <div style={{ fontSize: 12, marginTop: 4, color: pcSourceMinor === '확인필요' ? '#f59e0b' : '#3182f6' }}>
+                  <div className={`${styles.sourceFeedback} ${pcSourceMinor === '확인필요' ? styles.sourceFeedbackWarn : styles.sourceFeedbackOk}`}>
                     {pcSourceMinor === '확인필요'
                       ? '⚠ 지정된 제휴 맘카페가 아닙니다 → 확인필요로 분류됩니다'
                       : `✓ 제휴 맘카페 확인: ${cafes.find(c => c.id === pcSourceMinor)?.name || CAFE_NAMES[pcSourceMinor] || pcSourceMinor}`}
@@ -986,7 +984,7 @@ export default function PrivateCertAdminPage() {
                     }}>▾</button>
                 </div>
               </th>
-              <th style={{ minWidth: 80 }}>이름</th>
+              <th className={styles.thNameMin}>이름</th>
               <th>연락처</th>
               <th>희망과정</th>
               <th>취득사유</th>
@@ -1033,7 +1031,7 @@ export default function PrivateCertAdminPage() {
                     <input type="checkbox" checked={selectedIds.includes(item.id)} onChange={() => toggleSelect(item.id)} />
                   </td>
                   <td>{parseClickSource(item.click_source).major || '-'}</td>
-                  <td style={{ padding: 0 }}>
+                  <td className={styles.tdNoPadding}>
                     {parseClickSource(item.click_source).major === '맘카페' ? (
                       <div
                         className={`${styles.minorCell} ${styles.minorCellEditable} ${!parseClickSource(item.click_source).minor ? styles.minorCellEmpty : ''} ${parseClickSource(item.click_source).minor.includes('(확인필요)') ? styles.needsCheck : ''}`}
@@ -1046,8 +1044,7 @@ export default function PrivateCertAdminPage() {
                       </div>
                     ) : (
                       <div
-                        className={styles.minorCell}
-                        style={parseClickSource(item.click_source).minor.includes('(확인필요)') ? { color: '#ef4444', fontWeight: 600 } : {}}
+                        className={`${styles.minorCell} ${parseClickSource(item.click_source).minor.includes('(확인필요)') ? styles.needsCheckText : ''}`}
                       >
                         {parseClickSource(item.click_source).minor || '-'}
                       </div>
@@ -1055,7 +1052,7 @@ export default function PrivateCertAdminPage() {
                   </td>
                   <td>{highlightText(item.name, searchText)}</td>
                   <td
-                    style={{ cursor: 'pointer' }}
+                    className={styles.tdClickable}
                     onClick={() => {
                       navigator.clipboard.writeText(item.contact.replace(/-/g, ''));
                       setCopiedContactId(-(item.id));
@@ -1064,7 +1061,7 @@ export default function PrivateCertAdminPage() {
                     title="클릭하여 복사"
                   >
                     {copiedContactId === -(item.id)
-                      ? <span style={{ color: '#3182f6', fontWeight: 600 }}>복사됨!</span>
+                      ? <span className={styles.copiedText}>복사됨!</span>
                       : item.contact}
                   </td>
                   <td>{item.hope_course || '-'}</td>
@@ -1167,8 +1164,7 @@ export default function PrivateCertAdminPage() {
             <div className={styles.thFilterSection}>
               {['all', '__needs_check__', ...uniqueMinorCategories].map(cat => (
                 <div key={cat}
-                  className={`${styles.thFilterItem} ${minorCategoryFilter === cat ? styles.thFilterItemSelected : ''}`}
-                  style={cat === '__needs_check__' ? { color: '#ef4444', fontWeight: 600 } : {}}
+                  className={`${styles.thFilterItem} ${minorCategoryFilter === cat ? styles.thFilterItemSelected : ''} ${cat === '__needs_check__' ? styles.needsCheckText : ''}`}
                   onClick={() => { setMinorCategoryFilter(cat); setCurrentPage(1); setOpenFilterColumn(null); }}>
                   {cat === 'all' ? '전체' : cat === '__needs_check__' ? `확인필요 (${needsCheckCount})` : cat}
                 </div>
@@ -1253,7 +1249,7 @@ export default function PrivateCertAdminPage() {
                           const updated = selected ? current.filter(r => r !== opt) : [...current, opt];
                           setReasonText(updated.join(', '));
                         }}
-                        style={{ display: 'none' }}
+                        className={styles.hiddenCheckbox}
                       />
                       {opt}
                     </label>
@@ -1390,11 +1386,11 @@ export default function PrivateCertAdminPage() {
           <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
             <h2 className={styles.modalTitle}>맘카페 수정</h2>
             <div className={styles.memoInfo}>
-              <p><strong>{selectedItem.name}</strong> · 현재: <span style={{ color: '#3182f6' }}>{parseClickSource(selectedItem.click_source).minor || '미선택'}</span></p>
+              <p><strong>{selectedItem.name}</strong> · 현재: <span className={styles.highlightBlue}>{parseClickSource(selectedItem.click_source).minor || '미선택'}</span></p>
             </div>
             {/* 검색 */}
             <div className={styles.cafeSearchBox}>
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style={{ flexShrink: 0 }}>
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className={styles.flexShrink0}>
                 <circle cx="6.5" cy="6.5" r="5" stroke="#8b95a1" strokeWidth="1.5"/>
                 <path d="M10 10l3 3" stroke="#8b95a1" strokeWidth="1.5" strokeLinecap="round"/>
               </svg>
@@ -1434,7 +1430,7 @@ export default function PrivateCertAdminPage() {
                       <span className={styles.cafeListName}>{cafe.name}</span>
                       <span className={styles.cafeListId}>{cafe.id}</span>
                       {isSelected && (
-                        <svg width="14" height="10" viewBox="0 0 14 10" fill="none" style={{ flexShrink: 0 }}>
+                        <svg width="14" height="10" viewBox="0 0 14 10" fill="none" className={styles.flexShrink0}>
                           <path d="M1 5l4 4 8-8" stroke="#3182f6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                         </svg>
                       )}

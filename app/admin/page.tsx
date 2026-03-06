@@ -2303,25 +2303,12 @@ export default function AdminPage() {
               </div>
               <div className={styles.formGroup}>
                 <label>담당자</label>
-                <div className={styles.sourceChips}>
-                  {uniqueManagers.map(m => (
-                    <button type="button" key={m}
-                      className={`${styles.sourceChip} ${formData.manager === m && !managerDirect ? styles.sourceChipSelected : ''}`}
-                      onClick={() => { setFormData(p => ({ ...p, manager: m })); setManagerDirect(false); }}>
-                      {m}
-                    </button>
-                  ))}
-                  <button type="button"
-                    className={`${styles.sourceChip} ${managerDirect ? styles.sourceChipSelected : ''}`}
-                    onClick={() => { setManagerDirect(true); setFormData(p => ({ ...p, manager: '' })); }}>
-                    직접입력
-                  </button>
-                </div>
-                {managerDirect && (
-                  <input type="text" style={{ marginTop: 8 }} value={formData.manager}
-                    onChange={e => setFormData(p => ({ ...p, manager: e.target.value }))}
-                    placeholder="담당자 이름을 입력하세요" autoFocus />
-                )}
+                <input
+                  type="text"
+                  value={formData.manager}
+                  onChange={(e) => setFormData({ ...formData, manager: e.target.value })}
+                  placeholder="담당자 이름 (선택사항)"
+                />
               </div>
               <div className={styles.formGroup}>
                 <label>거주지</label>
