@@ -307,7 +307,7 @@ export default function PrivateCertAdminPage() {
   const handleAdd = async (e: React.FormEvent) => {
     e.preventDefault();
     const numericCost = formData.subject_cost.replace(/,/g, '');
-    await fetch('/api/private-cert', {
+    const res = await fetch('/api/private-cert', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -316,6 +316,10 @@ export default function PrivateCertAdminPage() {
         is_manual_entry: true,
       }),
     });
+    if (!res.ok) {
+      alert('저장에 실패했습니다. 다시 시도해주세요.');
+      return;
+    }
     setFormData(emptyForm);
     resetPcSource();
     setShowAddModal(false);
@@ -659,16 +663,14 @@ export default function PrivateCertAdminPage() {
                     />
                   </div>
                   <button type="button" className={`${styles.tossDropdownItem} ${!formData.hope_course ? styles.tossDropdownItemActive : ''}`}
-                    onClick={() => { setFormData(p => ({ ...p, hope_course: '' })); setAddCourseOpen(false); setAddCourseSearch(''); }}>
+                    onClick={() => { setFormData(p => ({ ...p, hope_course: '', major_category: '' })); setAddCourseOpen(false); setAddCourseSearch(''); }}>
                     <span>선택 안 함</span>
                   </button>
                   {addCourseSearch.trim()
-                    ? CERT_CATEGORIES[0].options
-                        .filter(opt => opt.includes(addCourseSearch.trim()))
-                        .map(opt => (
+                    ? CERT_CATEGORIES.flatMap(cat => cat.options.filter(opt => opt.includes(addCourseSearch.trim())).map(opt => ({ opt, catLabel: cat.label }))).map(({ opt, catLabel }) => (
                           <button type="button" key={opt}
                             className={`${styles.tossDropdownItem} ${formData.hope_course === opt ? styles.tossDropdownItemActive : ''}`}
-                            onClick={() => { setFormData(p => ({ ...p, hope_course: opt })); setAddCourseOpen(false); setAddCourseSearch(''); }}>
+                            onClick={() => { setFormData(p => ({ ...p, hope_course: opt, major_category: catLabel })); setAddCourseOpen(false); setAddCourseSearch(''); }}>
                             <span>{opt}</span>
                           </button>
                         ))
@@ -678,7 +680,7 @@ export default function PrivateCertAdminPage() {
                           {cat.options.map(opt => (
                             <button type="button" key={`${cat.label}-${opt}`}
                               className={`${styles.tossDropdownItem} ${formData.hope_course === opt ? styles.tossDropdownItemActive : ''}`}
-                              onClick={() => { setFormData(p => ({ ...p, hope_course: opt })); setAddCourseOpen(false); setAddCourseSearch(''); }}>
+                              onClick={() => { setFormData(p => ({ ...p, hope_course: opt, major_category: cat.label })); setAddCourseOpen(false); setAddCourseSearch(''); }}>
                               <span>{opt}</span>
                             </button>
                           ))}

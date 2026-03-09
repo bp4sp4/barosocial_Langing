@@ -99,7 +99,7 @@ export async function POST(request: NextRequest) {
           residence: residence || null,
           memo: memo || null,
           counsel_check: counsel_check || null,
-          subject_cost: subject_cost || null,
+          subject_cost: subject_cost ? parseInt(String(subject_cost).replace(/,/g, '')) || null : null,
           manager: manager || null,
           status: status || '상담대기',
         },
@@ -376,7 +376,7 @@ export async function PATCH(request: NextRequest) {
     }
 
     if (subject_cost !== undefined) {
-      updateData.subject_cost = subject_cost || null;
+      updateData.subject_cost = subject_cost ? parseInt(String(subject_cost).replace(/,/g, '')) || null : null;
     }
 
     if (manager !== undefined) {

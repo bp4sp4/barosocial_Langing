@@ -25,7 +25,7 @@ export async function GET() {
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { name, contact, education, hope_course, reason, click_source, residence, subject_cost, manager, memo, counsel_check, status } = body;
+    const { name, contact, education, hope_course, major_category, reason, click_source, residence, subject_cost, manager, memo, counsel_check, status } = body;
 
     if (!name || !contact) {
       return NextResponse.json({ error: 'Name and contact are required' }, { status: 400 });
@@ -38,6 +38,7 @@ export async function POST(request: NextRequest) {
         contact,
         education: education || null,
         hope_course: hope_course || null,
+        major_category: major_category || null,
         reason: reason || null,
         click_source: click_source || null,
         residence: residence || null,
@@ -65,7 +66,7 @@ export async function POST(request: NextRequest) {
 export async function PATCH(request: NextRequest) {
   try {
     const body = await request.json();
-    const { id, status, memo, name, contact, education, reason, click_source, subject_cost, manager, residence, counsel_check, hope_course } = body;
+    const { id, status, memo, name, contact, education, reason, click_source, subject_cost, manager, residence, counsel_check, hope_course, major_category } = body;
 
     if (!id) {
       return NextResponse.json({ error: 'ID is required' }, { status: 400 });
@@ -85,6 +86,7 @@ export async function PATCH(request: NextRequest) {
     if (residence !== undefined) updateData.residence = residence || null;
     if (counsel_check !== undefined) updateData.counsel_check = counsel_check || null;
     if (hope_course !== undefined) updateData.hope_course = hope_course || null;
+    if (major_category !== undefined) updateData.major_category = major_category || null;
 
     if (Object.keys(updateData).length === 0) {
       return NextResponse.json({ error: 'At least one field required' }, { status: 400 });
