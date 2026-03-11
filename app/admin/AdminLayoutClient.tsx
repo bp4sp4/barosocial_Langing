@@ -21,7 +21,8 @@ export default function AdminLayoutClient({
   return (
     <>
       {!isLogin && (
-        <div style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '10px 16px', background: '#fff', borderBottom: '1px solid #e5e8eb', position: 'sticky', top: 0, zIndex: 100 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '10px 16px', background: '#fff', borderBottom: '1px solid rgba(0,0,0,0.06)', position: 'sticky', top: 0, zIndex: 100 }}>
+ 
           <Link href="/admin" style={{
             padding: '6px 18px', borderRadius: 8, fontSize: 14, fontWeight: pathname === '/admin' ? 700 : 500,
             background: pathname === '/admin' ? '#3182f6' : '#f2f4f6',
@@ -38,7 +39,7 @@ export default function AdminLayoutClient({
           }}>
             민간자격증
           </Link>
-          <Link href="/admin/stats" style={{
+                   <Link href="/admin/stats" style={{
             padding: '6px 18px', borderRadius: 8, fontSize: 14, fontWeight: pathname === '/admin/stats' ? 700 : 500,
             background: pathname === '/admin/stats' ? '#3182f6' : '#f2f4f6',
             color: pathname === '/admin/stats' ? '#fff' : '#4e5968',

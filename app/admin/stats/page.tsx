@@ -122,19 +122,19 @@ export default function StatsPage() {
   const [tab, setTab] = useState<Tab>('overview');
   const [source, setSource] = useState<Source>('hakjeom');
   const [selectedCourse, setSelectedCourse] = useState<string | null>(null);
-  const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
-  const tabBarRef = useRef<HTMLDivElement>(null);
-  const [pill, setPill] = useState<{ left: number; width: number } | null>(null);
+  const srcRefs = useRef<(HTMLButtonElement | null)[]>([]);
+  const srcBarRef = useRef<HTMLDivElement>(null);
+  const [srcPill, setSrcPill] = useState<{ left: number; width: number } | null>(null);
 
   useEffect(() => {
-    const idx = TABS.findIndex(t => t.id === tab);
-    const el = tabRefs.current[idx];
-    const bar = tabBarRef.current;
+    const idx = SOURCE_LABELS.findIndex(s => s.id === source);
+    const el = srcRefs.current[idx];
+    const bar = srcBarRef.current;
     if (!el || !bar) return;
     const barRect = bar.getBoundingClientRect();
     const elRect = el.getBoundingClientRect();
-    setPill({ left: elRect.left - barRect.left, width: elRect.width });
-  }, [tab, loading]);
+    setSrcPill({ left: elRect.left - barRect.left, width: elRect.width });
+  }, [source, loading]);
 
   useEffect(() => {
     (async () => {
@@ -261,69 +261,57 @@ export default function StatsPage() {
       <div style={{ maxWidth: 1100, margin: '0 auto' }}>
 
         {/* 헤더 */}
-        <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: 24 }}>
-          <div>
-            <h2 style={{ fontSize: 24, fontWeight: 800, color: '#191f28', margin: 0, letterSpacing: '-0.04em' }}>통계</h2>
-            <div style={{ fontSize: 13, color: '#b0b8c1', marginTop: 5 }}>{total.toLocaleString()}건</div>
-          </div>
+        <div style={{ marginBottom: 16 }}>
+          <h2 style={{ fontSize: 24, fontWeight: 800, color: '#4e5968', margin: '0 0 14px', letterSpacing: '-0.04em' }}>통계</h2>
           {/* 소스 토글 */}
-          <div style={{ display: 'flex', gap: 2, background: '#f2f4f6', borderRadius: 12, padding: '4px' }}>
-            {SOURCE_LABELS.map(s => (
-              <button
-                key={s.id}
-                onClick={() => setSource(s.id)}
-                style={{
-                  padding: '8px 18px', border: 'none', borderRadius: 9, cursor: 'pointer',
-                  fontSize: 14, fontWeight: source === s.id ? 700 : 400,
-                  background: source === s.id ? '#fff' : 'transparent',
-                  color: source === s.id ? '#191f28' : '#8b95a1',
-                  boxShadow: source === s.id ? '0 1px 5px rgba(0,0,0,0.09)' : 'none',
-                  transition: 'all 0.18s cubic-bezier(0.4,0,0.2,1)',
-                  letterSpacing: '-0.01em',
-                  whiteSpace: 'nowrap',
-                }}
-              >{s.label}</button>
-            ))}
+          <div style={{ marginBottom: 16 }}>
+            <div ref={srcBarRef} style={{ position: 'relative', display: 'inline-flex', gap: 0, background: 'rgba(2, 32, 71, 0.05)', borderRadius: 32, overflow: 'hidden' }}>
+              {srcPill && (
+                <div style={{
+                  position: 'absolute', bottom: 0, left: srcPill.left, width: srcPill.width, height: '100%',
+                  background: '#0220470d', borderRadius: 32,
+                  transition: 'left 0.22s cubic-bezier(0.4, 0, 0.2, 1), width 0.22s cubic-bezier(0.4, 0, 0.2, 1)',
+                  zIndex: 0,
+                }} />
+              )}
+              {SOURCE_LABELS.map((s, i) => (
+                <button
+                  key={s.id}
+                  ref={el => { srcRefs.current[i] = el; }}
+                  onClick={() => setSource(s.id)}
+                  style={{
+                    position: 'relative', zIndex: 1,
+                    padding: '11px 16px', border: 'none', borderRadius: 32, cursor: 'pointer',
+                    fontSize: 15, fontWeight: source === s.id ? 700 : 500,
+                    background: 'transparent',
+                    color: source === s.id ? '#191f28' : '#8b95a1',
+                    transition: 'color 0.22s',
+                    letterSpacing: '-0.01em',
+                    whiteSpace: 'nowrap',
+                  }}
+                >{s.label}</button>
+              ))}
+            </div>
           </div>
         </div>
 
         {/* 탭 */}
-        <div
-          ref={tabBarRef}
-          style={{ position: 'relative', display: 'inline-flex', gap: 2, marginBottom: 28, padding: '5px', background: '#f2f4f6', borderRadius: 14 }}
-        >
-          {/* 슬라이딩 pill */}
-          {pill && (
-            <div style={{
-              position: 'absolute',
-              top: 5,
-              left: pill.left,
-              width: pill.width,
-              height: 'calc(100% - 10px)',
-              background: '#fff',
-              borderRadius: 10,
-              boxShadow: '0 1px 5px rgba(0,0,0,0.09)',
-              transition: 'left 0.22s cubic-bezier(0.4, 0, 0.2, 1), width 0.22s cubic-bezier(0.4, 0, 0.2, 1)',
-              zIndex: 0,
-            }} />
-          )}
-          {TABS.map((t, i) => (
+        <div style={{ display: 'flex', gap: 0, marginBottom: 28, borderBottom: '1px solid #f0f0f0' }}>
+          {TABS.map((t) => (
             <button
               key={t.id}
-              ref={el => { tabRefs.current[i] = el; }}
               onClick={() => setTab(t.id)}
               style={{
-                position: 'relative',
-                zIndex: 1,
-                padding: '9px 22px',
+                padding: '10px 20px',
                 border: 'none',
-                borderRadius: 10,
+                borderBottom: tab === t.id ? '2px solid #020913e8' : '2px solid transparent',
+                marginBottom: -1,
                 background: 'transparent',
-                fontSize: 15,
+                fontSize: 14,
                 fontWeight: tab === t.id ? 700 : 400,
                 color: tab === t.id ? '#191f28' : '#8b95a1',
                 cursor: 'pointer',
-                transition: 'color 0.22s',
+                transition: 'color 0.18s, border-color 0.18s',
                 letterSpacing: '-0.02em',
                 whiteSpace: 'nowrap',
               }}
