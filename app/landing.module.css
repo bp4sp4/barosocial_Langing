@@ -779,6 +779,25 @@ letter-spacing: 0.84px;
   cursor: pointer;
 }
 
+.section4Badge_white{
+    display: flex;
+  width: 26.667px;
+  height: 26.667px;
+  padding: 4.444px 5.333px;
+  justify-content: center;
+  align-items: center;
+  gap: 4.444px;
+  border-radius: 4.444px;
+
+background: #fff;
+
+  color: #FF751F;
+  text-align: center;
+  font-family: "Paperlogy", sans-serif;
+  font-size: 13.333px;
+  font-weight: 900;
+  line-height: 100%;
+}
 
 .herosvg{
   margin: 30px 0;
