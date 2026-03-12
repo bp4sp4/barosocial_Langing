@@ -56,23 +56,29 @@
 
 .sectionFinalBtn {
   display: flex;
-  padding: 22.588px 28.235px;
+  padding: 20px 22px;
   justify-content: center;
   align-items: center;
-  gap: 5.647px;
-  border-radius: 11.294px;
-  background: #FFF;
-box-shadow: 0 0 13px 0 #FF6932;
+  gap: 6px;
+  align-self: stretch;
+  border-radius: 6px;
+  background: #fff;
   border: none;
   cursor: pointer;
-  color: #FF4000;
-  font-family: "Paperlogy", sans-serif;
-  font-size: 37.271px;
-  font-weight: 800;
-  line-height: 100%;
+  color: #ff4000;
+  font-family: "Pretendard", sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 21.6px;
   position: relative;
   margin-bottom: 12px;
   z-index: 1;
+  width: 100%;
+}
+
+.heroCta {
+  background: #FF4000;
+  color: #FFF;
 }
 
 .sectionFinalNote {
@@ -777,6 +783,35 @@ letter-spacing: 0.84px;
   line-height: 21.6px;
   border: none;
   cursor: pointer;
+}
+
+.floatingBtn {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  width: min(448px, calc(100% - 32px));
+  display: flex;
+  padding: 20px 22px;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  border-radius: 6px;
+  background: #FF4000;
+  border: none;
+  cursor: pointer;
+  color: #FFF;
+  font-family: "Pretendard", sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 21.6px;
+  
+}
+
+.floatingBtnHidden {
+  opacity: 0;
+  pointer-events: none;
 }
 
 .section4Badge_white{

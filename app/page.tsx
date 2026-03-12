@@ -67,7 +67,7 @@ function ImageCarousel() {
         centeredSlides={true}
         spaceBetween={20}
         initialSlide={N}
-        autoplay={{ delay: 3000, disableOnInteraction: false }}
+        autoplay={{ delay: 2000, disableOnInteraction: false }}
         onSlideChangeTransitionEnd={handleTransitionEnd}
         className={styles.swiper}
       >
@@ -141,6 +141,7 @@ function LandingContent() {
   const [clickSource, setClickSource] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
   const [done, setDone] = useState(false);
+  const [showFloating, setShowFloating] = useState(false);
 
   // 폼 상태
   const [formData, setFormData] = useState({ name: "", contact: "", education: "", hope_course: "", reason: "" });
@@ -180,6 +181,30 @@ function LandingContent() {
     }
     if (referrer.includes("cafe.naver.com")) setClickSource("네이버카페_referrer");
   }, [searchParams]);
+
+  useEffect(() => {
+    const heroBtn = document.getElementById("hero-cta-btn");
+    const footerBtn = document.getElementById("consult-btn");
+    if (!heroBtn || !footerBtn) return;
+
+    let heroVisible = true;
+    let footerVisible = false;
+
+    const update = () => setShowFloating(!heroVisible && !footerVisible);
+
+    const heroObserver = new IntersectionObserver(
+      ([entry]) => { heroVisible = entry.isIntersecting; update(); },
+      { threshold: 0 }
+    );
+    const footerObserver = new IntersectionObserver(
+      ([entry]) => { footerVisible = entry.isIntersecting; update(); },
+      { threshold: 0 }
+    );
+
+    heroObserver.observe(heroBtn);
+    footerObserver.observe(footerBtn);
+    return () => { heroObserver.disconnect(); footerObserver.disconnect(); };
+  }, []);
 
   const formatContact = (value: string) => {
     const cleaned = value.replace(/[^0-9]/g, "");
@@ -260,11 +285,10 @@ function LandingContent() {
   <path d="M1.77075 10.0681C1.77075 10.416 1.90931 10.7499 2.15527 10.996L9.58038 18.4211C9.8265 18.6671 10.1604 18.8057 10.5084 18.8057C10.8562 18.8055 11.1903 18.6671 11.4363 18.4211L18.8602 10.996C19.0992 10.7485 19.2323 10.4173 19.2293 10.0732C19.2263 9.72918 19.088 9.40003 18.8448 9.15674C18.6016 8.9135 18.2723 8.77533 17.9283 8.77222C17.5842 8.76923 17.2517 8.90104 17.0042 9.14008L10.5084 15.6372L4.01123 9.14008C3.76518 8.89418 3.43111 8.75691 3.08325 8.75684C2.73543 8.75684 2.40136 8.89429 2.15527 9.14008C1.90935 9.38607 1.7709 9.72023 1.77075 10.0681Z" fill="#FF751F"/>
 </svg>
         </div>
-
-        <button className={styles.button} onClick={() => {
+        <button id="hero-cta-btn" className={`${styles.sectionFinalBtn} ${styles.heroCta}`} onClick={() => {
           document.getElementById("consult-btn")?.scrollIntoView({ behavior: "smooth" });
         }}>
-          재취업 가능여부 진단하기
+          무료상담 신청하기 
         </button>
       </div>
 
@@ -416,12 +440,20 @@ function LandingContent() {
         <p className={styles.sectionFinalSub}>한평생에서 지금 시작하세요!</p>
         <ConfirmCarousel />
         <button id="consult-btn" className={styles.sectionFinalBtn} onClick={() => setModalOpen(true)}>
-          무료상담 신청하기
+          무료상담 신청하기 
         </button>
         <p className={styles.sectionFinalNote}>* 수강신청은 개강반 정원에 따라 조기마감 될 수 있습니다.</p>
       </div>
 
       <Footer />
+
+      {/* 플로팅 CTA 버튼 */}
+      <button
+        className={`${styles.floatingBtn} ${!showFloating ? styles.floatingBtnHidden : ""}`}
+        onClick={() => document.getElementById("consult-btn")?.scrollIntoView({ behavior: "smooth" })}
+      >
+        무료상담 신청하기 
+      </button>
 
       {/* 폼 팝업 */}
       <AnimatePresence>
