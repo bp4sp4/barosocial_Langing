@@ -2,7 +2,7 @@
 .sectionFinal {
   display: flex;
   width: 100%;
-  padding: 70px 0;
+  padding: 70px 16;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -51,7 +51,7 @@
   text-align: center;
   text-shadow: none;
   font-family: "Paperlogy", sans-serif;
-  font-size: 46px;
+  font-size: 38px;
   font-weight: 700;
   line-height: normal;
   margin-top: -28px;
@@ -116,7 +116,7 @@
 
 .allcareList {
   display: flex;
-  padding: 0 20px;
+  padding: 0 16px;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -127,13 +127,13 @@
 
 .allcareItem {
   display: flex;
-  width: 340px;
+  width: 100%;
   height: 150px;
-  padding: 25px 10px 25px 4px;
+  padding: 20px 10px 20px 4px;
   align-items: center;
   gap: 30px;
+  align-self: stretch;
   border-bottom: 1px dashed #CACACA;
-  flex-shrink: 0;
 }
 
 .allcareItem:last-of-type {
@@ -224,7 +224,7 @@
 .section6 {
   display: flex;
   width: 100%;
-  padding: 70px 50px;
+  padding: 70px 16px;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -233,7 +233,7 @@
 }
 
 .container {
-  max-width: 480px;
+  max-width: 360px;
   margin: 0 auto;
   width: 100%;
   display: flex;
@@ -282,8 +282,8 @@
 
 .placeCard {
   display: flex;
-  width: 183px;
-  height: 183px;
+  width: 159px;
+  height: 159px;
   padding: 0 13.946px;
   flex-direction: column;
   justify-content: center;
@@ -295,8 +295,8 @@
 }
 
 .placeImg {
-  width: 110px;
-  height: 110px;
+  width: 100px;
+  height: 100px;
   flex-shrink: 0;
   aspect-ratio: 1/1;
   object-fit: cover;
@@ -304,14 +304,14 @@
 
 .placeLabel {
   display: flex;
-  padding: 6.973px 8.368px;
+  padding: 8px 12px;
   justify-content: center;
   align-items: center;
   gap: 6.973px;
   border-radius: 34.865px;
   background: #EAEAEA;
   font-family: "Pretendard", sans-serif;
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 700;
   line-height: 100%;
   color: #181818;
@@ -328,7 +328,7 @@
   width: 100%;
   position: relative;
   overflow: hidden;
-  padding: 70px 50px;
+  padding: 50px 16px;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -338,12 +338,12 @@
 
 .section4 {
   display: flex;
-  width: 100%;
-  padding: 70px 0;
+  padding: 50px 16px;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 70px;
+  align-self: stretch;
   background: linear-gradient(180deg, #65B9FF 0%, #115AED 100%);
 }
 
@@ -359,7 +359,8 @@
   text-align: center;
   text-shadow: 0 0 10px rgba(0, 51, 255, 0.80);
   font-family: "Paperlogy", sans-serif;
-  font-size: 32px;
+  font-size: 28px;
+  font-style: normal;
   font-weight: 300;
   line-height: 130%;
   margin: 0;
@@ -370,6 +371,7 @@
   -webkit-text-fill-color: #FFF;
   font-weight: 300;
   text-shadow: 0 0 10px rgba(0, 51, 255, 0.80);
+  font-size: 28px;
 }
 
 .section4TitleBold {
@@ -380,7 +382,8 @@
   text-align: center;
   text-shadow: none;
   font-family: "Paperlogy", sans-serif;
-  font-size: 32px;
+  font-size: 28px;
+  font-style: normal;
   font-weight: 700;
   line-height: 130%;
   margin: 0;
@@ -400,9 +403,9 @@
 }
 
 .section4Graph {
-  width: 382px;
-  height: 308px;
-  aspect-ratio: 191/154;
+  width: 327px;
+  height: 264px;
+  aspect-ratio: 109/88;
   border-radius: 4.945px;
   background: #FFF;
   object-fit: cover;
@@ -410,9 +413,8 @@
 }
 
 .section4Graph2 {
-  width: 382px;
-  height: 434px;
-  aspect-ratio: 191/217;
+  width: 328px;
+  height: 372px;
   border-radius: 4.945px;
   background: #FFF;
   object-fit: cover;
@@ -438,12 +440,12 @@
 }
 
 .section3 {
-  display: flex;
-  padding: 56.471px 33.882px;
-  flex-direction: column;
-  align-items: center;
-  gap: 16.941px;
-  align-self: stretch;
+display: flex;
+padding: 56.471px 16px;
+flex-direction: column;
+align-items: center;
+gap: 16.941px;
+align-self: stretch;
   background:
     radial-gradient(72.26% 53.18% at 50% 57.58%, #ECF5FF 0%, #3F7EFB 100%),
     linear-gradient(180deg, #0049E5 0%, #BFD4FF 100%);
@@ -460,7 +462,7 @@
   color: #FFF;
   text-align: center;
   font-family: "Paperlogy", sans-serif;
-  font-size: 26px;
+  font-size: 24px;
   font-weight: 500;
   line-height: 130%;
   margin: 0;
@@ -470,8 +472,8 @@
   color: #FFF;
   text-align: center;
   font-family: "Paperlogy", sans-serif;
-  font-size: 30px;
-  font-weight: 700;
+  font-size: 24px;
+  font-weight: 500;
   line-height: 130%;
   margin: 0;
 }
@@ -484,21 +486,19 @@
   text-decoration-thickness: 10.5%;
   text-underline-offset: auto;
   text-underline-position: from-font;
+  font-size: 26px;
 }
 
 .section3Grid {
-  display: flex;
+  display: grid;
+  grid-template-columns: 160px 160px;
+  gap: 8px;
   justify-content: center;
-  align-items: center;
-  align-content: center;
-  gap: 10px;
-  align-self: stretch;
-  flex-wrap: wrap;
 }
 
 .section3Card {
   display: flex;
-  width: 190px;
+  width: 160px;
   height: 240px;
   padding: 16px 0;
   flex-direction: column;
@@ -526,8 +526,8 @@
 }
 
 .section3Img {
-  width: 100px;
-  height: 100px;
+  width: 120px;
+  height: 120px;
   flex-shrink: 0;
   aspect-ratio: 1/1;
   object-fit: contain;
@@ -537,7 +537,8 @@
   color: #3D3D3D;
   text-align: center;
   font-family: "Paperlogy", sans-serif;
-  font-size: 24px;
+  font-size: 20px;
+  font-style: normal;
   font-weight: 600;
   line-height: 130%;
   white-space: pre-line;
@@ -577,7 +578,7 @@
   color: #F9F9F9;
   text-align: center;
   font-family: "Pretendard", sans-serif;
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 400;
   line-height: 140%;
   margin: 0;
@@ -588,9 +589,10 @@
 .heroSection {
   display: flex;
   padding: 70px 16px;
+  max-width: 360px;
   flex-direction: column;
   align-items: center;
-  max-width: 480px;
+  
   align-self: stretch;
   background: linear-gradient(180deg, #145FFF 0%, var(--Blue-50, #E5EDFF) 100%);
   margin: 0 auto;
@@ -615,8 +617,9 @@
 }
 
 .carouselWrap {
-  width: 100%;
- 
+  width: calc(100% + 32px);
+  margin-left: -16px;
+  margin-right: -16px;
 }
 
 .swiper {
@@ -625,11 +628,12 @@
 }
 
 .carouselImg {
-  width: 100%;
-  height: auto;
+  width: 336px;
+  height: 224px;
+  aspect-ratio: 3/2;
   display: block;
-  object-fit: cover;
-  
+  object-fit: contain;
+  margin: 0 auto;
 }
 
 .carouselDots {
@@ -666,27 +670,41 @@
 }
 
 .jubumentsImg {
-  width: 424px;
+  width: min(424px, 100%);
   height: auto;
   display: block;
+}
+
+
+
+.jubumentsText {
+  background: radial-gradient(56.38% 55.53% at 52.15% 21.83%, #69FFAC 0%, #C6FFE0 41.83%, #69FFAC 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-family: "Paperlogy", sans-serif;
+  font-size: 37px;
+  font-weight: 800;
+  line-height: 100%;
+  letter-spacing: 0.74px;
 }
 
 .heroTextWhite {
 color: var(--Atomic-Common-White, #FFF);
 text-align: center;
 font-family: Paperlogy;
-font-size: 57px;
+font-size: 42px;
 font-style: normal;
 font-weight: 800;
-line-height: 100%; /* 57px */
-letter-spacing: 1.14px;
+line-height: 100%; /* 42px */
+letter-spacing: 0.84px;
 }
 
 .heroDesc {
   color: #FFF;
   text-align: center;
   font-family: "Pretendard", sans-serif;
-  font-size: 20px;
+  font-size: 18px;
   font-style: normal;
   font-weight: 500;
   line-height: 140%;
@@ -713,7 +731,7 @@ letter-spacing: 1.14px;
 
 .button {
   display: flex;
-  width: 344px;
+  width: min(344px, 100%);
   padding: 20px 22px;
   justify-content: center;
   align-items: center;

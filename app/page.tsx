@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState, useEffect, Suspense } from "react";
+import { useState, useEffect, Suspense, ReactNode } from "react";
 import { useSearchParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -26,7 +26,7 @@ function ImageCarousel() {
     <div className={styles.carouselWrap}>
       <Swiper
         modules={[Autoplay]}
-        slidesPerView={1.2}
+        slidesPerView={1}
         centeredSlides={true}
         spaceBetween={20}
         initialSlide={N}
@@ -208,8 +208,9 @@ function LandingContent() {
       <div className={styles.heroSection}>
         <p className={styles.heroTitle}>혼자 준비하지마세요</p>
         <div className={styles.heroTextWrap}>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/jubuments.png" alt="주부님들 재취업 1위" className={styles.jubumentsImg} />
+          <div className={styles.jubumentsBox}>
+            <span className={styles.jubumentsText}>주부님들 재취업 1위</span>
+          </div>
           <p className={styles.heroTextWhite}>사회복지사 자격증</p>
         </div>
         <p className={styles.heroDesc}>지금 상황에 맞는{"\n"}재취업 방향을 안내해드려요</p>
@@ -240,8 +241,8 @@ function LandingContent() {
       {/* 세번째 섹션 - 선택 이유 */}
       <div className={styles.section3}>
         <div className={styles.section3Title}>
-          <p className={styles.section3TitleNormal}>똑똑한 주부님들이</p>
-          <p className={styles.section3TitleHighlight}><span className={styles.section3TitleUnderline}>사회복지사 2급을 선택</span>하는 이유</p>
+          <p className={styles.section3TitleNormal}>똑똑한 주부님들이<br/>
+     <span className={styles.section3TitleUnderline}>사회복지사 2급을 선택</span>하는 이유</p>
         </div>
         <div className={styles.section3Grid}>
           <div className={styles.section3Card}>
@@ -332,20 +333,20 @@ function LandingContent() {
           </div>
         </div>
         <div className={styles.allcareList}>
-          {[
-            { point: "POINT 1", text: "수강료 70% 지원", img: "/allcare_01.png" },
-            { point: "POINT 2", text: "실습 매칭 시스템 열람권", img: "/allcare_02.png" },
-            { point: "POINT 3", text: "취업 컨설팅", img: "/allcare_03.png" },
-            { point: "POINT 4", text: "미이수시 환급제도", img: "/allcare_04.png" },
-          ].map(({ point, text, img }, i, arr) => (
-            <div key={point}>
+          {([
+            { point: "POINT 1", text: <>수강료 70% 지원</> as ReactNode, alt: "수강료 70% 지원", img: "/allcare_01.png" },
+            { point: "POINT 2", text: <>실습 매칭<br/>시스템 열람권</> as ReactNode, alt: "실습 매칭 시스템 열람권", img: "/allcare_02.png" },
+            { point: "POINT 3", text: <>취업 컨설팅</> as ReactNode, alt: "취업 컨설팅", img: "/allcare_03.png" },
+            { point: "POINT 4", text: <>미이수시 환급제도</> as ReactNode, alt: "미이수시 환급제도", img: "/allcare_04.png" },
+          ] as { point: string; text: ReactNode; alt: string; img: string }[]).map(({ point, text, alt, img }, i, arr) => (
+            <div key={point} style={{ width: "100%" }}>
               <div className={styles.allcareItem}>
                 <div className={styles.allcareLeft}>
                   <span className={styles.allcarePoint}>{point}</span>
                   <p className={styles.allcareText}>{text}</p>
                 </div>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={img} alt={text} className={styles.allcareImg} />
+                <img src={img} alt={alt} className={styles.allcareImg} />
               </div>
               {i < arr.length - 1 && (
                 <div className={styles.allcareDivider}>
