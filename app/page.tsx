@@ -8,6 +8,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 import "swiper/css";
 import styles from "./landing.module.css";
+import Footer from "./components/Footer";
 
 const REAL_IMAGES = ["/main_01.png", "/main_02.png", "/main_03.png", "/main_04.png"];
 const LOOP_IMAGES = [...REAL_IMAGES, ...REAL_IMAGES, ...REAL_IMAGES];
@@ -225,6 +226,7 @@ function LandingContent() {
         throw new Error(err.error || "저장에 실패했습니다.");
       }
       setDone(true);
+      setTimeout(() => setModalOpen(false), 5000);
     } catch (e) {
       alert(e instanceof Error ? e.message : "저장에 실패했습니다. 다시 시도해주세요.");
     } finally {
@@ -419,6 +421,8 @@ function LandingContent() {
         <p className={styles.sectionFinalNote}>* 수강신청은 개강반 정원에 따라 조기마감 될 수 있습니다.</p>
       </div>
 
+      <Footer />
+
       {/* 폼 팝업 */}
       <AnimatePresence>
         {modalOpen && (
@@ -430,7 +434,7 @@ function LandingContent() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.2 }}
-              onClick={() => !done && setModalOpen(false)}
+              onClick={() => setModalOpen(false)}
             >
             <motion.div
               key="sheet"
@@ -444,6 +448,11 @@ function LandingContent() {
               {/* 완료 화면 */}
               {done ? (
                 <div className={styles.doneWrap}>
+                  <button className={styles.closeBtn} onClick={() => setModalOpen(false)} aria-label="닫기" style={{ position: "absolute", top: 16, right: 16 }}>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                      <path d="M18 6L6 18M6 6L18 18" stroke="#111827" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  </button>
                   <Image src="/complete-check.png" alt="완료" width={200} height={200} priority style={{ margin: "0 auto 16px" }} />
                   <p className={styles.doneTitle}>신청이 완료되었습니다.{"\n"}곧 연락드리겠습니다.</p>
                 </div>
