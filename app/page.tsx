@@ -402,7 +402,7 @@ function LandingContent() {
         </div>
         <div className={styles.allcareList}>
           {([
-            { point: "POINT 1", text: <>수강료 70% 지원</> as ReactNode, alt: "수강료 70% 지원", img: "/allcare_01.png" },
+            { point: "POINT 1", text: <>수강료 <span style={{ color: "#ff4000" }}>70%</span> 지원</> as ReactNode, alt: "수강료 70% 지원", img: "/allcare_01.png" },
             { point: "POINT 2", text: <>실습 매칭<br/>시스템 열람권</> as ReactNode, alt: "실습 매칭 시스템 열람권", img: "/allcare_02.png" },
             { point: "POINT 3", text: <>취업 컨설팅</> as ReactNode, alt: "취업 컨설팅", img: "/allcare_03.png" },
             { point: "POINT 4", text: <>미이수시 환급제도</> as ReactNode, alt: "미이수시 환급제도", img: "/allcare_04.png" },
