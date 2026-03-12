@@ -13,6 +13,42 @@ const REAL_IMAGES = ["/main_01.png", "/main_02.png", "/main_03.png", "/main_04.p
 const LOOP_IMAGES = [...REAL_IMAGES, ...REAL_IMAGES, ...REAL_IMAGES];
 const N = REAL_IMAGES.length;
 
+const CONFIRM_IMAGES = ["/confirm_01.jpg", "/confirm_02.jpg", "/confirm_03.jpg", "/confirm_04.png", "/confirm_05.jpg"];
+const CONFIRM_LOOP = [...CONFIRM_IMAGES, ...CONFIRM_IMAGES, ...CONFIRM_IMAGES];
+const CN = CONFIRM_IMAGES.length;
+
+function ConfirmCarousel() {
+  const handleTransitionEnd = (swiper: { activeIndex: number; slideTo: (index: number, speed: number) => void }) => {
+    if (swiper.activeIndex < CN) {
+      swiper.slideTo(swiper.activeIndex + CN, 0);
+    } else if (swiper.activeIndex >= CN * 2) {
+      swiper.slideTo(swiper.activeIndex - CN, 0);
+    }
+  };
+
+  return (
+    <div className={styles.confirmCarouselWrap}>
+      <Swiper
+        modules={[Autoplay]}
+        slidesPerView="auto"
+        centeredSlides={true}
+        spaceBetween={12}
+        initialSlide={CN}
+        autoplay={{ delay: 3000, disableOnInteraction: false }}
+        onSlideChangeTransitionEnd={handleTransitionEnd}
+        className={styles.swiper}
+      >
+        {CONFIRM_LOOP.map((src, i) => (
+          <SwiperSlide key={i} className={styles.confirmSlide}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={src} alt={`후기 ${i + 1}`} className={styles.confirmImg} />
+          </SwiperSlide>
+        ))}
+      </Swiper>
+    </div>
+  );
+}
+
 function ImageCarousel() {
   const handleTransitionEnd = (swiper: { activeIndex: number; slideTo: (index: number, speed: number) => void }) => {
     if (swiper.activeIndex < N) {
@@ -26,7 +62,7 @@ function ImageCarousel() {
     <div className={styles.carouselWrap}>
       <Swiper
         modules={[Autoplay]}
-        slidesPerView={1}
+        slidesPerView="auto"
         centeredSlides={true}
         spaceBetween={20}
         initialSlide={N}
@@ -35,7 +71,7 @@ function ImageCarousel() {
         className={styles.swiper}
       >
         {LOOP_IMAGES.map((src, i) => (
-          <SwiperSlide key={i}>
+          <SwiperSlide key={i} className={styles.mainSlide}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={src}
@@ -231,9 +267,9 @@ function LandingContent() {
       {/* 두번째 섹션 - 사회복지사란? */}
       <div className={styles.section2}>
         <p className={styles.section2Title}>사회복지사란?</p>
-        <hr className={styles.section2Divider} />
+        
         <p className={styles.section2Desc}>
-          사회복지에 관한 전문지식과 기술을 가진 사람으로서, 보건복지부<br/>장관이 발급하는 사회복지사 자격증을 받은 사람을 말한다.{"\n"}
+          사회복지에 관한 전문지식과 기술을 가진 사람으로서,<br/> 보건복지부 장관이 발급하는 사회복지사 자격증을 받은 사람을 말한다.
           (출처: 네이버지식백과, 사회복지사)
         </p>
       </div>
@@ -292,7 +328,6 @@ function LandingContent() {
 
       {/* 다섯번째 섹션 */}
       <div className={styles.section5}>
-        <div className={styles.section5Bg} aria-hidden="true" />
         <div className={styles.section4TitleWrap}>
           <span className={styles.section4Badge}>2</span>
           <div className={styles.section_contentwrap}>
@@ -323,13 +358,18 @@ function LandingContent() {
       </div>
 
       {/* 여섯번째 섹션 */}
-      <div className={styles.section6} style={{ position: "relative", overflow: "hidden" }}>
-        <div className={styles.section6Bg} aria-hidden="true" />
+      <div className={styles.section6}>
         <div className={styles.section4TitleWrap}>
           <span className={styles.section4Badge}>3</span>
           <div className={styles.section_contentwrap}>
-            <p className={styles.section4TitleLight}>한평생 올케어반이면</p>
-            <p className={styles.section4TitleBold}>주부님들도 <span className={styles.section4TitleLightInline}>가능</span>한 이유!</p>
+            <p className={styles.section6TitleLine}>
+              <span className={styles.section6TitleBold}>한평생 올케어</span>
+              <span className={styles.section6TitleLight}>반이면</span>
+            </p>
+            <p className={styles.section6TitleLine}>
+              <span className={styles.section6TitleBold}>주부님들도 가능</span>
+              <span className={styles.section6TitleLight}>한 이유!</span>
+            </p>
           </div>
         </div>
         <div className={styles.allcareList}>
@@ -352,7 +392,7 @@ function LandingContent() {
                 <div className={styles.allcareDivider}>
                   <button className={styles.allcarePlusBtn} aria-label="더보기">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                      <path d="M8.03112 1.0166C8.50786 1.01796 8.89366 1.40595 8.89254 1.88259L8.87993 7.11997L14.1179 7.10826C14.594 7.10754 14.9813 7.49157 14.9829 7.96794C14.984 8.44448 14.5989 8.83234 14.1224 8.83393L8.87542 8.84654L8.86191 14.156C8.86038 14.6325 8.47251 15.0177 7.99598 15.0166C7.51968 15.0148 7.13341 14.6271 7.13455 14.1506L7.14897 8.85105L1.84885 8.86457C1.37264 8.86532 0.984507 8.48028 0.982913 8.00398C0.98181 7.52753 1.36793 7.13967 1.84434 7.138L7.15257 7.12358L7.16609 1.87809C7.16743 1.40187 7.55453 1.01588 8.03112 1.0166Z" fill="#0051FF"/>
+                      <path d="M8.03112 1.0166C8.50786 1.01796 8.89366 1.40595 8.89254 1.88259L8.87993 7.11997L14.1179 7.10826C14.594 7.10754 14.9813 7.49157 14.9829 7.96794C14.984 8.44448 14.5989 8.83234 14.1224 8.83393L8.87542 8.84654L8.86191 14.156C8.86038 14.6325 8.47251 15.0177 7.99598 15.0166C7.51968 15.0148 7.13341 14.6271 7.13455 14.1506L7.14897 8.85105L1.84885 8.86457C1.37264 8.86532 0.984507 8.48028 0.982913 8.00398C0.98181 7.52753 1.36793 7.13967 1.84434 7.138L7.15257 7.12358L7.16609 1.87809C7.16743 1.40187 7.55453 1.01588 8.03112 1.0166Z" fill="#FF751F"/>
                     </svg>
                   </button>
                 </div>
@@ -370,6 +410,7 @@ function LandingContent() {
           <p className={styles.sectionFinalTitle}>함께라면 가능합니다</p>
         </div>
         <p className={styles.sectionFinalSub}>한평생에서 지금 시작하세요!</p>
+        <ConfirmCarousel />
         <button id="consult-btn" className={styles.sectionFinalBtn} onClick={() => setModalOpen(true)}>
           무료상담 신청하기
         </button>
