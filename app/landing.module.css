@@ -45,10 +45,8 @@
 
 .sectionFinalTitle {
  color: #FBFFB6;
-  
-  
+  text-shadow: 0 0 4px #FF3D3D;
   text-align: center;
-  text-shadow: none;
   font-family: "Paperlogy", sans-serif;
   font-size: 38px;
   font-weight: 700;
@@ -64,8 +62,7 @@
   gap: 5.647px;
   border-radius: 11.294px;
   background: #FFF;
-
-
+box-shadow: 0 0 13px 0 #FF6932;
   border: none;
   cursor: pointer;
   color: #FF4000;
@@ -667,7 +664,9 @@ background: radial-gradient(72.26% 53.18% at 50% 57.58%, #FFF5EC 0%, #FF7A0D 100
   aspect-ratio: 1/1;
   display: block;
   object-fit: cover;
-  border-radius: 12px;
+  border-radius: 10px;
+  border: 2px solid #fff;
+  box-shadow: 0 0 4px 0 #FF3D3D;
 }
 
 .carouselDots {

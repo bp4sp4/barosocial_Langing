@@ -13,7 +13,7 @@ const REAL_IMAGES = ["/main_01.png", "/main_02.png", "/main_03.png", "/main_04.p
 const LOOP_IMAGES = [...REAL_IMAGES, ...REAL_IMAGES, ...REAL_IMAGES];
 const N = REAL_IMAGES.length;
 
-const CONFIRM_IMAGES = ["/confirm_01.jpg", "/confirm_02.jpg", "/confirm_03.jpg", "/confirm_04.png", "/confirm_05.jpg"];
+const CONFIRM_IMAGES = ["/confirm_01.png", "/confirm_02.png", "/confirm_03.png", "/confirm_04.png", "/confirm_05.png"];
 const CONFIRM_LOOP = [...CONFIRM_IMAGES, ...CONFIRM_IMAGES, ...CONFIRM_IMAGES];
 const CN = CONFIRM_IMAGES.length;
 
@@ -41,7 +41,7 @@ function ConfirmCarousel() {
         {CONFIRM_LOOP.map((src, i) => (
           <SwiperSlide key={i} className={styles.confirmSlide}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={src} alt={`후기 ${i + 1}`} className={styles.confirmImg} />
+            <img src={src} alt={`후기 ${i + 1}`} className={styles.confirmImg} loading="eager" />
           </SwiperSlide>
         ))}
       </Swiper>
@@ -77,6 +77,8 @@ function ImageCarousel() {
               src={src}
               alt={`슬라이드 ${i + 1}`}
               className={styles.carouselImg}
+              loading="eager"
+              fetchPriority="high"
             />
           </SwiperSlide>
         ))}
@@ -284,25 +286,25 @@ function LandingContent() {
           <div className={styles.section3Card}>
             <span className={styles.section3Point}>POINT 1</span>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/point_01.png" alt="100% 온라인 수업" className={styles.section3Img} />
+            <img src="/point_01.png" alt="100% 온라인 수업" className={styles.section3Img} loading="eager" />
             <p className={styles.section3CardText}>100%{"\n"}온라인 수업</p>
           </div>
           <div className={styles.section3Card}>
             <span className={styles.section3Point}>POINT 2</span>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/point_02.png" alt="나이 제한 없음" className={styles.section3Img} />
+            <img src="/point_02.png" alt="나이 제한 없음" className={styles.section3Img} loading="eager" />
             <p className={styles.section3CardText}>나이{"\n"}제한 없음</p>
           </div>
           <div className={styles.section3Card}>
             <span className={styles.section3Point}>POINT 3</span>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/point_03.png" alt="경력 없어도 취업 가능" className={styles.section3Img} />
+            <img src="/point_03.png" alt="경력 없어도 취업 가능" className={styles.section3Img} loading="eager" />
             <p className={styles.section3CardText}>경력 없어도{"\n"}취업 가능</p>
           </div>
           <div className={styles.section3Card}>
             <span className={styles.section3Point}>POINT 4</span>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/point_04.jpg" alt="보건복지부 발급 국가자격증" className={styles.section3Img} />
+            <img src="/point_04.jpg" alt="보건복지부 발급 국가자격증" className={styles.section3Img} loading="eager" />
             <p className={styles.section3CardText}>보건복지부 발급{"\n"}국가자격증</p>
           </div>
         </div>
@@ -318,9 +320,9 @@ function LandingContent() {
           </div>
           <div className={styles.section4GraphWrap}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/graph_01.png" alt="그래프 1" className={styles.section4Graph} />
+            <img src="/graph_01.png" alt="그래프 1" className={styles.section4Graph} loading="eager" />
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/graph_02.png" alt="그래프 2" className={styles.section4Graph2} />
+            <img src="/graph_02.png" alt="그래프 2" className={styles.section4Graph2} loading="eager" />
           </div>
 
         </div>
@@ -346,7 +348,7 @@ function LandingContent() {
           ].map(({ src, label }) => (
             <div key={label} className={styles.placeCard}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={src} alt={label} className={styles.placeImg} />
+              <img src={src} alt={label} className={styles.placeImg} loading="eager" />
               <div className={styles.placeLabel}>{label}</div>
             </div>
           ))}
@@ -386,7 +388,7 @@ function LandingContent() {
                   <p className={styles.allcareText}>{text}</p>
                 </div>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={img} alt={alt} className={styles.allcareImg} />
+                <img src={img} alt={alt} className={styles.allcareImg} loading="eager" />
               </div>
               {i < arr.length - 1 && (
                 <div className={styles.allcareDivider}>
