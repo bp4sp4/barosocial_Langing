@@ -5,6 +5,8 @@ import { formatClickSource as formatClickSourceStatic } from '@/lib/cafe-names';
 
 async function formatClickSourceFromDB(clickSource: string | null): Promise<string> {
   if (!clickSource) return '미입력';
+  // 랜딩페이지 형식은 그대로 반환
+  if (clickSource.startsWith('랜딩페이지')) return clickSource;
   try {
     const { data } = await supabaseAdmin.from('channels').select('id, name');
     const map: Record<string, string> = Object.fromEntries((data || []).map((c: { id: string; name: string }) => [c.id, c.name]));
