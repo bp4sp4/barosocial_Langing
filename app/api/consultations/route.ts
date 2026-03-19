@@ -2,14 +2,6 @@ import { NextRequest, NextResponse } from 'next/server';
 import { supabaseAdmin } from '@/lib/supabase/server';
 import { sendConsultationEmail } from '@/lib/email';
 import { formatClickSource as formatClickSourceStatic } from '@/lib/cafe-names';
-import { createClient } from '@supabase/supabase-js';
-
-const hakjeomAdmin = process.env.HAKJEOM_SUPABASE_URL && process.env.HAKJEOM_SUPABASE_SERVICE_ROLE_KEY
-  ? createClient(
-      process.env.HAKJEOM_SUPABASE_URL,
-      process.env.HAKJEOM_SUPABASE_SERVICE_ROLE_KEY
-    )
-  : null;
 
 async function formatClickSourceFromDB(clickSource: string | null): Promise<string> {
   if (!clickSource) return '미입력';
@@ -125,24 +117,20 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // 학점은행제 DB에 동기 저장
-    if (hakjeomAdmin) {
-      const { error: hakjeomError } = await hakjeomAdmin
-        .from('hakjeom_consultations')
-        .insert([{
-          name,
-          contact,
-          education: education || null,
-          hope_course: hope_course || null,
-          reason: reason || null,
-          click_source: click_source || null,
-          status: '상담대기',
-        }]);
-      if (hakjeomError) {
-        console.error('[hakjeom] Failed to save to hakjeom_consultations:', hakjeomError);
-      }
-    } else {
-      console.warn('[hakjeom] HAKJEOM_SUPABASE_URL not configured, skipping hakjeom sync');
+    // 학점은행제 테이블에 동기 저장
+    const { error: hakjeomError } = await supabaseAdmin
+      .from('hakjeom_consultations')
+      .insert([{
+        name,
+        contact,
+        education: education || null,
+        hope_course: hope_course || null,
+        reason: reason || null,
+        click_source: click_source || null,
+        status: '상담대기',
+      }]);
+    if (hakjeomError) {
+      console.error('[hakjeom] Failed to save to hakjeom_consultations:', hakjeomError);
     }
 
     // 이메일 알림 전송 (비동기, 실패해도 상담 신청은 성공 처리)
