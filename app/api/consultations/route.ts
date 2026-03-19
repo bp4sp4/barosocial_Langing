@@ -89,7 +89,7 @@ export async function POST(request: NextRequest) {
 
     // Supabase에 데이터 저장
     const { data, error } = await supabaseAdmin
-      .from('consultations')
+      .from('hakjeom_consultations')
       .insert([
         {
           name,
@@ -115,22 +115,6 @@ export async function POST(request: NextRequest) {
         { error: 'Failed to save consultation' },
         { status: 500 }
       );
-    }
-
-    // 학점은행제 테이블에 동기 저장
-    const { error: hakjeomError } = await supabaseAdmin
-      .from('hakjeom_consultations')
-      .insert([{
-        name,
-        contact,
-        education: education || null,
-        hope_course: hope_course || null,
-        reason: reason || null,
-        click_source: click_source || null,
-        status: '상담대기',
-      }]);
-    if (hakjeomError) {
-      console.error('[hakjeom] Failed to save to hakjeom_consultations:', hakjeomError);
     }
 
     // 이메일 알림 전송 (비동기, 실패해도 상담 신청은 성공 처리)
