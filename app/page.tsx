@@ -144,7 +144,7 @@ function LandingContent() {
   const [showFloating, setShowFloating] = useState(false);
 
   // 폼 상태
-  const [formData, setFormData] = useState({ name: "", contact: "", education: "", hope_course: "", reason: "" });
+  const [formData, setFormData] = useState({ name: "", contact: "", residence: "", education: "", hope_course: "", reason: "" });
   const [loading, setLoading] = useState(false);
   const [contactError, setContactError] = useState("");
   const [privacyAgreed, setPrivacyAgreed] = useState(false);
@@ -240,6 +240,7 @@ function LandingContent() {
         body: JSON.stringify({
           name: formData.name,
           contact: formData.contact,
+          residence: formData.residence || null,
           education: formData.education,
           hope_course: formData.hope_course,
           reason: formData.reason,
@@ -263,6 +264,7 @@ function LandingContent() {
     formData.name.length > 0 &&
     formData.contact.replace(/[-\s]/g, "").length >= 10 &&
     !contactError &&
+    formData.residence.length > 0 &&
     formData.education.length > 0 &&
     formData.hope_course.length > 0 &&
     privacyAgreed;
@@ -520,6 +522,15 @@ function LandingContent() {
 
                     <div className={styles.inputGroup}>
                       <label className={styles.inputLabel}>
+                        거주지 <span style={{ color: "#EF4444" }}>*</span>{" "}
+                        <span style={{ fontSize: "13px", color: "#6B7280", fontWeight: 400 }}>미기재 시 실습처 배정에 불이익이 있을 수 있습니다.</span>
+                      </label>
+                      <input type="text" placeholder="예) 대전 유성구, 경남 창원시" className={styles.inputField}
+                        value={formData.residence} onChange={(e) => setFormData({ ...formData, residence: e.target.value })} />
+                    </div>
+
+                    <div className={styles.inputGroup}>
+                      <label className={styles.inputLabel}>
                         최종학력 <span style={{ color: "#EF4444" }}>*</span>{" "}
                         <span style={{ fontSize: "13px", color: "#6B7280", fontWeight: 400 }}>최종학력마다 과정이 달라져요!</span>
                       </label>
@@ -611,7 +622,7 @@ function LandingContent() {
             </div>
             <div className={styles.modalScroll}>
               <p className={styles.modalItem}><strong>1. 개인정보 수집 및 이용 목적</strong><br />사회복지사 자격 취득 상담 진행, 문의사항 응대<br />개인정보는 상담 서비스 제공을 위한 목적으로만 수집 및 이용되며, 동의 없이 제3자에게 제공되지 않습니다</p>
-              <p className={styles.modalItem}><strong>2. 수집 및 이용하는 개인정보 항목</strong><br />필수 - 이름, 연락처(휴대전화번호), 최종학력, 희망과정, 취득사유</p>
+              <p className={styles.modalItem}><strong>2. 수집 및 이용하는 개인정보 항목</strong><br />필수 - 이름, 연락처(휴대전화번호), 거주지, 최종학력, 희망과정, 취득사유</p>
               <p className={styles.modalItem}><strong>3. 보유 및 이용 기간</strong><br />법령이 정하는 경우를 제외하고는 수집일로부터 1년 또는 동의 철회 시까지 보유 및 이용합니다.</p>
               <p className={styles.modalItem}><strong>4. 동의 거부 권리</strong><br />신청자는 동의를 거부할 권리가 있습니다. 단, 동의를 거부하는 경우 상담 서비스 이용이 제한됩니다.</p>
             </div>
