@@ -387,10 +387,14 @@ function LandingContent() {
         </div>
       </div>
 
+      {/* 메인 3섹션 이미지 */}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src="/main_3seciotn.png" alt="메인 섹션" style={{ width: "100%", height:"auto", display: "block" }} loading="eager" />
+
       {/* 여섯번째 섹션 */}
       <div className={styles.section6}>
         <div className={styles.section4TitleWrap}>
-          <span className={styles.section4Badge_white}>3</span>
+          <span className={styles.section4Badge_white}>4</span>
           <div className={styles.section_contentwrap}>
             <p className={styles.section6TitleLine}>
               <span className={styles.section6TitleBold}>한평생 올케어</span>
@@ -523,7 +527,7 @@ function LandingContent() {
                     <div className={styles.inputGroup}>
                       <label className={styles.inputLabel}>
                         거주지 <span style={{ color: "#EF4444" }}>*</span>{" "}
-                        <span style={{ fontSize: "13px", color: "#6B7280", fontWeight: 400 }}>미기재 시 실습처 배정에 불이익이 있을 수 있습니다.</span>
+                        <span style={{ fontSize: "13px", color: "#6B7280", fontWeight: 400 }}>미기재 시 실습처 배정에 불이익이 발생</span>
                       </label>
                       <input type="text" placeholder="예) 대전 유성구, 경남 창원시" className={styles.inputField}
                         value={formData.residence} onChange={(e) => setFormData({ ...formData, residence: e.target.value })} />
