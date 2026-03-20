@@ -11,22 +11,9 @@ import styles from "./landing.module.css";
 import Footer from "./components/Footer";
 
 const REAL_IMAGES = ["/main_01.png", "/main_02.png", "/main_03.png", "/main_04.png"];
-const LOOP_IMAGES = [...REAL_IMAGES, ...REAL_IMAGES, ...REAL_IMAGES];
-const N = REAL_IMAGES.length;
-
 const CONFIRM_IMAGES = ["/confirm_01.png", "/confirm_02.png", "/confirm_03.png", "/confirm_04.png", "/confirm_05.png"];
-const CONFIRM_LOOP = [...CONFIRM_IMAGES, ...CONFIRM_IMAGES, ...CONFIRM_IMAGES];
-const CN = CONFIRM_IMAGES.length;
 
 function ConfirmCarousel() {
-  const handleTransitionEnd = (swiper: { activeIndex: number; slideTo: (index: number, speed: number) => void }) => {
-    if (swiper.activeIndex < CN) {
-      swiper.slideTo(swiper.activeIndex + CN, 0);
-    } else if (swiper.activeIndex >= CN * 2) {
-      swiper.slideTo(swiper.activeIndex - CN, 0);
-    }
-  };
-
   return (
     <div className={styles.confirmCarouselWrap}>
       <Swiper
@@ -34,12 +21,11 @@ function ConfirmCarousel() {
         slidesPerView="auto"
         centeredSlides={true}
         spaceBetween={12}
-        initialSlide={CN}
+        loop={true}
         autoplay={{ delay: 3000, disableOnInteraction: false }}
-        onSlideChangeTransitionEnd={handleTransitionEnd}
         className={styles.swiper}
       >
-        {CONFIRM_LOOP.map((src, i) => (
+        {CONFIRM_IMAGES.map((src, i) => (
           <SwiperSlide key={i} className={styles.confirmSlide}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={src} alt={`후기 ${i + 1}`} className={styles.confirmImg} loading="eager" />
@@ -51,14 +37,6 @@ function ConfirmCarousel() {
 }
 
 function ImageCarousel() {
-  const handleTransitionEnd = (swiper: { activeIndex: number; slideTo: (index: number, speed: number) => void }) => {
-    if (swiper.activeIndex < N) {
-      swiper.slideTo(swiper.activeIndex + N, 0);
-    } else if (swiper.activeIndex >= N * 2) {
-      swiper.slideTo(swiper.activeIndex - N, 0);
-    }
-  };
-
   return (
     <div className={styles.carouselWrap}>
       <Swiper
@@ -66,12 +44,11 @@ function ImageCarousel() {
         slidesPerView="auto"
         centeredSlides={true}
         spaceBetween={20}
-        initialSlide={N}
+        loop={true}
         autoplay={{ delay: 2000, disableOnInteraction: false }}
-        onSlideChangeTransitionEnd={handleTransitionEnd}
         className={styles.swiper}
       >
-        {LOOP_IMAGES.map((src, i) => (
+        {REAL_IMAGES.map((src, i) => (
           <SwiperSlide key={i} className={styles.mainSlide}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
