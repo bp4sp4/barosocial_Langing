@@ -211,6 +211,15 @@ function LandingContent() {
   const handleSubmit = async () => {
     setLoading(true);
     try {
+      let click_source = "주부_랜딩페이지";
+      if (clickSource) {
+        const idx = clickSource.indexOf("_");
+        const major = idx === -1 ? clickSource : clickSource.slice(0, idx);
+        const sojae = idx === -1 ? "" : clickSource.slice(idx + 1);
+        click_source = sojae
+          ? `${major}_주부_랜딩페이지_${sojae}`
+          : `${major}_주부_랜딩페이지`;
+      }
       const res = await fetch("/api/consultations", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -221,7 +230,7 @@ function LandingContent() {
           education: formData.education,
           hope_course: formData.hope_course,
           reason: formData.reason,
-          click_source: clickSource ? `${clickSource}_랜딩페이지` : "랜딩페이지",
+          click_source,
         }),
       });
       if (!res.ok) {
