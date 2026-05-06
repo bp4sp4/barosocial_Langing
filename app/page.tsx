@@ -237,6 +237,10 @@ function LandingContent() {
         const err = await res.json();
         throw new Error(err.error || "저장에 실패했습니다.");
       }
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (window as any).dataLayer = (window as any).dataLayer || [];
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (window as any).dataLayer.push({ event: "form_submit_success" });
       setDone(true);
       setTimeout(() => setModalOpen(false), 5000);
     } catch (e) {
@@ -273,10 +277,8 @@ function LandingContent() {
   <path d="M1.77075 10.0681C1.77075 10.416 1.90931 10.7499 2.15527 10.996L9.58038 18.4211C9.8265 18.6671 10.1604 18.8057 10.5084 18.8057C10.8562 18.8055 11.1903 18.6671 11.4363 18.4211L18.8602 10.996C19.0992 10.7485 19.2323 10.4173 19.2293 10.0732C19.2263 9.72918 19.088 9.40003 18.8448 9.15674C18.6016 8.9135 18.2723 8.77533 17.9283 8.77222C17.5842 8.76923 17.2517 8.90104 17.0042 9.14008L10.5084 15.6372L4.01123 9.14008C3.76518 8.89418 3.43111 8.75691 3.08325 8.75684C2.73543 8.75684 2.40136 8.89429 2.15527 9.14008C1.90935 9.38607 1.7709 9.72023 1.77075 10.0681Z" fill="#FF751F"/>
 </svg>
         </div>
-        <button id="hero-cta-btn" className={`${styles.sectionFinalBtn} ${styles.heroCta}`} onClick={() => {
-          document.getElementById("consult-btn")?.scrollIntoView({ behavior: "smooth" });
-        }}>
-          무료상담 신청하기 
+        <button id="hero-cta-btn" className={`${styles.sectionFinalBtn} ${styles.heroCta}`} onClick={() => setModalOpen(true)}>
+          무료상담 신청하기
         </button>
       </div>
 
@@ -442,7 +444,7 @@ function LandingContent() {
       {/* 플로팅 CTA 버튼 */}
       <button
         className={`${styles.floatingBtn} ${!showFloating ? styles.floatingBtnHidden : ""}`}
-        onClick={() => document.getElementById("consult-btn")?.scrollIntoView({ behavior: "smooth" })}
+        onClick={() => setModalOpen(true)}
       >
         무료상담 신청하기 
       </button>

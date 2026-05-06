@@ -196,6 +196,10 @@ function FormContent({ clickSource }: { clickSource: string }) {
         throw new Error(errorData.error || "저장에 실패했습니다.");
       }
 
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (window as any).dataLayer = (window as any).dataLayer || [];
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (window as any).dataLayer.push({ event: "form_submit_success" });
       setStep(2);
     } catch (error) {
       alert(error instanceof Error ? error.message : "저장에 실패했습니다. 다시 시도해주세요.");
