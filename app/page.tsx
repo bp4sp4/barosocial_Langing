@@ -645,45 +645,83 @@ function LandingContent() {
           {(
             [
               {
-                point: "POINT 1",
+                key: "point1",
+                tag: (
+                  <>
+                    <span className={styles.allcarePointDark}>교육비 부담은 줄이고, 기회는 </span>
+                    <span className={styles.allcarePointOrange}>더 크게!</span>
+                  </>
+                ) as ReactNode,
                 text: (
                   <>
-                    수강료 <span style={{ color: "#ff4000" }}>70%</span> 지원
+                    사회복지사 수강료를
+                    <br />
+                    <span className={styles.allcareTextOrange}>70%까지 지원해 드려요.</span>
                   </>
                 ) as ReactNode,
                 alt: "수강료 70% 지원",
                 img: "/allcare_01.png",
               },
               {
-                point: "POINT 2",
+                key: "point2",
+                tag: (
+                  <>
+                    <span className={styles.allcarePointDark}>내게 딱 맞는 실습처, </span>
+                    <span className={styles.allcarePointOrange}>직접 확인하세요!</span>
+                  </>
+                ) as ReactNode,
                 text: (
                   <>
-                    실습 매칭
+                    실습 매칭 시스템
                     <br />
-                    시스템 열람권
+                    <span className={styles.allcareTextOrange}>열람권을 제공해요.</span>
                   </>
                 ) as ReactNode,
                 alt: "실습 매칭 시스템 열람권",
                 img: "/allcare_02.png",
               },
               {
-                point: "POINT 3",
-                text: (<>취업 컨설팅</>) as ReactNode,
+                key: "point3",
+                tag: (
+                  <>
+                    <span className={styles.allcarePointDark}>취업까지 한 번에, </span>
+                    <span className={styles.allcarePointOrange}>전문가가 함께해요!</span>
+                  </>
+                ) as ReactNode,
+                text: (
+                  <>
+                    1:1 취업 컨설팅
+                    <br />
+                    <span className={styles.allcareTextOrange}>맞춤 지원해드려요.</span>
+                  </>
+                ) as ReactNode,
                 alt: "취업 컨설팅",
                 img: "/allcare_03.png",
               },
               {
-                point: "POINT 4",
-                text: (<>미이수시 환급제도</>) as ReactNode,
+                key: "point4",
+                tag: (
+                  <>
+                    <span className={styles.allcarePointDark}>끝까지 책임지는 교육, </span>
+                    <span className={styles.allcarePointOrange}>안심하고 시작하세요!</span>
+                  </>
+                ) as ReactNode,
+                text: (
+                  <>
+                    미이수 시 환급제도
+                    <br />
+                    <span className={styles.allcareTextOrange}>운영하고 있어요.</span>
+                  </>
+                ) as ReactNode,
                 alt: "미이수시 환급제도",
                 img: "/allcare_04.png",
               },
-            ] as { point: string; text: ReactNode; alt: string; img: string }[]
-          ).map(({ point, text, alt, img }, i, arr) => (
-            <div key={point} style={{ width: "100%" }}>
+            ] as { key: string; tag: ReactNode; text: ReactNode; alt: string; img: string }[]
+          ).map(({ key, tag, text, alt, img }, i, arr) => (
+            <div key={key} style={{ width: "100%" }}>
               <div className={styles.allcareItem}>
                 <div className={styles.allcareLeft}>
-                  <span className={styles.allcarePoint}>{point}</span>
+                  <div className={styles.allcarePoint}>{tag}</div>
                   <p className={styles.allcareText}>{text}</p>
                 </div>
                 {/* eslint-disable-next-line @next/next/no-img-element */}

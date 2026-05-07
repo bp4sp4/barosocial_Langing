@@ -130,55 +130,68 @@
 
 .allcareItem {
   display: flex;
-  width: 100%;
-  height: 150px;
-  padding: 20px 10px 20px 4px;
+  height: 200px;
+  justify-content: space-between;
   align-items: center;
-  gap: 30px;
   align-self: stretch;
-  border-bottom: 1px dashed #cacaca;
-}
-
-.allcareItem:last-of-type {
-  border-bottom: none;
 }
 
 .allcareLeft {
   display: flex;
+  width: 210px;
   flex-direction: column;
-  gap: 10px;
-  flex: 1;
+  align-items: flex-start;
+  gap: 12px;
 }
 
 .allcarePoint {
   display: flex;
-  padding: 10px 14px;
+  padding: 6px 8px;
   justify-content: center;
   align-items: center;
   gap: 10px;
   border-radius: 999px;
   background: #fff0e1;
-  color: #ff751f;
+  width: fit-content;
+}
+
+.allcarePointDark {
+  color: #1d1d1d;
   text-align: center;
   font-family: "Pretendard", sans-serif;
-  font-size: 14px;
+  font-size: 11px;
   font-weight: 700;
   line-height: 100%;
-  width: fit-content;
+}
+
+.allcarePointOrange {
+  color: #ff751f;
+  font-family: "Pretendard", sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 100%;
 }
 
 .allcareText {
   color: #1d1d1d;
-  font-family: "Paperlogy", sans-serif;
-  font-size: 20px;
-  font-weight: 600;
-  line-height: normal;
+  font-family: "Pretendard", sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 130%;
   margin: 0;
 }
 
+.allcareTextOrange {
+  color: #ff751f;
+  font-family: "Pretendard", sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 130%;
+}
+
 .allcareImg {
-  width: 100px;
-  height: 100px;
+  width: 140px;
+  height: 140px;
   aspect-ratio: 1/1;
   object-fit: cover;
   flex-shrink: 0;
