@@ -7,12 +7,13 @@ export default function Footer() {
   return (
     <footer className={styles.footer}>
       <div className={styles.footerContent}>
-        <div className={styles.footerLogo}>
-          <span className={styles.logoText}>
-            <img src="/logo.png" alt="BaroCompany Logo" />
-          </span>
-        </div>
-
+        <Link href="https://www.korhrdcorp.co.kr" target="_blank">
+          <div className={styles.footerLogo}>
+            <span className={styles.logoText}>
+              <img src="/logo.png" alt="BaroCompany Logo" />
+            </span>
+          </div>
+        </Link>
         <div className={styles.footerInfo}>
           <p className={styles.infoLine}>
             대표 양병웅 | 사업자등록번호 227-88-03196
