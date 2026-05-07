@@ -648,7 +648,15 @@ function LandingContent() {
                 key: "point1",
                 tag: (
                   <>
-                    <span className={styles.allcarePointDark}>교육비 부담은 줄이고, 기회는 </span>
+                    <span className={styles.allcarePointDark}>
+                      교육비&nbsp;
+                    </span>
+                    <span className={styles.allcarePointOrange}>
+                      부담은 줄이고,&nbsp;
+                    </span>
+                    <span className={styles.allcarePointDark}>
+                      기회는&nbsp;{" "}
+                    </span>
                     <span className={styles.allcarePointOrange}>더 크게!</span>
                   </>
                 ) as ReactNode,
@@ -656,9 +664,13 @@ function LandingContent() {
                   <>
                     사회복지사 수강료를
                     <br />
-                    <span className={styles.allcareTextOrange}>70%까지 지원해 드려요.</span>
+                    <span className={styles.allcareTextOrange}>
+                      70%까지 지원
+                    </span>
+                    해 드려요.
                   </>
                 ) as ReactNode,
+                desc: "교육과정 수강료의 최대 70%까지\n지원받아 부담없이 시작할 수 있습니다.",
                 alt: "수강료 70% 지원",
                 img: "/allcare_01.png",
               },
@@ -666,17 +678,23 @@ function LandingContent() {
                 key: "point2",
                 tag: (
                   <>
-                    <span className={styles.allcarePointDark}>내게 딱 맞는 실습처, </span>
-                    <span className={styles.allcarePointOrange}>직접 확인하세요!</span>
+                    <span className={styles.allcarePointOrange}>
+                      내게 딱 맞는 실습처, &nbsp;
+                    </span>
+                    <span className={styles.allcarePointDark}>
+                      직접 확인하세요!
+                    </span>
                   </>
                 ) as ReactNode,
                 text: (
                   <>
-                    실습 매칭 시스템
-                    <br />
-                    <span className={styles.allcareTextOrange}>열람권을 제공해요.</span>
+                    <span className={styles.allcareTextOrange}>
+                      실습 매칭 시스템 <br /> 열람권
+                    </span>
+                    을 제공해요.
                   </>
                 ) as ReactNode,
+                desc: "전국 어디서나 내 거주지 근처의\n실습처를 직접 확인하고 시작할 수 있는\n독보적인 실습 시스템을 제공합니다.",
                 alt: "실습 매칭 시스템 열람권",
                 img: "/allcare_02.png",
               },
@@ -684,17 +702,26 @@ function LandingContent() {
                 key: "point3",
                 tag: (
                   <>
-                    <span className={styles.allcarePointDark}>취업까지 한 번에, </span>
-                    <span className={styles.allcarePointOrange}>전문가가 함께해요!</span>
+                    <span className={styles.allcarePointDark}>
+                      취업까지 한 번에, &nbsp;
+                    </span>
+                    <span className={styles.allcarePointOrange}>
+                      전문가가 함께
+                    </span>
+                    <span className={styles.allcarePointDark}>해요!</span>
                   </>
                 ) as ReactNode,
                 text: (
                   <>
-                    1:1 취업 컨설팅
-                    <br />
-                    <span className={styles.allcareTextOrange}>맞춤 지원해드려요.</span>
+                    <span className={styles.allcareTextOrange}>
+                      1:1 취업 컨설팅
+                      <br />
+                      맞춤 지원
+                    </span>
+                    해드려요.
                   </>
                 ) as ReactNode,
+                desc: "이력서부터 면접까지 1:1 맞춤 취업\n컨설팅으로 시작부터 끝까지 체계적으로\n지원합니다.",
                 alt: "취업 컨설팅",
                 img: "/allcare_03.png",
               },
@@ -702,27 +729,42 @@ function LandingContent() {
                 key: "point4",
                 tag: (
                   <>
-                    <span className={styles.allcarePointDark}>끝까지 책임지는 교육, </span>
-                    <span className={styles.allcarePointOrange}>안심하고 시작하세요!</span>
+                    <span className={styles.allcarePointOrange}>
+                      끝까지 책임지는 교육, &nbsp;
+                    </span>
+                    <span className={styles.allcarePointDark}>
+                      안심하고 시작하세요!
+                    </span>
                   </>
                 ) as ReactNode,
                 text: (
                   <>
-                    미이수 시 환급제도
-                    <br />
-                    <span className={styles.allcareTextOrange}>운영하고 있어요.</span>
+                    <span className={styles.allcareTextOrange}>
+                      미이수 시 환급제도
+                      <br />
+                    </span>
+                    운영하고 있어요.
                   </>
                 ) as ReactNode,
+                desc: "교육 이수에 어려움이 있을 경우, 자체\n환급제도를 통해 수강료를 일부 또는 전액\n환급해드리는 제도를 운영하고 있습니다.",
                 alt: "미이수시 환급제도",
                 img: "/allcare_04.png",
               },
-            ] as { key: string; tag: ReactNode; text: ReactNode; alt: string; img: string }[]
-          ).map(({ key, tag, text, alt, img }, i, arr) => (
+            ] as {
+              key: string;
+              tag: ReactNode;
+              text: ReactNode;
+              desc: string;
+              alt: string;
+              img: string;
+            }[]
+          ).map(({ key, tag, text, desc, alt, img }) => (
             <div key={key} style={{ width: "100%" }}>
               <div className={styles.allcareItem}>
                 <div className={styles.allcareLeft}>
                   <div className={styles.allcarePoint}>{tag}</div>
                   <p className={styles.allcareText}>{text}</p>
+                  <p className={styles.allcareDesc}>{desc}</p>
                 </div>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
@@ -732,24 +774,6 @@ function LandingContent() {
                   loading="eager"
                 />
               </div>
-              {i < arr.length - 1 && (
-                <div className={styles.allcareDivider}>
-                  <button className={styles.allcarePlusBtn} aria-label="더보기">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      viewBox="0 0 16 16"
-                      fill="none"
-                    >
-                      <path
-                        d="M8.03112 1.0166C8.50786 1.01796 8.89366 1.40595 8.89254 1.88259L8.87993 7.11997L14.1179 7.10826C14.594 7.10754 14.9813 7.49157 14.9829 7.96794C14.984 8.44448 14.5989 8.83234 14.1224 8.83393L8.87542 8.84654L8.86191 14.156C8.86038 14.6325 8.47251 15.0177 7.99598 15.0166C7.51968 15.0148 7.13341 14.6271 7.13455 14.1506L7.14897 8.85105L1.84885 8.86457C1.37264 8.86532 0.984507 8.48028 0.982913 8.00398C0.98181 7.52753 1.36793 7.13967 1.84434 7.138L7.15257 7.12358L7.16609 1.87809C7.16743 1.40187 7.55453 1.01588 8.03112 1.0166Z"
-                        fill="#FF751F"
-                      />
-                    </svg>
-                  </button>
-                </div>
-              )}
             </div>
           ))}
         </div>
