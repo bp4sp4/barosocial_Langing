@@ -17,6 +17,11 @@ export default function Footer() {
           <p className={styles.infoLine}>
             대표 양병웅 | 사업자등록번호 227-88-03196
           </p>
+          <p className={styles.infoLine}>
+            주소 : 서울특별시 도봉구 마들로13길 61, 씨드큐브 창동 B동 9층 905,
+            906호
+          </p>
+          <p className={styles.infoLine}>문의 : 02-2135-6513</p>
           <div className={styles.footerLinks}>
             <Link href="/terms" className={styles.footerLink}>
               이용약관
@@ -27,7 +32,7 @@ export default function Footer() {
             </Link>
           </div>
           <p className={styles.copyright}>
-            2026 Hanpyeongsaeng Education Co., Ltd. All rights reserved.
+            2026 Korhrd Group Co., Ltd. All rights reserved.
           </p>
         </div>
       </div>

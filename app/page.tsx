@@ -526,7 +526,7 @@ function LandingContent() {
           </p>
         </div>
         <div className={styles.main3CardList}>
-          <div className={styles.main3Card}>
+          {/* <div className={styles.main3Card}>
             <span className={styles.main3Badge}>기간</span>
             <div className={styles.main3CardBody}>
               <p className={styles.main3CardRow}>
@@ -548,7 +548,7 @@ function LandingContent() {
               <span className={styles.main3NoteBold}>12개월로 진행 가능</span>
               <span className={styles.main3NoteNormal}>합니다. (별도문의)</span>
             </div>
-          </div>
+          </div> */}
           <div className={styles.main3Card}>
             <span className={styles.main3Badge}>진행방법</span>
             <div className={styles.main3MethodRow}>
@@ -617,7 +617,9 @@ function LandingContent() {
               />
               <p className={styles.main3CertText}>
                 <span className={styles.main3MethodNormal}>발급 </span>
-                <span className={styles.main3CertTextBold}>정식 국가자격증</span>
+                <span className={styles.main3CertTextBold}>
+                  정식 국가자격증
+                </span>
               </p>
             </div>
           </div>
