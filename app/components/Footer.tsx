@@ -22,7 +22,7 @@ export default function Footer() {
             주소 : 서울특별시 도봉구 마들로13길 61, 씨드큐브 창동 B동 9층 905,
             906호
           </p>
-          <p className={styles.infoLine}>문의 : 02-2135-6513</p>
+          <p className={styles.infoLine}>문의 : 070-8652-2574</p>
           <div className={styles.footerLinks}>
             <Link href="/terms" className={styles.footerLink}>
               이용약관
