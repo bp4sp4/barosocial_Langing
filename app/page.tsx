@@ -124,17 +124,6 @@ const formatClickSource = (
   return shortSource;
 };
 
-const COURSE_OPTIONS = [
-  "사회복지사",
-  "아동학사",
-  "평생교육사",
-  "편입/대학원",
-  "건강가정사",
-  "청소년지도사",
-  "보육교사",
-  "심리상담사",
-];
-
 function LandingContent() {
   const searchParams = useSearchParams();
   const [clickSource, setClickSource] = useState("");
@@ -155,9 +144,6 @@ function LandingContent() {
   const [contactError, setContactError] = useState("");
   const [privacyAgreed, setPrivacyAgreed] = useState(false);
   const [showPrivacyModal, setShowPrivacyModal] = useState(false);
-  const [showCourseModal, setShowCourseModal] = useState(false);
-  const [selectedCourses, setSelectedCourses] = useState<string[]>([]);
-  const [customCourse, setCustomCourse] = useState("");
 
   useEffect(() => {
     const utmSource = searchParams.get("utm_source");
@@ -255,13 +241,6 @@ function LandingContent() {
     return true;
   };
 
-  const confirmCourseSelection = () => {
-    const all = [...selectedCourses];
-    if (customCourse.trim()) all.push(customCourse.trim());
-    setFormData({ ...formData, hope_course: all.join(", ") });
-    setShowCourseModal(false);
-  };
-
   const handleSubmit = async () => {
     setLoading(true);
     try {
@@ -312,15 +291,173 @@ function LandingContent() {
     formData.name.length > 0 &&
     formData.contact.replace(/[-\s]/g, "").length >= 10 &&
     !contactError &&
-    formData.residence.length > 0 &&
     formData.education.length > 0 &&
     formData.hope_course.length > 0 &&
     privacyAgreed;
 
   return (
     <div className={styles.container}>
+      {/* 네번째 섹션 - 사회복지사란? */}
+      <div className={styles.section6}>
+        <div className={styles.section4TitleWrap}>
+          <div className={styles.section_contentwrap}>
+            <p className={styles.section6TitleLine}>
+              <span className={styles.section6TitleBold}>한평생 올케어</span>
+              <span className={styles.section6TitleLight}>반이면</span>
+            </p>
+            <p className={styles.section6TitleLine}>
+              <span className={styles.section6TitleBold}>주부님들도 가능</span>
+              <span className={styles.section6TitleLight}>한 이유!</span>
+            </p>
+          </div>
+        </div>
+        <div className={styles.allcareList}>
+          {(
+            [
+              {
+                key: "point1",
+                tag: (
+                  <>
+                    <span className={styles.allcarePointDark}>
+                      교육비&nbsp;
+                    </span>
+                    <span className={styles.allcarePointOrange}>
+                      부담은 줄이고,&nbsp;
+                    </span>
+                    <span className={styles.allcarePointDark}>
+                      기회는&nbsp;{" "}
+                    </span>
+                    <span className={styles.allcarePointOrange}>더 크게!</span>
+                  </>
+                ) as ReactNode,
+                text: (
+                  <>
+                    사회복지사 수강료를
+                    <br />
+                    <span className={styles.allcareTextOrange}>
+                      70%까지 지원
+                    </span>
+                    해 드려요.
+                  </>
+                ) as ReactNode,
+                desc: "교육과정 수강료의 최대 70%까지\n지원받아 부담없이 시작할 수 있습니다.",
+                alt: "수강료 70% 지원",
+                img: "/allcare_01.png",
+              },
+              {
+                key: "point2",
+                tag: (
+                  <>
+                    <span className={styles.allcarePointOrange}>
+                      내게 딱 맞는 실습처, &nbsp;
+                    </span>
+                    <span className={styles.allcarePointDark}>
+                      직접 확인하세요!
+                    </span>
+                  </>
+                ) as ReactNode,
+                text: (
+                  <>
+                    <span className={styles.allcareTextOrange}>
+                      실습 매칭 시스템 <br /> 열람권
+                    </span>
+                    을 제공해요.
+                  </>
+                ) as ReactNode,
+                desc: "전국 어디서나 내 거주지 근처의\n실습처를 직접 확인하고 시작할 수 있는\n독보적인 실습 시스템을 제공합니다.",
+                alt: "실습 매칭 시스템 열람권",
+                img: "/allcare_02.png",
+              },
+              {
+                key: "point3",
+                tag: (
+                  <>
+                    <span className={styles.allcarePointDark}>
+                      취업까지 한 번에, &nbsp;
+                    </span>
+                    <span className={styles.allcarePointOrange}>
+                      전문가가 함께
+                    </span>
+                    <span className={styles.allcarePointDark}>해요!</span>
+                  </>
+                ) as ReactNode,
+                text: (
+                  <>
+                    <span className={styles.allcareTextOrange}>
+                      1:1 취업 컨설팅
+                      <br />
+                      맞춤 지원
+                    </span>
+                    해드려요.
+                  </>
+                ) as ReactNode,
+                desc: "이력서부터 면접까지 1:1 맞춤 취업\n컨설팅으로 시작부터 끝까지 체계적으로\n지원합니다.",
+                alt: "취업 컨설팅",
+                img: "/allcare_03.png",
+              },
+              {
+                key: "point4",
+                tag: (
+                  <>
+                    <span className={styles.allcarePointOrange}>
+                      끝까지 책임지는 교육, &nbsp;
+                    </span>
+                    <span className={styles.allcarePointDark}>
+                      안심하고 시작하세요!
+                    </span>
+                  </>
+                ) as ReactNode,
+                text: (
+                  <>
+                    <span className={styles.allcareTextOrange}>
+                      미이수 시 환급제도
+                      <br />
+                    </span>
+                    운영하고 있어요.
+                  </>
+                ) as ReactNode,
+                desc: "교육 이수에 어려움이 있을 경우, 자체\n환급제도를 통해 수강료를 일부 또는 전액\n환급해드리는 제도를 운영하고 있습니다.",
+                alt: "미이수시 환급제도",
+                img: "/allcare_04.png",
+              },
+            ] as {
+              key: string;
+              tag: ReactNode;
+              text: ReactNode;
+              desc: string;
+              alt: string;
+              img: string;
+            }[]
+          ).map(({ key, tag, text, desc, alt, img }) => (
+            <div key={key} style={{ width: "100%" }}>
+              <div className={styles.allcareItem}>
+                <div className={styles.allcareLeft}>
+                  <div className={styles.allcarePoint}>{tag}</div>
+                  <p className={styles.allcareText}>{text}</p>
+                  <p className={styles.allcareDesc}>{desc}</p>
+                </div>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={img}
+                  alt={alt}
+                  className={styles.allcareImg}
+                  loading="eager"
+                />
+              </div>
+            </div>
+          ))}
+        </div>
+        <button
+          id="hero-cta-btn"
+          className={`${styles.sectionFinalBtn} ${styles.heroCta}`}
+          onClick={() => setModalOpen(true)}
+        >
+          무료상담 신청하기
+        </button>
+      </div>
       {/* 첫번째 영역 */}
-      <div className={styles.heroSection}>
+
+      {/* <div className={styles.heroSection}>
         <p className={styles.heroTitle}>혼자 준비하지마세요</p>
         <div className={styles.heroTextWrap}>
           <div className={styles.jubumentsBox}>
@@ -351,14 +488,8 @@ function LandingContent() {
             />
           </svg>
         </div>
-        <button
-          id="hero-cta-btn"
-          className={`${styles.sectionFinalBtn} ${styles.heroCta}`}
-          onClick={() => setModalOpen(true)}
-        >
-          무료상담 신청하기
-        </button>
-      </div>
+
+      </div> */}
 
       {/* 두번째 섹션 - 사회복지사란? */}
       <div className={styles.section2}>
@@ -627,157 +758,6 @@ function LandingContent() {
       </div>
 
       {/* 여섯번째 섹션 */}
-      <div className={styles.section6}>
-        <div className={styles.section4TitleWrap}>
-          <span className={styles.section4Badge_white}>4</span>
-          <div className={styles.section_contentwrap}>
-            <p className={styles.section6TitleLine}>
-              <span className={styles.section6TitleBold}>한평생 올케어</span>
-              <span className={styles.section6TitleLight}>반이면</span>
-            </p>
-            <p className={styles.section6TitleLine}>
-              <span className={styles.section6TitleBold}>주부님들도 가능</span>
-              <span className={styles.section6TitleLight}>한 이유!</span>
-            </p>
-          </div>
-        </div>
-        <div className={styles.allcareList}>
-          {(
-            [
-              {
-                key: "point1",
-                tag: (
-                  <>
-                    <span className={styles.allcarePointDark}>
-                      교육비&nbsp;
-                    </span>
-                    <span className={styles.allcarePointOrange}>
-                      부담은 줄이고,&nbsp;
-                    </span>
-                    <span className={styles.allcarePointDark}>
-                      기회는&nbsp;{" "}
-                    </span>
-                    <span className={styles.allcarePointOrange}>더 크게!</span>
-                  </>
-                ) as ReactNode,
-                text: (
-                  <>
-                    사회복지사 수강료를
-                    <br />
-                    <span className={styles.allcareTextOrange}>
-                      70%까지 지원
-                    </span>
-                    해 드려요.
-                  </>
-                ) as ReactNode,
-                desc: "교육과정 수강료의 최대 70%까지\n지원받아 부담없이 시작할 수 있습니다.",
-                alt: "수강료 70% 지원",
-                img: "/allcare_01.png",
-              },
-              {
-                key: "point2",
-                tag: (
-                  <>
-                    <span className={styles.allcarePointOrange}>
-                      내게 딱 맞는 실습처, &nbsp;
-                    </span>
-                    <span className={styles.allcarePointDark}>
-                      직접 확인하세요!
-                    </span>
-                  </>
-                ) as ReactNode,
-                text: (
-                  <>
-                    <span className={styles.allcareTextOrange}>
-                      실습 매칭 시스템 <br /> 열람권
-                    </span>
-                    을 제공해요.
-                  </>
-                ) as ReactNode,
-                desc: "전국 어디서나 내 거주지 근처의\n실습처를 직접 확인하고 시작할 수 있는\n독보적인 실습 시스템을 제공합니다.",
-                alt: "실습 매칭 시스템 열람권",
-                img: "/allcare_02.png",
-              },
-              {
-                key: "point3",
-                tag: (
-                  <>
-                    <span className={styles.allcarePointDark}>
-                      취업까지 한 번에, &nbsp;
-                    </span>
-                    <span className={styles.allcarePointOrange}>
-                      전문가가 함께
-                    </span>
-                    <span className={styles.allcarePointDark}>해요!</span>
-                  </>
-                ) as ReactNode,
-                text: (
-                  <>
-                    <span className={styles.allcareTextOrange}>
-                      1:1 취업 컨설팅
-                      <br />
-                      맞춤 지원
-                    </span>
-                    해드려요.
-                  </>
-                ) as ReactNode,
-                desc: "이력서부터 면접까지 1:1 맞춤 취업\n컨설팅으로 시작부터 끝까지 체계적으로\n지원합니다.",
-                alt: "취업 컨설팅",
-                img: "/allcare_03.png",
-              },
-              {
-                key: "point4",
-                tag: (
-                  <>
-                    <span className={styles.allcarePointOrange}>
-                      끝까지 책임지는 교육, &nbsp;
-                    </span>
-                    <span className={styles.allcarePointDark}>
-                      안심하고 시작하세요!
-                    </span>
-                  </>
-                ) as ReactNode,
-                text: (
-                  <>
-                    <span className={styles.allcareTextOrange}>
-                      미이수 시 환급제도
-                      <br />
-                    </span>
-                    운영하고 있어요.
-                  </>
-                ) as ReactNode,
-                desc: "교육 이수에 어려움이 있을 경우, 자체\n환급제도를 통해 수강료를 일부 또는 전액\n환급해드리는 제도를 운영하고 있습니다.",
-                alt: "미이수시 환급제도",
-                img: "/allcare_04.png",
-              },
-            ] as {
-              key: string;
-              tag: ReactNode;
-              text: ReactNode;
-              desc: string;
-              alt: string;
-              img: string;
-            }[]
-          ).map(({ key, tag, text, desc, alt, img }) => (
-            <div key={key} style={{ width: "100%" }}>
-              <div className={styles.allcareItem}>
-                <div className={styles.allcareLeft}>
-                  <div className={styles.allcarePoint}>{tag}</div>
-                  <p className={styles.allcareText}>{text}</p>
-                  <p className={styles.allcareDesc}>{desc}</p>
-                </div>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={img}
-                  alt={alt}
-                  className={styles.allcareImg}
-                  loading="eager"
-                />
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
 
       {/* 마지막 섹션 */}
       <div className={styles.sectionFinal}>
@@ -933,33 +913,6 @@ function LandingContent() {
 
                       <div className={styles.inputGroup}>
                         <label className={styles.inputLabel}>
-                          거주지 <span style={{ color: "#EF4444" }}>*</span>{" "}
-                          <span
-                            style={{
-                              fontSize: "13px",
-                              color: "#6B7280",
-                              fontWeight: 400,
-                            }}
-                          >
-                            미기재 시 실습처 배정에 불이익이 발생
-                          </span>
-                        </label>
-                        <input
-                          type="text"
-                          placeholder="예) 대전 유성구, 경남 창원시"
-                          className={styles.inputField}
-                          value={formData.residence}
-                          onChange={(e) =>
-                            setFormData({
-                              ...formData,
-                              residence: e.target.value,
-                            })
-                          }
-                        />
-                      </div>
-
-                      <div className={styles.inputGroup}>
-                        <label className={styles.inputLabel}>
                           최종학력 <span style={{ color: "#EF4444" }}>*</span>{" "}
                           <span
                             style={{
@@ -994,53 +947,20 @@ function LandingContent() {
                         <label className={styles.inputLabel}>
                           희망과정 <span style={{ color: "#EF4444" }}>*</span>
                         </label>
-                        <div
-                          className={`${styles.inputField} ${styles.courseSelectField}`}
-                          onClick={() => {
-                            const existing = formData.hope_course
-                              ? formData.hope_course.split(", ").filter(Boolean)
-                              : [];
-                            setSelectedCourses(
-                              existing.filter((c) =>
-                                COURSE_OPTIONS.includes(c),
-                              ),
-                            );
-                            setCustomCourse(
-                              existing
-                                .filter((c) => !COURSE_OPTIONS.includes(c))
-                                .join(", "),
-                            );
-                            setShowCourseModal(true);
-                          }}
+                        <select
+                          className={styles.inputField}
+                          value={formData.hope_course}
+                          onChange={(e) =>
+                            setFormData({
+                              ...formData,
+                              hope_course: e.target.value,
+                            })
+                          }
+                          style={{ cursor: "pointer" }}
                         >
-                          {formData.hope_course ? (
-                            <span
-                              style={{ color: "#191f28", fontSize: "16px" }}
-                            >
-                              {formData.hope_course}
-                            </span>
-                          ) : (
-                            <span
-                              style={{ color: "#9ca3af", fontSize: "16px" }}
-                            >
-                              과정을 선택해주세요
-                            </span>
-                          )}
-                          <svg
-                            width="20"
-                            height="20"
-                            viewBox="0 0 20 20"
-                            fill="none"
-                          >
-                            <path
-                              d="M5 7.5L10 12.5L15 7.5"
-                              stroke="#6B7280"
-                              strokeWidth="1.5"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                            />
-                          </svg>
-                        </div>
+                          <option value="">과정을 선택해주세요</option>
+                          <option value="사회복지사">사회복지사</option>
+                        </select>
                       </div>
 
                       <div className={styles.inputGroup}>
@@ -1170,8 +1090,7 @@ function LandingContent() {
               <p className={styles.modalItem}>
                 <strong>2. 수집 및 이용하는 개인정보 항목</strong>
                 <br />
-                필수 - 이름, 연락처(휴대전화번호), 거주지, 최종학력, 희망과정,
-                취득사유
+                필수 - 이름, 연락처(휴대전화번호), 최종학력, 희망과정, 취득사유
               </p>
               <p className={styles.modalItem}>
                 <strong>3. 보유 및 이용 기간</strong>
@@ -1190,114 +1109,6 @@ function LandingContent() {
         </div>
       )}
 
-      {/* 희망과정 모달 */}
-      {showCourseModal && (
-        <div
-          className={styles.modalOverlay}
-          onClick={() => setShowCourseModal(false)}
-        >
-          <div className={styles.modalBox} onClick={(e) => e.stopPropagation()}>
-            <div className={styles.modalHeader}>
-              <h3 className={styles.modalTitle}>희망과정 선택</h3>
-              <button
-                className={styles.closeBtn}
-                onClick={() => setShowCourseModal(false)}
-              >
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                  <path
-                    d="M18 6L6 18M6 6L18 18"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </button>
-            </div>
-            <div className={styles.courseModalContent}>
-              <p
-                style={{
-                  fontSize: "14px",
-                  color: "#6b7280",
-                  margin: "0 0 12px",
-                }}
-              >
-                복수 선택이 가능합니다
-              </p>
-              <div className={styles.courseList}>
-                {COURSE_OPTIONS.map((course) => (
-                  <button
-                    key={course}
-                    className={`${styles.courseItem} ${selectedCourses.includes(course) ? styles.courseItemSel : ""}`}
-                    onClick={() =>
-                      setSelectedCourses((p) =>
-                        p.includes(course)
-                          ? p.filter((c) => c !== course)
-                          : [...p, course],
-                      )
-                    }
-                  >
-                    <span>{course}</span>
-                    {selectedCourses.includes(course) && (
-                      <svg
-                        width="20"
-                        height="20"
-                        viewBox="0 0 20 20"
-                        fill="none"
-                      >
-                        <path
-                          d="M4 10L8 14L16 6"
-                          stroke="#4C85FF"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                      </svg>
-                    )}
-                  </button>
-                ))}
-              </div>
-              <div
-                style={{
-                  marginTop: "12px",
-                  paddingTop: "12px",
-                  borderTop: "1px solid #f2f4f6",
-                }}
-              >
-                <label
-                  style={{
-                    display: "block",
-                    fontSize: "14px",
-                    fontWeight: 600,
-                    color: "#4e5968",
-                    marginBottom: "8px",
-                  }}
-                >
-                  직접 입력
-                </label>
-                <input
-                  type="text"
-                  className={styles.customInput}
-                  placeholder="원하는 과정을 직접 입력해주세요"
-                  value={customCourse}
-                  onChange={(e) => setCustomCourse(e.target.value)}
-                />
-              </div>
-            </div>
-            <div style={{ padding: "12px 20px 20px" }}>
-              <button
-                className={styles.courseConfirmBtn}
-                disabled={selectedCourses.length === 0 && !customCourse.trim()}
-                onClick={confirmCourseSelection}
-              >
-                {selectedCourses.length > 0 || customCourse.trim()
-                  ? "선택 완료"
-                  : "과정을 선택해주세요"}
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 }
