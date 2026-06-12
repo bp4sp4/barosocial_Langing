@@ -25,18 +25,46 @@ const CONFIRM_IMAGES = [
 
 const REVIEWS = [
   {
-    label: "최고령자 취업!",
-    title: "70대 어르신도\n지원받아 취업 성공",
-    name: "신*철 님",
-    body: "나이가 오히려 장점이 되서 제가 쌓아온 연륜을 잘 활용할 수 있게 됐습니다. 저는 아직도 팔팔한데 다시 일할 수 있어 행복합니다.",
-    img: "/profile.jpg",
+    label: "47세 경력단절 주부, 재취업 성공",
+    title: "막막했던 재취업에\n자신감이 생겼어요.",
+    name: "김*선 님",
+    body: "아이들을 키우느라 오랫동안 일을 쉬어 재취업이 가능할지 걱정이 많았습니다. 나이도 있고 경력 공백도 길어서 자신감이 많이 떨어진 상태였는데, 사회복지사 자격증을 취득한 후 관련 분야로 취업까지 하게 되었어요. 그동안의 고민이 무색할 만큼 새로운 시작을 할 수 있었습니다.",
+    img: "/profile2.jpg",
   },
   {
-    label: "30년차 주부",
-    title: "간단하게 준비해\n취업 성공",
-    name: "박*은 님",
-    body: "저는 고등학교 졸업이라 따로 일할 수 있는 분야가 많지 않았지만 그래도 도전하는 사람만이 기회를 잡을 수 있네요. 팀장님께 정말 감사한 말씀을 드리고 싶습니다.",
-    img: "/profile2.jpg",
+    label: "65세 정년퇴직 후 취업 성공",
+    title: "나이가 걸림돌이\n되지 않았어요.",
+    name: "김*숙 님",
+    body: "요즘은 다들 너무 건강해요~ 정년퇴직 후 앞으로 어떻게 시간을 보내야 할지 고민이 많았습니다. 단순히 쉬기보다는 보람 있는 일을 하고 싶어 사회복지사 자격증에 도전했어요. 나이 때문에 걱정도 했지만 취득 후 관련 시설에 취업까지 하게 되면서 제2의 인생을 시작한 기분입니다.",
+    img: "/profile3.jpg",
+  },
+  {
+    label: "52세 퇴직 준비자도 취득 성공",
+    title: "노후 대비가 한결 든든\n해졌습니다.",
+    name: "최*수 님",
+    body: "퇴직이 가까워지면서 앞으로 무엇을 해야 할지 고민이 많았습니다. 사회복지 분야에 관심은 있었지만 나이가 많아 시작하기 망설여졌는데, 생각보다 많은 분들이 비슷한 상황에서 준비하고 계시더라고요. 덕분에 용기를 내어 시작했고 만족스러운 결과를 얻었습니다.",
+    img: "/profile4.jpg",
+  },
+  {
+    label: "37세 워킹맘도 취득 성공",
+    title: "육아와 병행할 수\n있었어요.",
+    name: "정*미 님",
+    body: "아이를 키우면서 일을 하고 있어 시간을 내기가 쉽지 않았습니다. 그래서 계속 미루고 있었는데, 온라인으로 진행할 수 있어 부담이 적었고 일정 관리도 도움을 받아 끝까지 완주할 수 있었습니다. 저처럼 시간이 부족한 분들에게 큰 도움이 될 것 같아요.",
+    img: "/profile05.jpg",
+  },
+  {
+    label: "58세, 친구와 함께 도전",
+    title: "혼자가 아니라서\n끝까지 할 수 있었어요.",
+    name: "신*자 님",
+    body: "50대 후반이 되니 노후 준비에 대한 고민이 많아졌습니다. 혼자 시작하기엔 망설여졌는데 친구와 함께 도전하자는 이야기가 나와 용기를 냈어요. 서로 응원하며 공부하다 보니 어느새 둘 다 사회복지사 자격증을 취득하게 되었고, 지금은 관련 분야 취업도 준비하고 있습니다.",
+    img: "/profile6.jpg",
+  },
+  {
+    label: "57세 제조업 종사자도 취득 성공",
+    title: "퇴직 이후를 준비할 수\n있었습니다.",
+    name: "김*성 님",
+    body: "30년 넘게 제조업 현장에서 일하면서 정년 이후가 가장 큰 고민이었습니다. 몸을 쓰는 일은 점점 부담이 커지고 있었고, 앞으로 할 수 있는 일을 찾다가 사회복지사에 도전하게 되었어요. 처음에는 공부가 걱정됐지만 생각보다 잘 따라갈 수 있었고, 미래에 대한 불안도 많이 줄었습니다.",
+    img: "/profile7.jpg",
   },
 ];
 
@@ -445,8 +473,12 @@ function LandingContent() {
         />
         <div className={styles.heroTextWrap}>
           <p className={styles.heroTitle}>혼자 준비하지마세요</p>
-          <p className={styles.heroCenterName}>여성인력개발센터와</p>
-          <p className={styles.heroCourse}>사회복지사 2급+취업까지</p>
+          <p className={styles.heroCourse}>
+            사회복지사 2급
+            <br />
+            취득부터 취업까지
+          </p>
+          <p className={styles.heroCenterName}>여성인력개발센터와 공식 협약</p>
         </div>
         <div className={styles.allcareList}>
           {(
@@ -746,6 +778,10 @@ function LandingContent() {
 
       {/* 인증 섹션 - 협약기관 / 자격증 / 수강생 사례 */}
       <div className={styles.credSection}>
+        <div className={styles.credTitleWrap}>
+          <p className={styles.credTitleLight}>사회복지사 취득부터 취업까지,</p>
+          <p className={styles.credTitleBold}>검증된 이유</p>
+        </div>
         <div className={styles.credBadgeList}>
           <div className={styles.credBadgeBox}>
             🏛️ 여성인력개발센터 공식 협약기관
@@ -890,173 +926,200 @@ function LandingContent() {
 
       {/* 무료상담 신청 폼 섹션 */}
       <div className={styles.formSection} id="consult-form">
+        <p className={styles.formSectionTitle}>
+          걱정하지 마세요,
+          <br />
+          생각보다 많은 분들이 해내고 있습니다.
+        </p>
         <div className={styles.formCard}>
           <p className={styles.formTitle}>무료상담 신청</p>
 
-              <div className={styles.formField}>
-                <input
-                  type="text"
-                  className={styles.formInput}
-                  placeholder="이름"
-                  value={formData.name}
-                  onChange={(e) =>
-                    setFormData({ ...formData, name: e.target.value })
-                  }
-                />
-              </div>
+          <div className={styles.formField}>
+            <input
+              type="text"
+              className={styles.formInput}
+              placeholder="이름"
+              value={formData.name}
+              onChange={(e) =>
+                setFormData({ ...formData, name: e.target.value })
+              }
+            />
+          </div>
 
-              <div className={styles.formField}>
-                <input
-                  type="tel"
-                  className={styles.formInput}
-                  placeholder="연락처 (010-0000-0000)"
-                  value={formData.contact}
-                  onChange={(e) => {
-                    const f = formatContact(e.target.value);
-                    setFormData({ ...formData, contact: f });
-                    validateContact(f);
-                  }}
-                />
-                {contactError && (
-                  <p className={styles.errorMsg}>{contactError}</p>
-                )}
-              </div>
+          <div className={styles.formField}>
+            <input
+              type="tel"
+              className={styles.formInput}
+              placeholder="연락처 (010-0000-0000)"
+              value={formData.contact}
+              onChange={(e) => {
+                const f = formatContact(e.target.value);
+                setFormData({ ...formData, contact: f });
+                validateContact(f);
+              }}
+            />
+            {contactError && <p className={styles.errorMsg}>{contactError}</p>}
+          </div>
 
-              <div className={styles.formField}>
-                <select
-                  className={styles.formSelect}
-                  value={formData.education}
-                  onChange={(e) =>
-                    setFormData({ ...formData, education: e.target.value })
-                  }
+          <div className={styles.formField}>
+            <select
+              className={styles.formSelect}
+              value={formData.education}
+              onChange={(e) =>
+                setFormData({ ...formData, education: e.target.value })
+              }
+            >
+              <option value="">최종학력을 선택해주세요</option>
+              <option value="고졸">고졸</option>
+              <option value="전문대졸">전문대졸</option>
+              <option value="대졸">대졸</option>
+              <option value="대학원 이상">대학원 이상</option>
+            </select>
+            <span className={styles.formHelp}>
+              최종학력마다 과정이 달라져요!
+            </span>
+          </div>
+
+          <div className={styles.formField}>
+            <select
+              className={styles.formSelect}
+              value={formData.hope_course}
+              onChange={(e) =>
+                setFormData({ ...formData, hope_course: e.target.value })
+              }
+            >
+              <option value="">희망과정을 선택해주세요</option>
+              <option value="사회복지사">사회복지사</option>
+            </select>
+          </div>
+
+          <div className={styles.formField}>
+            <span className={styles.formHelp}>취득사유 (복수선택 가능)</span>
+            <div className={styles.reasonGroup}>
+              {["즉시취업", "이직", "미래준비", "취미"].map((opt) => {
+                const sel = formData.reason
+                  ? formData.reason.split(", ").includes(opt)
+                  : false;
+                return (
+                  <label
+                    key={opt}
+                    className={`${styles.reasonItem} ${sel ? styles.reasonItemSel : ""}`}
+                  >
+                    <input
+                      type="checkbox"
+                      checked={sel}
+                      style={{ display: "none" }}
+                      onChange={() => {
+                        const cur = formData.reason
+                          ? formData.reason.split(", ").filter(Boolean)
+                          : [];
+                        const upd = sel
+                          ? cur.filter((r) => r !== opt)
+                          : [...cur, opt];
+                        setFormData({
+                          ...formData,
+                          reason: upd.join(", "),
+                        });
+                      }}
+                    />
+                    {opt}
+                  </label>
+                );
+              })}
+            </div>
+          </div>
+
+          <div className={styles.formAgreeWrap}>
+            <label className={styles.formAgreeRow}>
+              <input
+                type="checkbox"
+                className={styles.formCheckInput}
+                checked={privacyAgreed}
+                onChange={(e) => setPrivacyAgreed(e.target.checked)}
+              />
+              <span className={styles.formCheckBox}>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  fill="none"
                 >
-                  <option value="">최종학력을 선택해주세요</option>
-                  <option value="고졸">고졸</option>
-                  <option value="전문대졸">전문대졸</option>
-                  <option value="대졸">대졸</option>
-                  <option value="대학원 이상">대학원 이상</option>
-                </select>
-                <span className={styles.formHelp}>
-                  최종학력마다 과정이 달라져요!
-                </span>
-              </div>
-
-              <div className={styles.formField}>
-                <select
-                  className={styles.formSelect}
-                  value={formData.hope_course}
-                  onChange={(e) =>
-                    setFormData({ ...formData, hope_course: e.target.value })
-                  }
-                >
-                  <option value="">희망과정을 선택해주세요</option>
-                  <option value="사회복지사">사회복지사</option>
-                </select>
-              </div>
-
-              <div className={styles.formField}>
-                <span className={styles.formHelp}>
-                  취득사유 (복수선택 가능)
-                </span>
-                <div className={styles.reasonGroup}>
-                  {["즉시취업", "이직", "미래준비", "취미"].map((opt) => {
-                    const sel = formData.reason
-                      ? formData.reason.split(", ").includes(opt)
-                      : false;
-                    return (
-                      <label
-                        key={opt}
-                        className={`${styles.reasonItem} ${sel ? styles.reasonItemSel : ""}`}
-                      >
-                        <input
-                          type="checkbox"
-                          checked={sel}
-                          style={{ display: "none" }}
-                          onChange={() => {
-                            const cur = formData.reason
-                              ? formData.reason.split(", ").filter(Boolean)
-                              : [];
-                            const upd = sel
-                              ? cur.filter((r) => r !== opt)
-                              : [...cur, opt];
-                            setFormData({
-                              ...formData,
-                              reason: upd.join(", "),
-                            });
-                          }}
-                        />
-                        {opt}
-                      </label>
-                    );
-                  })}
-                </div>
-              </div>
-
-              <div className={styles.formAgreeWrap}>
-                <label className={styles.formAgreeRow}>
-                  <input
-                    type="checkbox"
-                    className={styles.formCheckInput}
-                    checked={privacyAgreed}
-                    onChange={(e) => setPrivacyAgreed(e.target.checked)}
+                  <path
+                    fillRule="evenodd"
+                    clipRule="evenodd"
+                    d="M14.3643 3.40738C14.5518 3.59491 14.6571 3.84921 14.6571 4.11438C14.6571 4.37954 14.5518 4.63385 14.3643 4.82138L6.86901 12.3167C6.76996 12.4158 6.65236 12.4944 6.52293 12.548C6.3935 12.6016 6.25477 12.6292 6.11468 12.6292C5.97458 12.6292 5.83586 12.6016 5.70643 12.548C5.577 12.4944 5.4594 12.4158 5.36034 12.3167L1.63634 8.59338C1.54083 8.50113 1.46465 8.39079 1.41224 8.26878C1.35983 8.14678 1.33225 8.01556 1.33109 7.88278C1.32994 7.75 1.35524 7.61832 1.40552 7.49542C1.4558 7.37253 1.53006 7.26088 1.62395 7.16698C1.71784 7.07309 1.82949 6.99884 1.95239 6.94856C2.07529 6.89828 2.20697 6.87297 2.33974 6.87413C2.47252 6.87528 2.60374 6.90287 2.72575 6.95528C2.84775 7.00769 2.9581 7.08387 3.05034 7.17938L6.11434 10.2434L12.9497 3.40738C13.0425 3.31445 13.1528 3.24073 13.2742 3.19044C13.3955 3.14014 13.5256 3.11426 13.657 3.11426C13.7884 3.11426 13.9185 3.14014 14.0398 3.19044C14.1612 3.24073 14.2715 3.31445 14.3643 3.40738Z"
+                    fill="white"
                   />
-                  <span className={styles.formCheckBox}>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      viewBox="0 0 16 16"
-                      fill="none"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        clipRule="evenodd"
-                        d="M14.3643 3.40738C14.5518 3.59491 14.6571 3.84921 14.6571 4.11438C14.6571 4.37954 14.5518 4.63385 14.3643 4.82138L6.86901 12.3167C6.76996 12.4158 6.65236 12.4944 6.52293 12.548C6.3935 12.6016 6.25477 12.6292 6.11468 12.6292C5.97458 12.6292 5.83586 12.6016 5.70643 12.548C5.577 12.4944 5.4594 12.4158 5.36034 12.3167L1.63634 8.59338C1.54083 8.50113 1.46465 8.39079 1.41224 8.26878C1.35983 8.14678 1.33225 8.01556 1.33109 7.88278C1.32994 7.75 1.35524 7.61832 1.40552 7.49542C1.4558 7.37253 1.53006 7.26088 1.62395 7.16698C1.71784 7.07309 1.82949 6.99884 1.95239 6.94856C2.07529 6.89828 2.20697 6.87297 2.33974 6.87413C2.47252 6.87528 2.60374 6.90287 2.72575 6.95528C2.84775 7.00769 2.9581 7.08387 3.05034 7.17938L6.11434 10.2434L12.9497 3.40738C13.0425 3.31445 13.1528 3.24073 13.2742 3.19044C13.3955 3.14014 13.5256 3.11426 13.657 3.11426C13.7884 3.11426 13.9185 3.14014 14.0398 3.19044C14.1612 3.24073 14.2715 3.31445 14.3643 3.40738Z"
-                        fill="white"
-                      />
-                    </svg>
-                  </span>
-                  <span className={styles.formAgreeText}>
-                    <button>개인정보처리방침</button> 동의
-                  </span>
-                </label>
-                <div className={styles.formPrivacyBox}>
-                  <div className={styles.formPrivacyText}>
-                    <div className={styles.modalScroll}>
-                      <p className={styles.modalItem}>
-                        <strong>1. 개인정보 수집 및 이용 목적</strong>
-                        사회복지사 자격 취득 상담 진행, 문의사항 응대
-                        <br />
-                        개인정보는 상담 서비스 제공을 위한 목적으로만 수집 및
-                        이용되며, 동의 없이 제3자에게 제공되지 않습니다
-                      </p>
-                      <p className={styles.modalItem}>
-                        <strong>2. 수집 및 이용하는 개인정보 항목</strong>
-                        필수 - 이름, 연락처(휴대전화번호), 최종학력, 희망과정,
-                        취득사유
-                      </p>
-                      <p className={styles.modalItem}>
-                        <strong>3. 보유 및 이용 기간</strong>
-                        법령이 정하는 경우를 제외하고는 수집일로부터 1년 또는
-                        동의 철회 시까지 보유 및 이용합니다.
-                      </p>
-                      <p className={styles.modalItem}>
-                        <strong>4. 동의 거부 권리</strong>
-                        신청자는 동의를 거부할 권리가 있습니다. 단, 동의를
-                        거부하는 경우 상담 서비스 이용이 제한됩니다.
-                      </p>
-                    </div>
-                  </div>
+                </svg>
+              </span>
+              <span className={styles.formAgreeText}>
+                <button>개인정보처리방침</button> 동의
+              </span>
+            </label>
+            <div className={styles.formPrivacyBox}>
+              <div className={styles.formPrivacyText}>
+                <div className={styles.modalScroll}>
+                  <p className={styles.modalItem}>
+                    <strong>1. 개인정보 수집 및 이용 목적</strong>
+                    사회복지사 자격 취득 상담 진행, 문의사항 응대
+                    <br />
+                    개인정보는 상담 서비스 제공을 위한 목적으로만 수집 및
+                    이용되며, 동의 없이 제3자에게 제공되지 않습니다
+                  </p>
+                  <p className={styles.modalItem}>
+                    <strong>2. 수집 및 이용하는 개인정보 항목</strong>
+                    필수 - 이름, 연락처(휴대전화번호), 최종학력, 희망과정,
+                    취득사유
+                  </p>
+                  <p className={styles.modalItem}>
+                    <strong>3. 보유 및 이용 기간</strong>
+                    법령이 정하는 경우를 제외하고는 수집일로부터 1년 또는 동의
+                    철회 시까지 보유 및 이용합니다.
+                  </p>
+                  <p className={styles.modalItem}>
+                    <strong>4. 동의 거부 권리</strong>
+                    신청자는 동의를 거부할 권리가 있습니다. 단, 동의를 거부하는
+                    경우 상담 서비스 이용이 제한됩니다.
+                  </p>
                 </div>
               </div>
+            </div>
+          </div>
 
-              <button
-                className={styles.formSubmit}
-                disabled={!isFormValid || loading}
-                onClick={handleSubmit}
+          <button
+            className={styles.formSubmit}
+            disabled={!isFormValid || loading}
+            onClick={handleSubmit}
+          >
+            {loading ? "처리 중..." : "무료상담 신청하기"}
+          </button>
+
+          <div className={styles.formPhoneWrap}>
+            <p className={styles.formPhoneNote}>
+              전화 상담도 가능합니다. (상담시간: 평일 09:00 ~ 18:00)
+            </p>
+            <a href="tel:070-8652-2574" className={styles.formPhoneBtn}>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 16 16"
+                fill="none"
+                className={styles.formPhoneIcon}
+                aria-hidden="true"
               >
-                {loading ? "처리 중..." : "제출하기"}
-              </button>
+                <path
+                  fillRule="evenodd"
+                  clipRule="evenodd"
+                  d="M11.035 14.755C10.075 14.7197 7.35433 14.3437 4.50499 11.495C1.65633 8.64566 1.28099 5.92566 1.24499 4.96499C1.19166 3.50099 2.31299 2.07899 3.60833 1.52366C3.76431 1.4563 3.93513 1.43066 4.10401 1.44924C4.2729 1.46782 4.43405 1.52999 4.57166 1.62966C5.63833 2.40699 6.37433 3.58299 7.00633 4.50766C7.14538 4.71081 7.20484 4.95802 7.17336 5.20219C7.14189 5.44635 7.02169 5.67041 6.83566 5.83166L5.53499 6.79766C5.47215 6.84303 5.42792 6.90968 5.41051 6.9852C5.3931 7.06073 5.40369 7.14002 5.44033 7.20832C5.73499 7.74366 6.25899 8.54099 6.85899 9.14099C7.45899 9.74099 8.29433 10.2997 8.86699 10.6277C8.93879 10.668 9.02331 10.6792 9.10316 10.6591C9.18302 10.6391 9.25214 10.5891 9.29633 10.5197L10.143 9.23099C10.2987 9.02422 10.5283 8.8857 10.7838 8.84444C11.0393 8.80319 11.3008 8.86239 11.5137 9.00966C12.4517 9.65899 13.5463 10.3823 14.3477 11.4083C14.4554 11.5469 14.524 11.7119 14.5461 11.8861C14.5683 12.0602 14.5433 12.2371 14.4737 12.3983C13.9157 13.7003 12.5037 14.809 11.035 14.755Z"
+                  fill="white"
+                />
+              </svg>
+              <span>전화 상담하기</span>
+              <span>070-8652-2574</span>
+            </a>
+          </div>
         </div>
       </div>
 
@@ -1110,7 +1173,6 @@ function LandingContent() {
       >
         무료상담 신청하기
       </button>
-
     </div>
   );
 }

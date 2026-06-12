@@ -1056,7 +1056,7 @@
 .reviewLabel {
   color: #010101;
   font-family: "Pretendard", sans-serif;
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 500;
   line-height: 19.6px;
   margin: 0;
@@ -1108,7 +1108,7 @@
   height: 89px;
   background: rgba(255, 255, 255, 0.01);
   backdrop-filter: blur(2.5px);
-  -webkit-backdrop-filter: blur(2.5px);
+  backdrop-filter: blur(2.5px);
 }
 
 .reviewBody {
@@ -1164,8 +1164,8 @@
 }
 
 .diffWing {
-  height: 119px;
-  width: auto;
+  height: 131px;
+  width: 231px;
   display: block;
 }
 
@@ -1173,7 +1173,8 @@
   position: absolute;
   left: 50%;
   top: 50%;
-  transform: translate(-50%, -40%);
+  transform: translate(-50%, -70%);
+  white-space: nowrap;
   color: #fff;
   text-align: center;
   -webkit-text-stroke-width: 0.3px;
@@ -1448,6 +1449,34 @@
   align-self: stretch;
 }
 
+.credTitleWrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.credTitleLight {
+  color: #454545;
+  text-align: center;
+  font-family: "Paperlogy", sans-serif;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 130%; /* 31.2px */
+  margin: 0;
+}
+
+.credTitleBold {
+  color: #ff751f;
+  text-align: center;
+  font-family: "Paperlogy", sans-serif;
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 130%; /* 41.6px */
+  margin: 0;
+}
+
 .credBadgeList {
   display: flex;
   flex-direction: column;
@@ -1715,6 +1744,17 @@
     #ffefdc;
 }
 
+.formSectionTitle {
+  color: var(--Atomic-Common-White, #fff);
+  text-align: center;
+  font-family: "Cafe24Shiningstar", sans-serif;
+  font-size: 28px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 120%; /* 33.6px */
+  margin: 0;
+}
+
 .formCard {
   display: flex;
   width: 100%;
@@ -1903,6 +1943,50 @@
   cursor: not-allowed;
 }
 
+.formPhoneWrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  align-self: stretch;
+}
+
+.formPhoneNote {
+  color: #656565;
+  font-family: "Pretendard", sans-serif;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 120%; /* 14.4px */
+  margin: 0;
+}
+
+.formPhoneBtn {
+  display: flex;
+  padding: 14px 0;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  align-self: stretch;
+  border-radius: 8px;
+  background: #00bf16;
+  box-shadow: 0 0 7px 0 rgba(0, 27, 87, 0.1);
+  color: #fff;
+  text-align: center;
+  font-family: "Pretendard", sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 100%; /* 14px */
+  text-decoration: none;
+}
+
+.formPhoneIcon {
+  width: 16px;
+  height: 16px;
+  aspect-ratio: 1/1;
+}
+
 .formDone {
   display: flex;
   flex-direction: column;
@@ -2051,26 +2135,26 @@
 }
 
 .heroCenterName {
-  color: #fbffb6;
+  color: var(--Atomic-Common-White, #fff);
   text-align: center;
   font-family: "Paperlogy", sans-serif;
-  font-size: 39px;
+  font-size: 24px;
   font-style: normal;
   font-weight: 800;
-  line-height: 100%; /* 39px */
-  letter-spacing: 0.78px;
+  line-height: 100%; /* 24px */
+  letter-spacing: 0.48px;
   margin: 0;
 }
 
 .heroCourse {
-  color: var(--Atomic-Common-White, #fff);
+  color: #fbffb6;
   text-align: center;
   font-family: "Paperlogy", sans-serif;
-  font-size: 30px;
+  font-size: 40px;
   font-style: normal;
   font-weight: 800;
-  line-height: 100%; /* 30px */
-  letter-spacing: 0.6px;
+  line-height: 120%; /* 48px */
+  letter-spacing: 0.8px;
   margin: 0;
 }
 
