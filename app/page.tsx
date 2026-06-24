@@ -282,10 +282,16 @@ function LandingContent() {
     education: "",
     hope_course: "",
     reason: "",
+    memo: "",
   });
+  // 빠른 상담 토글 (기본 OFF)
+  const [fastConsult, setFastConsult] = useState(false);
+  // 상담 선호 시간 (복수선택)
+  const [preferredTimes, setPreferredTimes] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
   const [contactError, setContactError] = useState("");
   const [privacyAgreed, setPrivacyAgreed] = useState(false);
+  const [showPrivacyModal, setShowPrivacyModal] = useState(false);
   const [countdown, setCountdown] = useState("6일 14:22:23");
 
   useEffect(() => {
@@ -428,6 +434,9 @@ function LandingContent() {
           education: formData.education,
           hope_course: formData.hope_course,
           reason: formData.reason,
+          fast_consultation: fastConsult,
+          preferred_times: preferredTimes,
+          consult_time_memo: formData.memo || null,
           click_source,
         }),
       });
@@ -932,158 +941,257 @@ function LandingContent() {
           생각보다 많은 분들이 해내고 있습니다.
         </p>
         <div className={styles.formCard}>
-          <p className={styles.formTitle}>무료상담 신청</p>
-
-          <div className={styles.formField}>
-            <input
-              type="text"
-              className={styles.formInput}
-              placeholder="이름"
-              value={formData.name}
-              onChange={(e) =>
-                setFormData({ ...formData, name: e.target.value })
-              }
-            />
+          <div className={styles.formHeader}>
+            <p className={styles.formTitle}>무료상담 신청</p>
           </div>
 
-          <div className={styles.formField}>
-            <input
-              type="tel"
-              className={styles.formInput}
-              placeholder="연락처 (010-0000-0000)"
-              value={formData.contact}
-              onChange={(e) => {
-                const f = formatContact(e.target.value);
-                setFormData({ ...formData, contact: f });
-                validateContact(f);
-              }}
-            />
-            {contactError && <p className={styles.errorMsg}>{contactError}</p>}
-          </div>
+          <div className={styles.formBody}>
+            <div className={styles.formBodyInner}>
+              <div className={styles.formRequiredSection}>
+                <p className={styles.formRequiredLabel}>
+                  필수 사항<span className={styles.formRequiredStar}>*</span>
+                </p>
 
-          <div className={styles.formField}>
-            <select
-              className={styles.formSelect}
-              value={formData.education}
-              onChange={(e) =>
-                setFormData({ ...formData, education: e.target.value })
-              }
-            >
-              <option value="">최종학력을 선택해주세요</option>
-              <option value="고졸">고졸</option>
-              <option value="전문대졸">전문대졸</option>
-              <option value="대졸">대졸</option>
-              <option value="대학원 이상">대학원 이상</option>
-            </select>
-            <span className={styles.formHelp}>
-              최종학력마다 과정이 달라져요!
-            </span>
-          </div>
+                <div className={styles.formFieldGroup}>
+                  <input
+                    type="text"
+                    className={styles.formInput}
+                    placeholder="이름"
+                    value={formData.name}
+                    onChange={(e) =>
+                      setFormData({ ...formData, name: e.target.value })
+                    }
+                  />
 
-          <div className={styles.formField}>
-            <select
-              className={styles.formSelect}
-              value={formData.hope_course}
-              onChange={(e) =>
-                setFormData({ ...formData, hope_course: e.target.value })
-              }
-            >
-              <option value="">희망과정을 선택해주세요</option>
-              <option value="사회복지사">사회복지사</option>
-            </select>
-          </div>
-
-          <div className={styles.formField}>
-            <span className={styles.formHelp}>취득사유 (복수선택 가능)</span>
-            <div className={styles.reasonGroup}>
-              {["즉시취업", "이직", "미래준비", "취미"].map((opt) => {
-                const sel = formData.reason
-                  ? formData.reason.split(", ").includes(opt)
-                  : false;
-                return (
-                  <label
-                    key={opt}
-                    className={`${styles.reasonItem} ${sel ? styles.reasonItemSel : ""}`}
-                  >
+                  <div className={styles.formInputWrap}>
                     <input
-                      type="checkbox"
-                      checked={sel}
-                      style={{ display: "none" }}
-                      onChange={() => {
-                        const cur = formData.reason
-                          ? formData.reason.split(", ").filter(Boolean)
-                          : [];
-                        const upd = sel
-                          ? cur.filter((r) => r !== opt)
-                          : [...cur, opt];
-                        setFormData({
-                          ...formData,
-                          reason: upd.join(", "),
-                        });
+                      type="tel"
+                      className={styles.formInput}
+                      placeholder="연락처"
+                      value={formData.contact}
+                      onChange={(e) => {
+                        const f = formatContact(e.target.value);
+                        setFormData({ ...formData, contact: f });
+                        validateContact(f);
                       }}
                     />
-                    {opt}
-                  </label>
-                );
-              })}
+                    {contactError && (
+                      <p className={styles.errorMsg}>{contactError}</p>
+                    )}
+                  </div>
+
+                  <div className={styles.formSelectWrap}>
+                    <select
+                      className={styles.formSelect}
+                      value={formData.education}
+                      onChange={(e) =>
+                        setFormData({ ...formData, education: e.target.value })
+                      }
+                    >
+                      <option value="">최종학력을 선택해주세요.</option>
+                      <option value="고졸">고졸</option>
+                      <option value="전문대졸">전문대졸</option>
+                      <option value="대졸">대졸</option>
+                      <option value="대학원 이상">대학원 이상</option>
+                    </select>
+                    <span className={styles.formHelp}>
+                      최종학력마다 과정이 달라져요!
+                    </span>
+                  </div>
+
+                  <div className={styles.formSelectWrap}>
+                    <select
+                      className={styles.formSelect}
+                      value={formData.hope_course}
+                      onChange={(e) =>
+                        setFormData({ ...formData, hope_course: e.target.value })
+                      }
+                    >
+                      <option value="">희망과정을 선택해주세요.</option>
+                      <option value="사회복지사">사회복지사</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              {/* 취득사유 */}
+              <div className={styles.reasonSection}>
+                <p className={styles.reasonLabel}>취득사유</p>
+                <div className={styles.reasonGroup}>
+                  {["즉시취업", "이직", "미래준비", "취미"].map((opt) => {
+                    const sel = formData.reason
+                      ? formData.reason.split(", ").includes(opt)
+                      : false;
+                    return (
+                      <label
+                        key={opt}
+                        className={`${styles.reasonItem} ${sel ? styles.reasonItemSel : ""}`}
+                      >
+                        <input
+                          type="checkbox"
+                          checked={sel}
+                          style={{ display: "none" }}
+                          onChange={() => {
+                            const cur = formData.reason
+                              ? formData.reason.split(", ").filter(Boolean)
+                              : [];
+                            const upd = sel
+                              ? cur.filter((r) => r !== opt)
+                              : [...cur, opt];
+                            setFormData({
+                              ...formData,
+                              reason: upd.join(", "),
+                            });
+                          }}
+                        />
+                        {opt}
+                      </label>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* 선택 사항 */}
+              <div className={styles.optionalSection}>
+                <p className={styles.optionalTitle}>선택 사항</p>
+
+                {/* 빠른 상담 토글 */}
+                <div className={styles.fastConsultBlock}>
+                  <div
+                    className={styles.fastConsultRow}
+                    onClick={() => setFastConsult((v) => !v)}
+                  >
+                    <p className={styles.fastConsultLabel}>
+                      빠른 상담을 원합니다.
+                    </p>
+                    <span
+                      className={`${styles.formToggle} ${fastConsult ? styles.formToggleOn : ""}`}
+                    >
+                      {fastConsult && (
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="18"
+                          height="18"
+                          viewBox="0 0 16 16"
+                          fill="none"
+                        >
+                          <path
+                            fillRule="evenodd"
+                            clipRule="evenodd"
+                            d="M14.3643 3.40738C14.5518 3.59491 14.6571 3.84921 14.6571 4.11438C14.6571 4.37954 14.5518 4.63385 14.3643 4.82138L6.86901 12.3167C6.76996 12.4158 6.65236 12.4944 6.52293 12.548C6.3935 12.6016 6.25477 12.6292 6.11468 12.6292C5.97458 12.6292 5.83586 12.6016 5.70643 12.548C5.577 12.4944 5.4594 12.4158 5.36034 12.3167L1.63634 8.59338C1.54083 8.50113 1.46465 8.39079 1.41224 8.26878C1.35983 8.14678 1.33225 8.01556 1.33109 7.88278C1.32994 7.75 1.35524 7.61832 1.40552 7.49542C1.4558 7.37253 1.53006 7.26088 1.62395 7.16698C1.71784 7.07309 1.82949 6.99884 1.95239 6.94856C2.07529 6.89828 2.20697 6.87297 2.33974 6.87413C2.47252 6.87528 2.60374 6.90287 2.72575 6.95528C2.84775 7.00769 2.9581 7.08387 3.05034 7.17938L6.11434 10.2434L12.9497 3.40738C13.0425 3.31445 13.1528 3.24073 13.2742 3.19044C13.3955 3.14014 13.5256 3.11426 13.657 3.11426C13.7884 3.11426 13.9185 3.14014 14.0398 3.19044C14.1612 3.24073 14.2715 3.31445 14.3643 3.40738Z"
+                            fill="white"
+                          />
+                        </svg>
+                      )}
+                    </span>
+                  </div>
+                  <p className={styles.fastConsultDesc}>
+                    빠른 상담 체크 시{" "}
+                    <span className={styles.fastConsultStrong}>
+                      오후 7시 이전 신청건
+                    </span>
+                    까지 당일 상담,
+                    <br />
+                    이후 건은 익일 오전 10시~ 오후 7시 사이에 연락드립니다.
+                  </p>
+                </div>
+
+                {/* 선호 시간 + 메모 */}
+                <div className={styles.optionalFields}>
+                  <div className={styles.optionalField}>
+                    <div className={styles.optionalFieldHead}>
+                      <p className={styles.optionalFieldLabel}>상담 선호 시간</p>
+                      <p className={styles.optionalFieldHelp}>복수선택 가능</p>
+                    </div>
+                    <div className={styles.timeGrid}>
+                      {["10:00~13:00", "14:00~17:00", "17:00~19:00"].map((t) => {
+                        const sel = preferredTimes.includes(t);
+                        return (
+                          <button
+                            type="button"
+                            key={t}
+                            className={`${styles.timeChip} ${sel ? styles.timeChipSel : ""}`}
+                            onClick={() =>
+                              setPreferredTimes((prev) =>
+                                sel
+                                  ? prev.filter((x) => x !== t)
+                                  : [...prev, t],
+                              )
+                            }
+                          >
+                            {t}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+
+                  <div className={styles.optionalField}>
+                    <div className={styles.optionalFieldHead}>
+                      <p className={styles.optionalFieldLabel}>
+                        상담 시간 관련 메모(25자 이내)
+                      </p>
+                      <p
+                        className={`${styles.optionalFieldHelp} ${styles.optionalFieldHelpLoose}`}
+                      >
+                        편하신 요일, 시간 관련 메모를 남겨주세요.
+                      </p>
+                    </div>
+                    <input
+                      type="text"
+                      className={styles.memoInput}
+                      maxLength={25}
+                      placeholder="월/수/금 오전, 화/목 오후 선호"
+                      value={formData.memo}
+                      onChange={(e) =>
+                        setFormData({ ...formData, memo: e.target.value })
+                      }
+                    />
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
           <div className={styles.formAgreeWrap}>
-            <label className={styles.formAgreeRow}>
-              <input
-                type="checkbox"
-                className={styles.formCheckInput}
-                checked={privacyAgreed}
-                onChange={(e) => setPrivacyAgreed(e.target.checked)}
-              />
-              <span className={styles.formCheckBox}>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  fill="none"
+            <div
+              className={styles.formAgreeRow}
+              onClick={() => setPrivacyAgreed((v) => !v)}
+            >
+              <p className={styles.formAgreeLabel}>
+                <button
+                  type="button"
+                  className={styles.formAgreeLink}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setShowPrivacyModal(true);
+                  }}
                 >
-                  <path
-                    fillRule="evenodd"
-                    clipRule="evenodd"
-                    d="M14.3643 3.40738C14.5518 3.59491 14.6571 3.84921 14.6571 4.11438C14.6571 4.37954 14.5518 4.63385 14.3643 4.82138L6.86901 12.3167C6.76996 12.4158 6.65236 12.4944 6.52293 12.548C6.3935 12.6016 6.25477 12.6292 6.11468 12.6292C5.97458 12.6292 5.83586 12.6016 5.70643 12.548C5.577 12.4944 5.4594 12.4158 5.36034 12.3167L1.63634 8.59338C1.54083 8.50113 1.46465 8.39079 1.41224 8.26878C1.35983 8.14678 1.33225 8.01556 1.33109 7.88278C1.32994 7.75 1.35524 7.61832 1.40552 7.49542C1.4558 7.37253 1.53006 7.26088 1.62395 7.16698C1.71784 7.07309 1.82949 6.99884 1.95239 6.94856C2.07529 6.89828 2.20697 6.87297 2.33974 6.87413C2.47252 6.87528 2.60374 6.90287 2.72575 6.95528C2.84775 7.00769 2.9581 7.08387 3.05034 7.17938L6.11434 10.2434L12.9497 3.40738C13.0425 3.31445 13.1528 3.24073 13.2742 3.19044C13.3955 3.14014 13.5256 3.11426 13.657 3.11426C13.7884 3.11426 13.9185 3.14014 14.0398 3.19044C14.1612 3.24073 14.2715 3.31445 14.3643 3.40738Z"
-                    fill="white"
-                  />
-                </svg>
+                  개인정보처리방침
+                </button>
+                <span className={styles.formAgreeWord}>동의</span>
+                <span className={styles.formAgreeRequired}>(필수)</span>
+              </p>
+              <span
+                className={`${styles.formToggle} ${privacyAgreed ? styles.formToggleOn : ""}`}
+              >
+                {privacyAgreed && (
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="18"
+                    height="18"
+                    viewBox="0 0 16 16"
+                    fill="none"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      clipRule="evenodd"
+                      d="M14.3643 3.40738C14.5518 3.59491 14.6571 3.84921 14.6571 4.11438C14.6571 4.37954 14.5518 4.63385 14.3643 4.82138L6.86901 12.3167C6.76996 12.4158 6.65236 12.4944 6.52293 12.548C6.3935 12.6016 6.25477 12.6292 6.11468 12.6292C5.97458 12.6292 5.83586 12.6016 5.70643 12.548C5.577 12.4944 5.4594 12.4158 5.36034 12.3167L1.63634 8.59338C1.54083 8.50113 1.46465 8.39079 1.41224 8.26878C1.35983 8.14678 1.33225 8.01556 1.33109 7.88278C1.32994 7.75 1.35524 7.61832 1.40552 7.49542C1.4558 7.37253 1.53006 7.26088 1.62395 7.16698C1.71784 7.07309 1.82949 6.99884 1.95239 6.94856C2.07529 6.89828 2.20697 6.87297 2.33974 6.87413C2.47252 6.87528 2.60374 6.90287 2.72575 6.95528C2.84775 7.00769 2.9581 7.08387 3.05034 7.17938L6.11434 10.2434L12.9497 3.40738C13.0425 3.31445 13.1528 3.24073 13.2742 3.19044C13.3955 3.14014 13.5256 3.11426 13.657 3.11426C13.7884 3.11426 13.9185 3.14014 14.0398 3.19044C14.1612 3.24073 14.2715 3.31445 14.3643 3.40738Z"
+                      fill="white"
+                    />
+                  </svg>
+                )}
               </span>
-              <span className={styles.formAgreeText}>
-                <button>개인정보처리방침</button> 동의
-              </span>
-            </label>
-            <div className={styles.formPrivacyBox}>
-              <div className={styles.formPrivacyText}>
-                <div className={styles.modalScroll}>
-                  <p className={styles.modalItem}>
-                    <strong>1. 개인정보 수집 및 이용 목적</strong>
-                    사회복지사 자격 취득 상담 진행, 문의사항 응대
-                    <br />
-                    개인정보는 상담 서비스 제공을 위한 목적으로만 수집 및
-                    이용되며, 동의 없이 제3자에게 제공되지 않습니다
-                  </p>
-                  <p className={styles.modalItem}>
-                    <strong>2. 수집 및 이용하는 개인정보 항목</strong>
-                    필수 - 이름, 연락처(휴대전화번호), 최종학력, 희망과정,
-                    취득사유
-                  </p>
-                  <p className={styles.modalItem}>
-                    <strong>3. 보유 및 이용 기간</strong>
-                    법령이 정하는 경우를 제외하고는 수집일로부터 1년 또는 동의
-                    철회 시까지 보유 및 이용합니다.
-                  </p>
-                  <p className={styles.modalItem}>
-                    <strong>4. 동의 거부 권리</strong>
-                    신청자는 동의를 거부할 권리가 있습니다. 단, 동의를 거부하는
-                    경우 상담 서비스 이용이 제한됩니다.
-                  </p>
-                </div>
-              </div>
             </div>
           </div>
 
@@ -1158,6 +1266,61 @@ function LandingContent() {
               />
               <p className={styles.doneTitle}>
                 신청이 완료되었습니다.{"\n"}곧 연락드리겠습니다.
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* 개인정보처리방침 모달 */}
+      {showPrivacyModal && (
+        <div
+          className={styles.modalOverlay}
+          onClick={() => setShowPrivacyModal(false)}
+        >
+          <div
+            className={styles.modalBox}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className={styles.modalHeader}>
+              <p className={styles.modalTitle}>개인정보처리방침</p>
+              <button
+                className={styles.closeBtn}
+                onClick={() => setShowPrivacyModal(false)}
+                aria-label="닫기"
+              >
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <path
+                    d="M18 6L6 18M6 6L18 18"
+                    stroke="#111827"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </button>
+            </div>
+            <div className={styles.modalScroll}>
+              <p className={styles.modalItem}>
+                <strong>1. 개인정보 수집 및 이용 목적</strong>
+                사회복지사 자격 취득 상담 진행, 문의사항 응대
+                <br />
+                개인정보는 상담 서비스 제공을 위한 목적으로만 수집 및 이용되며,
+                동의 없이 제3자에게 제공되지 않습니다
+              </p>
+              <p className={styles.modalItem}>
+                <strong>2. 수집 및 이용하는 개인정보 항목</strong>
+                필수 - 이름, 연락처(휴대전화번호), 최종학력, 희망과정, 취득사유
+              </p>
+              <p className={styles.modalItem}>
+                <strong>3. 보유 및 이용 기간</strong>
+                법령이 정하는 경우를 제외하고는 수집일로부터 1년 또는 동의 철회
+                시까지 보유 및 이용합니다.
+              </p>
+              <p className={styles.modalItem}>
+                <strong>4. 동의 거부 권리</strong>
+                신청자는 동의를 거부할 권리가 있습니다. 단, 동의를 거부하는 경우
+                상담 서비스 이용이 제한됩니다.
               </p>
             </div>
           </div>

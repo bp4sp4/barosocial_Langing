@@ -1779,6 +1779,87 @@
   margin: 0;
 }
 
+/* 카드 헤더 (타이틀 그룹) */
+.formHeader {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 9px;
+  align-self: stretch;
+}
+
+/* 폼 본문 래퍼 */
+.formBody {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  align-self: stretch;
+}
+
+.formBodyInner {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+  align-self: stretch;
+}
+
+/* 필수 사항 섹션 */
+.formRequiredSection {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  align-self: stretch;
+}
+
+.formRequiredLabel {
+  color: #4e5968;
+  font-family: "Pretendard", sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 100%;
+  margin: 0;
+}
+
+.formRequiredStar {
+  color: #ff4000;
+  font-family: "Pretendard", sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 100%;
+}
+
+/* 입력 필드 그룹 (이름/연락처/셀렉트) */
+.formFieldGroup {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  align-self: stretch;
+}
+
+/* 연락처 등 에러 메시지를 포함하는 입력 래퍼 */
+.formInputWrap {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  align-self: stretch;
+}
+
+/* 셀렉트 + 안내문구 래퍼 (안내문구 우측 정렬) */
+.formSelectWrap {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+  align-self: stretch;
+}
+
 .formField {
   display: flex;
   width: 100%;
@@ -1791,67 +1872,110 @@
 .formInput {
   display: flex;
   width: 100%;
-  padding: 12px 20px;
+  padding: 14px;
   align-items: center;
   gap: 10px;
   align-self: stretch;
   border-radius: 8px;
-  border: 1px solid #f2f2f2;
+  border: 1px solid #e4e4e4;
   background: #fff;
-  color: #3d3d3d;
+  color: #4e5968;
   font-family: "Pretendard", sans-serif;
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 120%;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 140%; /* 19.6px */
   box-sizing: border-box;
 }
 
 .formInput::placeholder {
-  color: #919191;
+  color: #4e5968;
 }
 
 .formSelect {
-  display: block;
+  display: flex;
   width: 100%;
-  padding: 12px 20px;
+  padding: 14px;
+  padding-right: 36px;
+  align-items: center;
+  gap: 10px;
   align-self: stretch;
   border-radius: 8px;
-  border: 1px solid #f2f2f2;
+  border: 1px solid #e4e4e4;
   background: #fff;
-  color: #3d3d3d;
+  color: #4e5968;
   font-family: "Pretendard", sans-serif;
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 120%;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 140%; /* 19.6px */
   cursor: pointer;
   box-sizing: border-box;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12' fill='none'%3E%3Cpath d='M10.7683 3.3485C10.6276 3.20789 10.4369 3.12891 10.238 3.12891C10.0391 3.12891 9.8484 3.20789 9.70775 3.3485L5.99525 7.061L2.28275 3.3485C2.1413 3.21188 1.95185 3.13628 1.7552 3.13799C1.55855 3.1397 1.37044 3.21858 1.23139 3.35763C1.09233 3.49669 1.01346 3.6848 1.01175 3.88144C1.01004 4.07809 1.08563 4.26754 1.22225 4.409L5.465 8.65175C5.60565 8.79235 5.79638 8.87134 5.99525 8.87134C6.19413 8.87134 6.38486 8.79235 6.5255 8.65175L10.7683 4.409C10.9089 4.26835 10.9878 4.07762 10.9878 3.87875C10.9878 3.67987 10.9089 3.48914 10.7683 3.3485Z' fill='%23919191'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
 }
 
 .formHelp {
   color: #919191;
   font-family: "Pretendard", sans-serif;
-  font-size: 13px;
-  font-weight: 400;
-  line-height: 120%;
-  padding: 0 20px;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 100%;
+  margin: 0;
 }
 
 .formAgreeWrap {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 14px;
   align-self: stretch;
 }
 
 .formAgreeRow {
   display: flex;
-  flex-direction: row-reverse;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   align-self: stretch;
-  gap: 8px;
   cursor: pointer;
+}
+
+.formAgreeLabel {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin: 0;
+}
+
+.formAgreeLink {
+  color: #ff4000;
+  font-family: "Pretendard", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 100%;
+  text-decoration-line: underline;
+  text-underline-position: from-font;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.formAgreeWord {
+  color: #1d1d1d;
+  font-family: "Pretendard", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 100%;
+}
+
+.formAgreeRequired {
+  color: #919191;
+  font-family: "Pretendard", sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 100%;
 }
 
 .formCheckInput {
@@ -2499,33 +2623,250 @@
   margin-top: 6px;
 }
 
+/* 취득사유 섹션 */
+.reasonSection {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  align-self: stretch;
+}
+
+.reasonLabel {
+  color: #4e5968;
+  font-family: "Pretendard", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 100%;
+  margin: 0;
+}
+
 .reasonGroup {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 4px;
-  padding: 0 20px;
+  align-items: flex-start;
+  gap: 6px;
 }
 
 .reasonItem {
-  display: inline-flex;
+  display: flex;
+  padding: 10px 12px;
   align-items: center;
-  padding: 8px 16px;
-  border-radius: 20px;
-  border: 1.5px solid #e0e0e0;
+  gap: 10px;
+  border-radius: 8px;
+  border: 1px solid #e4e4e4;
   background: #fff;
-  font-size: 15px;
-  color: #6b7280;
+  color: #4e5968;
+  font-family: "Pretendard", sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 100%;
   cursor: pointer;
   user-select: none;
   transition: all 0.15s ease;
 }
 
 .reasonItemSel {
-  border-color: #4f46e5;
-  background: #eef2ff;
-  color: #4f46e5;
+  border-color: #ff751f;
+  background: #fff3eb;
+  color: #ff751f;
   font-weight: 600;
+}
+
+/* ===== 선택 사항 섹션 ===== */
+.optionalSection {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  align-self: stretch;
+}
+
+.optionalTitle {
+  color: #4e5968;
+  font-family: "Pretendard", sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 100%;
+  margin: 0;
+}
+
+/* 빠른 상담 토글 블록 */
+.fastConsultBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  align-self: stretch;
+}
+
+.fastConsultRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  align-self: stretch;
+  cursor: pointer;
+}
+
+.fastConsultLabel {
+  color: #4e5968;
+  font-family: "Pretendard", sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 100%;
+  margin: 0;
+}
+
+/* 공용 토글 (빠른 상담 / 개인정보 동의) */
+.formToggle {
+  display: flex;
+  width: 24px;
+  height: 24px;
+  padding: 3px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  aspect-ratio: 1 / 1;
+  border-radius: 6px;
+  border: 1px solid #e4e4e4;
+  background: #fff;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.formToggleOn {
+  border-color: #ff751f;
+  background: #ff751f;
+}
+
+.fastConsultDesc {
+  color: #919191;
+  font-family: "Pretendard", sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 160%; /* 19.2px */
+  margin: 0;
+}
+
+.fastConsultStrong {
+  color: #919191;
+  font-family: "Pretendard", sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 160%;
+  text-decoration-line: underline;
+  text-underline-position: from-font;
+}
+
+/* 선호 시간 / 메모 묶음 */
+.optionalFields {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+  align-self: stretch;
+}
+
+.optionalField {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  align-self: stretch;
+}
+
+.optionalFieldHead {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+}
+
+.optionalFieldLabel {
+  color: #4e5968;
+  font-family: "Pretendard", sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 100%;
+  margin: 0;
+}
+
+.optionalFieldHelp {
+  color: #919191;
+  font-family: "Pretendard", sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 100%;
+  margin: 0;
+}
+
+.optionalFieldHelpLoose {
+  line-height: 160%; /* 19.2px */
+}
+
+/* 상담 선호 시간 그리드 */
+.timeGrid {
+  display: grid;
+  row-gap: 8px;
+  column-gap: 6px;
+  align-self: stretch;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  background: #fff;
+}
+
+.timeChip {
+  display: flex;
+  padding: 12px 0;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  align-self: stretch;
+  border-radius: 8px;
+  border: 1px solid #e4e4e4;
+  background: #fff;
+  color: #4e5968;
+  font-family: "Pretendard", sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 100%;
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.15s ease;
+}
+
+.timeChipSel {
+  border-color: #ff751f;
+  background: #fff3eb;
+  color: #ff751f;
+  font-weight: 600;
+}
+
+/* 상담 시간 관련 메모 입력 */
+.memoInput {
+  display: flex;
+  height: 38px;
+  padding: 12px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 10px;
+  align-self: stretch;
+  border-radius: 8px;
+  border: 1px solid #e4e4e4;
+  background: #fff;
+  color: #4e5968;
+  font-family: "Pretendard", sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 100%;
+  box-sizing: border-box;
+}
+
+.memoInput::placeholder {
+  color: #d0d0d0;
 }
 
 .checkboxLabel {
