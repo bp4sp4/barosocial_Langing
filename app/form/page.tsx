@@ -177,6 +177,12 @@ function FormContent({ clickSource }: { clickSource: string }) {
   const handleSubmit = async () => {
     setLoading(true);
     try {
+      const getCookie = (n: string) =>
+        document.cookie.split("; ").find((r) => r.startsWith(n + "="))?.split("=")[1];
+      const eventId =
+        typeof crypto !== "undefined" && crypto.randomUUID
+          ? crypto.randomUUID()
+          : `lead_${Date.now()}_${Math.random().toString(36).slice(2)}`;
       const response = await fetch("/api/consultations", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -188,6 +194,10 @@ function FormContent({ clickSource }: { clickSource: string }) {
           hope_course: formData.hope_course,
           reason: formData.reason,
           click_source: clickSource ? `랜딩페이지_${clickSource}` : "랜딩페이지",
+          event_id: eventId,
+          fbp: getCookie("_fbp") || null,
+          fbc: getCookie("_fbc") || null,
+          event_source_url: window.location.href,
         }),
       });
 
@@ -199,7 +209,7 @@ function FormContent({ clickSource }: { clickSource: string }) {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (window as any).dataLayer = (window as any).dataLayer || [];
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      (window as any).dataLayer.push({ event: "form_submit_success" });
+      (window as any).dataLayer.push({ event: "form_submit_success", event_id: eventId });
       setStep(2);
     } catch (error) {
       alert(error instanceof Error ? error.message : "저장에 실패했습니다. 다시 시도해주세요.");

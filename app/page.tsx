@@ -424,6 +424,12 @@ function LandingContent() {
           ? `${major}_주부_랜딩페이지_${sojae}`
           : `${major}_주부_랜딩페이지`;
       }
+      const getCookie = (n: string) =>
+        document.cookie.split("; ").find((r) => r.startsWith(n + "="))?.split("=")[1];
+      const eventId =
+        typeof crypto !== "undefined" && crypto.randomUUID
+          ? crypto.randomUUID()
+          : `lead_${Date.now()}_${Math.random().toString(36).slice(2)}`;
       const res = await fetch("/api/consultations", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -438,6 +444,10 @@ function LandingContent() {
           preferred_times: preferredTimes,
           consult_time_memo: formData.memo || null,
           click_source,
+          event_id: eventId,
+          fbp: getCookie("_fbp") || null,
+          fbc: getCookie("_fbc") || null,
+          event_source_url: window.location.href,
         }),
       });
       if (!res.ok) {
@@ -447,7 +457,7 @@ function LandingContent() {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (window as any).dataLayer = (window as any).dataLayer || [];
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      (window as any).dataLayer.push({ event: "form_submit_success" });
+      (window as any).dataLayer.push({ event: "form_submit_success", event_id: eventId });
       setDone(true);
     } catch (e) {
       alert(

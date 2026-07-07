@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { supabaseAdmin } from '@/lib/supabase/server';
 import { sendConsultationEmail } from '@/lib/email';
 import { formatClickSource as formatClickSourceStatic } from '@/lib/cafe-names';
+import { sendMetaLeadEvent } from '@/lib/meta-capi';
 
 async function formatClickSourceFromDB(clickSource: string | null): Promise<string> {
   if (!clickSource) return '미입력';
@@ -77,7 +78,7 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json();
-    const { name, contact, education, hope_course, reason, click_source, is_manual_entry, residence, memo, counsel_check, status, subject_cost, manager, fast_consultation, preferred_times, consult_time_memo } = body;
+    const { name, contact, education, hope_course, reason, click_source, is_manual_entry, residence, memo, counsel_check, status, subject_cost, manager, fast_consultation, preferred_times, consult_time_memo, event_id, fbp, fbc, event_source_url } = body;
 
     // 유효성 검사 - 이름과 연락처만 필수
     if (!name || !contact) {
@@ -118,6 +119,25 @@ export async function POST(request: NextRequest) {
         { error: 'Failed to save consultation' },
         { status: 500 }
       );
+    }
+
+    // Meta Conversions API - Lead 이벤트 서버 전송 (수동 추가 제외, 실패해도 상담 신청은 성공 처리)
+    if (!is_manual_entry) {
+      const clientIp =
+        request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ||
+        request.headers.get('x-real-ip') ||
+        undefined;
+      const clientUserAgent = request.headers.get('user-agent') || undefined;
+      await sendMetaLeadEvent({
+        eventId: event_id || null,
+        eventSourceUrl: event_source_url || request.headers.get('referer') || null,
+        name,
+        phone: contact,
+        clientIp,
+        clientUserAgent,
+        fbp: fbp || null,
+        fbc: fbc || null,
+      });
     }
 
     // 이메일 알림 전송 (비동기, 실패해도 상담 신청은 성공 처리)
