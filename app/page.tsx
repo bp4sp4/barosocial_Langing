@@ -233,6 +233,7 @@ const formatClickSource = (
 ): string => {
   const sourceMap: { [key: string]: string } = {
     daangn: "당근",
+    tiktok: "틱톡",
     insta: "인스타",
     facebook: "페이스북",
     google: "구글",
