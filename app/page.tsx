@@ -245,6 +245,7 @@ const formatClickSource = (
     mamcafe: "맘카페",
     cashslide: "캐시슬라이드",
     cashwalk: "캐시워크",
+    naverreward: "네이버리워드",
   };
   const cafeNameMap: { [key: string]: string } = {
     mygodsend: "화성남양애",
@@ -451,6 +452,8 @@ function LandingContent() {
           fbp: getCookie("_fbp") || null,
           fbc: getCookie("_fbc") || null,
           event_source_url: window.location.href,
+          // 엔비티 리워드 광고 유입 시 매체가 붙여준 click_key (포스트백용). 없으면 null → 미발송
+          click_key: searchParams.get("click_key") || null,
         }),
       });
       if (!res.ok) {
