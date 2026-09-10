@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
+import { readClickKeyFromSearch } from "@/lib/click-key";
 import { motion, AnimatePresence } from "framer-motion";
 import styles from "../stepflow.module.css";
 
@@ -203,8 +204,8 @@ function FormContent({ clickSource }: { clickSource: string }) {
           fbc: getCookie("_fbc") || null,
           event_source_url: window.location.href,
           // 엔비티 리워드 광고 유입 시 매체가 붙여준 click_key (포스트백용). 없으면 null → 미발송
-          click_key:
-            new URLSearchParams(window.location.search).get("click_key") || null,
+          // URLSearchParams 는 '+' 를 공백으로 바꾸므로 원본 쿼리에서 직접 읽는다.
+          click_key: readClickKeyFromSearch(window.location.search),
         }),
       });
 
