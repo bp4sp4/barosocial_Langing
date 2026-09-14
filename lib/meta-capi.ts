@@ -25,6 +25,12 @@ function normalizeName(raw: string): string {
   return raw.trim().toLowerCase();
 }
 
+// 오피스가 나중에 보내는 Contact·Purchase 이벤트와 동일인으로 묶기 위한 키.
+// 리드 ID를 SHA-256 해시해 external_id 로 보낸다. 오피스도 같은 규칙을 써야 한다.
+export function hashExternalId(leadId: string | number): string {
+  return sha256(String(leadId));
+}
+
 export interface MetaLeadParams {
   eventId?: string | null;
   eventSourceUrl?: string | null;
@@ -34,6 +40,8 @@ export interface MetaLeadParams {
   clientUserAgent?: string | null;
   fbp?: string | null;
   fbc?: string | null;
+  /** 오피스 리드 ID (해시 전 원본). 지정하면 external_id 로 함께 전송한다. */
+  leadId?: string | number | null;
 }
 
 // 폼 제출(오피스 DB 저장) 성공 시점에 호출한다. 실패해도 예외를 던지지 않는다.
@@ -52,6 +60,9 @@ export async function sendMetaLeadEvent(params: MetaLeadParams): Promise<void> {
   if (params.name) {
     const norm = normalizeName(params.name);
     if (norm) userData.fn = [sha256(norm)];
+  }
+  if (params.leadId !== undefined && params.leadId !== null && params.leadId !== '') {
+    userData.external_id = [hashExternalId(params.leadId)];
   }
   if (params.clientIp) userData.client_ip_address = params.clientIp;
   if (params.clientUserAgent) userData.client_user_agent = params.clientUserAgent;

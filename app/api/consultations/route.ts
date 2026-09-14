@@ -122,6 +122,14 @@ export async function POST(request: NextRequest) {
       }
     }
 
+    // Meta 전환 API용 브라우저 식별값 — 오피스가 나중에 보내는 Contact·Purchase 이벤트를
+    // 이 Lead 와 같은 사람으로 매칭시키려면 저장해 두어야 한다. (연동 요청서 2판 3-1)
+    const clientIp =
+      request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ||
+      request.headers.get('x-real-ip') ||
+      undefined;
+    const clientUserAgent = request.headers.get('user-agent') || undefined;
+
     // Supabase에 데이터 저장
     const { data, error } = await supabaseAdmin
       .from('hakjeom_consultations')
@@ -129,6 +137,15 @@ export async function POST(request: NextRequest) {
         {
           name,
           contact,
+          // 수동 추가 리드는 실제 브라우저 유입이 아니므로 식별값을 남기지 않는다.
+          ...(is_manual_entry
+            ? {}
+            : {
+                fbp: fbp || null,
+                fbc: fbc || null,
+                client_ip: clientIp || null,
+                user_agent: clientUserAgent || null,
+              }),
           // 컬럼 추가(hakjeom_consultations_adison_postback.sql) 전에도 일반 유입 저장이 깨지지 않도록 값이 있을 때만 포함
           ...(clickKey ? { click_key: clickKey } : {}),
           education: education || null,
@@ -175,11 +192,6 @@ export async function POST(request: NextRequest) {
 
     // Meta Conversions API - Lead 이벤트 서버 전송 (수동 추가 제외, 실패해도 상담 신청은 성공 처리)
     if (!is_manual_entry) {
-      const clientIp =
-        request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ||
-        request.headers.get('x-real-ip') ||
-        undefined;
-      const clientUserAgent = request.headers.get('user-agent') || undefined;
       await sendMetaLeadEvent({
         eventId: event_id || null,
         eventSourceUrl: event_source_url || request.headers.get('referer') || null,
@@ -189,6 +201,8 @@ export async function POST(request: NextRequest) {
         clientUserAgent,
         fbp: fbp || null,
         fbc: fbc || null,
+        // 오피스의 Contact·Purchase 이벤트와 묶이도록 리드 ID를 external_id 로 함께 보낸다.
+        leadId: data.id,
       });
     }
 
