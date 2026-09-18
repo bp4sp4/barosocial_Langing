@@ -15,6 +15,9 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+// 당근마켓 전환 추적 코드 ID (코드명 "주부랜딩페이지")
+const KARROT_PIXEL_ID = "1789719652963286001";
+
 export const metadata: Metadata = {
   title: "한평생그룹 무료상담",
   description: "한평생그룹 무료상담",
@@ -58,6 +61,27 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           }}
         />
         {/* End Google Tag Manager */}
+
+        {/* 당근마켓 전환 추적 코드 — 코드명 "주부랜딩페이지" */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function (w, d) {
+  if (w.karrotPixel) return;
+  var k = { stub: true, queue: [] };
+  k.init = function () { k.queue.push(['init', arguments, Date.now()]); };
+  k.track = function () { k.queue.push(['track', arguments, Date.now()]); };
+  w.karrotPixel = k;
+  var s = d.createElement('script');
+  s.async = true;
+  s.src = 'https://karrot-pixel.business.daangn.com/karrot-pixel.js';
+  var f = d.getElementsByTagName('script')[0];
+  f && f.parentNode ? f.parentNode.insertBefore(s, f) : d.head.appendChild(s);
+})(window, document);
+window.karrotPixel.init('${KARROT_PIXEL_ID}');
+window.karrotPixel.track('ViewPage');`,
+          }}
+        />
+        {/* End 당근마켓 전환 추적 코드 */}
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
