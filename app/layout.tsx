@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import "../styles/font-subsets.css";
 import "../styles/base.css";
 import "../styles/layout.css";
 import "../styles/components.css";
@@ -8,11 +9,13 @@ import "../styles/components.css";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
+  preload: false,
 });
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+  preload: false,
 });
 
 // 당근마켓 전환 추적 코드 ID (코드명 "주부랜딩페이지")

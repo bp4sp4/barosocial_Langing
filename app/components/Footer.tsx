@@ -10,7 +10,8 @@ export default function Footer() {
         <Link href="https://www.korhrdcorp.co.kr" target="_blank">
           <div className={styles.footerLogo}>
             <span className={styles.logoText}>
-              <img src="/logo.png" alt="BaroCompany Logo" />
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/logo.png" alt="BaroCompany Logo" width={420} height={123} loading="lazy" decoding="async" />
             </span>
           </div>
         </Link>
