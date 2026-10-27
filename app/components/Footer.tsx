@@ -17,13 +17,21 @@ export default function Footer() {
         </Link>
         <div className={styles.footerInfo}>
           <p className={styles.infoLine}>
-            대표 양병웅 | 사업자등록번호 227-88-03196
+            대표자 : 양병웅 | 개인정보보호책임자 : 양병웅
           </p>
           <p className={styles.infoLine}>
-            주소 : 서울특별시 도봉구 마들로13길 61, 씨드큐브 창동 B동 9층 905,
-            906호
+            사업자명 : (주)한평생그룹 | 사업자등록번호 : 227-88-03196
           </p>
-          <p className={styles.infoLine}>문의 : 070-8652-2574</p>
+          <p className={styles.infoLine}>
+            통신판매신고 : 제2024-서울도봉-0983호
+          </p>
+          <p className={styles.infoLine}>
+            주소 : 경기도 의정부시 의정부동 486-11, 601호 일부
+          </p>
+          <p className={styles.infoLine}>
+            수강신청 문의 : 1661-7769 | 학습지원 문의 : 1661-7768
+          </p>
+          <p className={styles.infoLine}>이메일 : hpsedu20@naver.com</p>
           <div className={styles.footerLinks}>
             <Link href="/terms" className={styles.footerLink}>
               이용약관
