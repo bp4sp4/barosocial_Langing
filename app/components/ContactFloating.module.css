@@ -1,0 +1,53 @@
+.group {
+  position: fixed;
+  right: max(16px, calc((100% - 440px) / 2));
+  bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+  z-index: 101;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: bottom 180ms ease;
+}
+
+.button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  width: 72px;
+  height: 72px;
+  border-radius: 22px;
+  background: #fff;
+  color: #0f4d74;
+  box-shadow: 0 4px 16px #0f4d7426;
+  font-family: "Pretendard", sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.3;
+  text-decoration: none;
+}
+
+.kakaoButton {
+  background: #fee500;
+  color: #191919;
+  box-shadow: 0 4px 16px #3c1e1e26;
+}
+
+.kakaoButton:focus-visible { outline-color: #191919; }
+
+.group[data-raised="true"] {
+  bottom: calc(88px + env(safe-area-inset-bottom, 0px));
+}
+
+.group[hidden] { display: none; }
+.button:focus-visible { outline: 3px solid #0f4d74; outline-offset: 4px; }
+.icon { width: 34px; height: 31px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .group { transition: none; }
+}
+
+@media print {
+  .group { display: none; }
+}

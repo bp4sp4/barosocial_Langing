@@ -63,15 +63,15 @@ const CAREER_FIELDS = [
 ] as const;
 
 const WORRIES = [
-  { title: "공부를 쉰 지 오래돼서 걱정이에요.", body: "수업을 어떻게 듣는지부터 차근차근 알려드릴게요. 낯선 부분은 하나씩 알아가시면 돼요.", img: "/optimized/gift02.webp" },
-  { title: "살림하면서 준비할 수 있을까요?", body: "지금 생활에서 공부할 시간을 얼마나 낼 수 있을지, 그 시간에 맞춰 어떤 준비가 가능할지 함께 살펴봐요.", img: "/optimized/process03.webp" },
-  { title: "아직 시작할지 결정하지 못했어요.", body: "어떤 일을 할 수 있는지, 얼마나 준비해야 하는지 알아보신 뒤에 결정하셔도 괜찮아요.", img: "/optimized/process02.webp" },
+  { title: "공부를 쉰 지 오래돼서 걱정이에요.", body: "수업을 어떻게 듣는지부터 차근차근 알려드릴게요. 낯선 부분은 하나씩 알아가시면 돼요.", img: "/optimized/gift02-blue.webp" },
+  { title: "살림하면서 준비할 수 있을까요?", body: "지금 생활에서 공부할 시간을 얼마나 낼 수 있을지, 그 시간에 맞춰 어떤 준비가 가능할지 함께 살펴봐요.", img: "/optimized/process03-blue.webp" },
+  { title: "아직 시작할지 결정하지 못했어요.", body: "어떤 일을 할 수 있는지, 얼마나 준비해야 하는지 알아보신 뒤에 결정하셔도 괜찮아요.", img: "/optimized/process02-blue.webp" },
 ];
 
 const SUPPORT = [
-  { title: "시작 전에는", body: "내 상황에 맞는 준비 방법을 알려드려요.", img: "/optimized/process02.webp" },
-  { title: "수강 중에는", body: "1:1 담당자가 궁금한 점을 항상 답변해드려요.", img: "/optimized/allcare_03.webp" },
-  { title: "실습을 준비할 때는", body: "거주지 근처로 직접 섭외해드려요.", img: "/optimized/process04.webp" },
+  { title: "시작 전에는", body: "내 상황에 맞는 준비 방법을 알려드려요.", img: "/optimized/process02-blue.webp" },
+  { title: "수강 중에는", body: "1:1 담당자가 궁금한 점을 항상 답변해드려요.", img: "/optimized/allcare_03-blue.webp" },
+  { title: "실습을 준비할 때는", body: "거주지 근처로 직접 섭외해드려요.", img: "/optimized/process04-blue.webp" },
 ];
 
 const TRUST_BENEFITS = [
@@ -79,19 +79,19 @@ const TRUST_BENEFITS = [
     tag: <>교육비 <em>부담은 줄이고,</em> 기회는 <em>더 크게!</em></>,
     title: <>수강료 <em>최대 70%</em> 장학지원</>,
     body: "교육과정 수강료의 최대 70%까지 지원받아 부담없이 시작할 수 있습니다.",
-    img: "/optimized/allcare_01.webp",
+    img: "/optimized/allcare_01-blue.webp",
   },
   {
     tag: <>취업까지 한 번에, <em>전문가가 함께</em>해요!</>,
     title: <><em>1:1 실습처</em> 매칭보장</>,
     body: "이력서부터 면접까지 1:1 맞춤 취업 컨설팅으로 시작부터 끝까지 체계적으로 지원합니다.",
-    img: "/optimized/allcare_03.webp",
+    img: "/optimized/allcare_03-blue.webp",
   },
   {
     tag: <><em>끝까지 책임지는 교육,</em> 안심하고 시작하세요!</>,
     title: <>미이수 시 <em>환급제도</em></>,
     body: "교육 이수에 어려움이 있을 경우, 자체 환급제도를 통해 수강료를 일부 또는 전액 환급해드리는 제도를 운영하고 있습니다.",
-    img: "/optimized/allcare_04.webp",
+    img: "/optimized/allcare_04-blue.webp",
   },
 ];
 
@@ -203,9 +203,15 @@ export default function LandingSections({ onConsult }: { onConsult: () => void }
   return <>
     <section className={`${styles.heroSection} ${styles.newStartHero}`} aria-labelledby="hero-title">
       <div className={styles.heroAccreditation}>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/education-ministry-logo.png" alt="교육부" width={325} height={170} className={styles.heroAccreditationLogo} fetchPriority="high" />
-        <p><span>정식 인가</span><strong>원격평생교육원</strong></p>
+        <div className={styles.heroMinistryMark}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/education-ministry-logo-white.png" alt="교육부" width={908} height={300} className={styles.heroAccreditationLogo} fetchPriority="high" />
+        </div>
+        <span className={styles.heroLogoDivider} aria-hidden="true" />
+        <div className={styles.heroEducationMark}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/hanpyeong-education-logo-white.png" alt="한평생원격교육원" width={790} height={171} fetchPriority="high" />
+        </div>
       </div>
       <div className={styles.heroTextWrap}>
         <p className={styles.heroTitle}>사회복지사 2급</p>
@@ -213,11 +219,14 @@ export default function LandingSections({ onConsult }: { onConsult: () => void }
       </div>
       <p className={styles.heroSupportCopy}>어떤 일을 할 수 있는지,<br />내 상황에서도 준비할 수 있을지 함께 알아보세요.</p>
       <div className={styles.heroCertificateScene}>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/optimized/section3_03.webp" alt="개인정보가 가려진 사회복지사 자격증 예시" width={640} height={640} className={styles.heroCertificateImage} fetchPriority="high" />
+        <div className={styles.heroPortraitFrame}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/optimized/hero-social-worker-portrait.webp" alt="사회복지사 자격증을 들고 미소 짓는 여성" width={600} height={945} className={styles.heroCertificateImage} fetchPriority="high" />
+          <div className={styles.heroPortraitBottomBlur} aria-hidden="true" />
+        </div>
       </div>
       <div className={styles.heroAction}>
-        <button id="hero-cta-btn" type="button" className={`${styles.sectionFinalBtn} ${styles.heroCta}`} onClick={onConsult}>나에게 맞는 준비 방법 알아보기 <span aria-hidden="true">→</span></button>
+        <button id="hero-cta-btn" type="button" className={`${styles.sectionFinalBtn} ${styles.heroCta}`} onClick={onConsult}>1:1 무료상담 신청하기 <span aria-hidden="true">→</span></button>
         <p className={styles.ctaHelper}>상담 후, 시작 여부를 결정하셔도 괜찮아요.</p>
       </div>
     </section>

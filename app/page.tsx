@@ -8,6 +8,7 @@ import Footer from "./components/Footer";
 import LandingSections from "./components/LandingSections";
 import ConsultationIntro from "./components/ConsultationIntro";
 import ConsultationSuccess from "./components/ConsultationSuccess";
+import ContactFloating from "./components/ContactFloating";
 import useScrollReveal from "./components/useScrollReveal";
 
 const formatClickSource = (
@@ -299,7 +300,6 @@ function LandingContent() {
           <button type="submit" className={styles.formSubmit} disabled={!isFormValid || loading || done}>{loading ? "신청 내용을 접수하고 있습니다..." : "내 준비 방법 상담 신청하기"}</button>
           <p className={styles.formResponseNote}>상담으로 필요한 기간과 비용을 확인하신 뒤,<br />시작 여부를 결정하셔도 괜찮아요.</p>
           <p className={styles.consultContactNote}>신청 후 한평생 담당자가 전화로 연락드려요.</p>
-          <div className={styles.formPhoneWrap}><p className={styles.formPhoneNote}>직접 전화로 상담하고 싶으신가요?</p><a href="tel:070-8652-2574" className={styles.formPhoneBtn}><span>전화 상담하기</span><span>070-8652-2574</span></a></div>
         </form>
         </div>
       </section>
@@ -369,6 +369,15 @@ function LandingContent() {
 
       <Footer />
 
+      <ContactFloating
+        channelUrl="https://pf.kakao.com/_xbxaeJX"
+        phoneNumber="02-2135-6514"
+        raised={showFloating}
+        // 하단 "1:1 무료상담 신청하기" 버튼이 보일 때만 함께 노출한다.
+        // 첫 화면(히어로 CTA)과 상담 폼 구간에서 버튼 오른쪽 끝을 덮어 오터치(전화 연결)가 나는 것을 막는다.
+        hidden={done || showPrivacyModal || !showFloating}
+      />
+
       {/* 플로팅 CTA 버튼 */}
       <button
         type="button"
@@ -378,7 +387,7 @@ function LandingContent() {
         tabIndex={showFloating ? 0 : -1}
         onClick={scrollToForm}
       >
-        나에게 맞는 준비 방법 알아보기
+        1:1 무료상담 신청하기 <span aria-hidden="true">→</span>
       </button>
     </main>
   );
