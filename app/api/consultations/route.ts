@@ -4,6 +4,7 @@ import { sendConsultationEmail } from '@/lib/email';
 import { formatClickSource as formatClickSourceStatic } from '@/lib/cafe-names';
 import { sendMetaLeadEvent } from '@/lib/meta-capi';
 import { sanitizeClickKey, sendAdisonPostback } from '@/lib/adison-postback';
+import { sendAlimtalk, sendAdminNewInquiryAlimtalk } from '@/lib/kakao';
 
 // 숫자만 있는 번호를 010-1234-5678 형태로 (중복 조회용 변형값)
 function formatPhoneHyphen(digits: string): string {
@@ -370,6 +371,16 @@ export async function POST(request: NextRequest) {
       }
     } else {
       console.warn('[SLACK] SLACK_WEBHOOK_URL이 설정되지 않아 Slack 알림을 건너뜁니다');
+    }
+
+    // 카카오 알림톡 (신청자 접수 안내 + 관리자 신규 문의 알림, 수동 추가 제외, 실패해도 상담 신청은 성공 처리)
+    if (!is_manual_entry) {
+      // 두 함수 모두 예외를 던지지 않으므로 동시에 보낸다 (릴레이 무응답 시 대기 최대 5초).
+      const [kakaoResult] = await Promise.all([
+        sendAlimtalk({ contact }),
+        sendAdminNewInquiryAlimtalk(name),
+      ]);
+      if (!kakaoResult.success) console.warn('[KAKAO] ⚠️ 알림톡 전송 실패:', kakaoResult.error);
     }
 
     return NextResponse.json(
