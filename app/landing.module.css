@@ -2343,7 +2343,7 @@
   object-fit: cover;
   border-radius: 10px;
   border: 2px solid #fff;
-  box-shadow: 0 0 4px 0 #ff3d3d;
+  box-shadow: 0 0 6px 0 #308bc84d;
 }
 
 .carouselDots {
@@ -3399,10 +3399,9 @@
 .moreReviewList { display: grid; gap: 16px; margin-top: 16px; }
 .moreReviewList .reviewBody { margin-top: 16px; }
 .trustLanding .storySection .confirmSlide { width: 148px !important; }
-.trustLanding .storySection .confirmImg { width: 148px; height: 148px; }
-.caseGallery { display: flex; gap: 12px; width: 100%; overflow-x: auto; padding-bottom: 8px; scroll-snap-type: x proximity; overscroll-behavior-x: contain; scrollbar-width: thin; scrollbar-color: #9bcfef transparent; }
-.caseGallery .confirmSlide { flex: 0 0 148px; scroll-snap-align: start; }
-.caseGallery:focus-visible { outline: 2px solid var(--landing-border); outline-offset: 4px; border-radius: 12px; }
+.trustLanding .storySection .confirmImg { width: 148px; height: 148px; object-fit: cover; border-color: #d2e8f7; }
+.trustLanding .caseGallery { width: calc(100% + 16px); margin-inline: -8px; overflow: hidden; padding: 8px 8px 12px; }
+.caseGallery .confirmSlide { flex: 0 0 148px; }
 .trustLanding .storySection .sectionConsultBtn { font-size: 15px; }
 .reassuranceCard { position: relative; display: block; }
 .reassuranceCard h3 { padding-right: 50px; }

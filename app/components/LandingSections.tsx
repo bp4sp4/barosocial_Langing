@@ -1,5 +1,8 @@
 "use client";
 
+import { Autoplay, A11y } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
 import styles from "../landing.module.css";
 
 const REVIEWS = [
@@ -254,12 +257,24 @@ export default function LandingSections({ onConsult }: { onConsult: () => void }
       </article>)}</div>
       <details className={styles.moreReviews}><summary>다른 학습자 이야기 더 보기 <span aria-hidden="true">＋</span></summary><div className={styles.moreReviewList}>{[REVIEWS[3], REVIEWS[1], REVIEWS[2], REVIEWS[5]].map(review => <article key={review.name} className={styles.storyCard}><div className={styles.storyHeader}><div><p className={styles.reviewLabel}>{review === REVIEWS[3] ? "37세 워킹맘 · 수강 경험" : review.label}</p><h3>{review.title}</h3><p>{review.name}</p></div><ReviewPortrait review={review} /></div><p className={styles.reviewBody}>{review.body}</p></article>)}</div></details>
       <div className={styles.credCaseWrap} data-reveal="image"><span className={styles.credPill}>수강생 사례 사진</span><div className={styles.confirmCarouselWrap}>
-        <div className={styles.caseGallery} role="region" aria-label="수강생 사례 사진, 좌우로 넘겨보세요" tabIndex={0}>
-          {["/optimized/confirm_01.webp", "/optimized/confirm_02.webp", "/optimized/confirm_03.webp", "/optimized/confirm_04.webp", "/optimized/confirm_05.webp"].map((src, index) => <div key={src} className={styles.confirmSlide}>
+        <Swiper
+          className={styles.caseGallery}
+          modules={[Autoplay, A11y]}
+          slidesPerView="auto"
+          slidesPerGroup={1}
+          spaceBetween={12}
+          loop
+          speed={600}
+          autoplay={{ delay: 3000, disableOnInteraction: false }}
+          allowTouchMove={false}
+          role="region"
+          aria-label="수강생 사례 사진, 3초마다 한 장씩 자동 전환"
+        >
+          {["/optimized/student-case-1.webp", "/optimized/student-case-2.webp", "/optimized/student-case-3.webp", "/optimized/student-case-4.webp", "/optimized/student-case-5.webp"].map((src, index) => <SwiperSlide key={src} className={styles.confirmSlide}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={src} alt={`수강생 사례 사진 ${index + 1}`} className={styles.confirmImg} width={208} height={208} loading="lazy" decoding="async" />
-          </div>)}
-        </div>
+          </SwiperSlide>)}
+        </Swiper>
       </div></div>
       <p className={styles.supportNote}>후기는 개인의 경험이며, 준비 과정과 결과는 각자의 상황에 따라 달라질 수 있어요.</p>
       <ConsultButton onClick={onConsult}>내 상황에서도 준비할 수 있을까요?</ConsultButton>
