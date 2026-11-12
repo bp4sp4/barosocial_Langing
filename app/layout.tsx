@@ -53,6 +53,18 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <head>
+        {/* Google tag (gtag.js) — 구글 광고 사이트 인증 · 전환 (2026-11-12 마케팅 요청, AW-18011523913). <head> 맨 위, 한 번만 */}
+        <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18011523913" />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'AW-18011523913');`,
+          }}
+        />
+        {/* End Google tag */}
+
         {/* Google Tag Manager */}
         <script
           dangerouslySetInnerHTML={{
