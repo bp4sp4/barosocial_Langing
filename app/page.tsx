@@ -90,6 +90,12 @@ function LandingContent() {
     const materialId = searchParams.get("material_id");
     const blogId = searchParams.get("blog_id");
     const cafeId = searchParams.get("cafe_id");
+    // 오피스 「업셀링 캠페인」 문자 링크 — ?utm_source=upsell&campaign_id=UP-012 → 문의 DB 대분류 「업셀링」 / 중분류 캠페인 코드 (2026-11-12)
+    const upsellCode = searchParams.get("campaign_id");
+    if (utmSource === "upsell") {
+      setClickSource(upsellCode && /^UP-\d{3,}$/.test(upsellCode) ? `업셀링_${upsellCode}` : "업셀링");
+      return;
+    }
     if (utmSource) {
       setClickSource(formatClickSource(utmSource, materialId, blogId, cafeId));
       return;
@@ -204,7 +210,10 @@ function LandingContent() {
     setSubmitError("");
     try {
       let click_source = "주부_랜딩페이지";
-      if (clickSource) {
+      // 업셀링 캠페인 링크(「업셀링_UP-012」)는 그대로 보낸다 — 중분류가 캠페인 코드여야 오피스가 받은 문자를 찾는다 (2026-11-12)
+      if (clickSource.startsWith("업셀링")) {
+        click_source = clickSource;
+      } else if (clickSource) {
         const idx = clickSource.indexOf("_");
         const major = idx === -1 ? clickSource : clickSource.slice(0, idx);
         const sojae = idx === -1 ? "" : clickSource.slice(idx + 1);

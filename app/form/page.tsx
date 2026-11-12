@@ -73,6 +73,13 @@ function ClickSourceHandler({
     const blogId = searchParams.get("blog_id");
     const cafeId = searchParams.get("cafe_id");
 
+    // 오피스 「업셀링 캠페인」 문자 링크 — ?utm_source=upsell&campaign_id=UP-012 → 문의 DB 대분류 「업셀링」 / 중분류 캠페인 코드 (2026-11-12)
+    if (utmSource === "upsell") {
+      const upsellCode = searchParams.get("campaign_id");
+      onSourceChange(upsellCode && /^UP-\d{3,}$/.test(upsellCode) ? `업셀링_${upsellCode}` : "업셀링");
+      return;
+    }
+
     if (utmSource) {
       const formatted = formatClickSource(utmSource, materialId, blogId, cafeId);
       onSourceChange(formatted);
@@ -198,7 +205,8 @@ function FormContent({ clickSource }: { clickSource: string }) {
           education: formData.education,
           hope_course: formData.hope_course,
           reason: formData.reason,
-          click_source: clickSource ? `랜딩페이지_${clickSource}` : "랜딩페이지",
+          // 업셀링은 접두어 없이 — 대분류가 「업셀링」이어야 오피스 업셀링 집계 · 받은 문자에 잡힌다
+          click_source: clickSource.startsWith("업셀링") ? clickSource : clickSource ? `랜딩페이지_${clickSource}` : "랜딩페이지",
           event_id: eventId,
           fbp: getCookie("_fbp") || null,
           fbc: getCookie("_fbc") || null,
