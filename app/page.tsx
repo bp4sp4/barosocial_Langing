@@ -367,21 +367,27 @@ function LandingContent() {
             {consentModalKind === "marketing" ? (
             <div className={styles.modalScroll}>
               <p className={styles.modalItem}>
-                <strong>1. 목적</strong>
-                교육 과정 · 자격증 · 할인 · 이벤트 등 혜택 안내
+                (주)한평생그룹은 이벤트 안내를 위해 휴대폰 번호로 광고성 정보를 발송해요. 발송 채널은 SMS, 알림톡이며, 보유 기간은 동의 철회 시까지예요.
               </p>
               <p className={styles.modalItem}>
-                <strong>2. 방법</strong>
-                문자(SMS · LMS · MMS), 카카오톡, 전화
+                <strong>1. 수집 및 이용 목적</strong>
+                이벤트 안내(광고성 정보 발송)
               </p>
               <p className={styles.modalItem}>
-                <strong>3. 보유 · 이용 기간</strong>
-                동의 철회 시 또는 수집일로부터 5년
+                <strong>2. 수집 항목</strong>
+                휴대폰 번호
               </p>
               <p className={styles.modalItem}>
-                <strong>4. 동의 거부 권리</strong>
-                동의하지 않아도 상담 신청은 할 수 있으며, 동의 후에도 언제든
-                무료수신거부로 철회할 수 있습니다.
+                <strong>3. 발송 채널</strong>
+                SMS, 알림톡
+              </p>
+              <p className={styles.modalItem}>
+                <strong>4. 보유 기간</strong>
+                동의 철회 시까지
+              </p>
+              <p className={styles.modalItem}>
+                <strong>5. 거부 권리 및 거부 시 불이익</strong>
+                동의를 거부할 수 있어요. 거부해도 상담 신청에는 불이익이 없고, 동의한 뒤에도 언제든 무료수신거부로 철회할 수 있어요.
               </p>
             </div>
             ) : (
