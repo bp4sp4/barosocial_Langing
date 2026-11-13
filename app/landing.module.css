@@ -3294,6 +3294,7 @@
 .accessibleSwitch::after { content: ""; position: absolute; top: 3px; left: 3px; height: 20px; width: 20px; border-radius: 50%; background: #fff; transition: transform .15s; }
 .accessibleSwitch:checked { background: var(--landing-primary); }
 .accessibleSwitch:checked::after { transform: translateX(18px); }
+.consentGroup { width: 100%; display: flex; flex-direction: column; gap: 4px; }
 .consentControls { width: 100%; padding-left: 15px; display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: 4px 12px; }
 .consentLabel { display: flex; flex: 1 1 200px; align-items: flex-start; gap: 9px; min-height: 44px; cursor: pointer; font-size: 13px; line-height: 1.8; color: #4e5968; }
 .consentLabel input { appearance: auto; width: 20px; height: 20px; margin: 2px 0 0; accent-color: var(--landing-primary); flex-shrink: 0; }

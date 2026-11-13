@@ -85,6 +85,10 @@ function LandingContent() {
   const [submitError, setSubmitError] = useState("");
   const [privacyAgreed, setPrivacyAgreed] = useState(false);
   const [showPrivacyModal, setShowPrivacyModal] = useState(false);
+  // [선택] 광고성 정보 수신 동의 — 기본은 체크 안 됨, 체크 안 해도 신청 가능 (정보통신망법 제50조)
+  const [marketingAgreed, setMarketingAgreed] = useState(false);
+  // 같은 팝업 틀을 쓰고 내용만 바꾼다 — 포커스 가두기 · 플로팅 버튼 숨김이 showPrivacyModal 하나에 걸려 있다
+  const [consentModalKind, setConsentModalKind] = useState<"privacy" | "marketing">("privacy");
   useEffect(() => {
     const utmSource = searchParams.get("utm_source");
     const materialId = searchParams.get("material_id");
@@ -241,6 +245,7 @@ function LandingContent() {
           fast_consultation: fastConsult,
           preferred_times: preferredTimes,
           consult_time_memo: formData.memo || null,
+          marketingAgreed,
           click_source,
           event_id: eventId,
           fbp: getCookie("_fbp") || null,
@@ -264,6 +269,7 @@ function LandingContent() {
       setPreferredTimes([]);
       setFastConsult(false);
       setPrivacyAgreed(false);
+      setMarketingAgreed(false);
     } catch (e) {
       setSubmitError(
         e instanceof Error
@@ -305,7 +311,10 @@ function LandingContent() {
               <div className={styles.formField}><label htmlFor="consult-memo" className={styles.inputLabel}>상담 일정·문의 메모 <span className={styles.optionalHint}>25자 이내</span></label><input id="consult-memo" name="memo" type="text" className={styles.memoInput} maxLength={25} placeholder="편한 요일이나 궁금한 점을 남겨주세요" value={formData.memo} onChange={(event) => setFormData({ ...formData, memo: event.target.value })} /></div>
             </div></details>
           </div></div>
-          <div className={styles.consentControls}><label className={styles.consentLabel}><input name="privacy" type="checkbox" required checked={privacyAgreed} onChange={(event) => setPrivacyAgreed(event.target.checked)} /><span>개인정보 수집 및 이용에 동의합니다. <b>필수</b></span></label><button type="button" className={styles.formAgreeLink} onClick={() => setShowPrivacyModal(true)}>내용 보기</button></div>
+          <div className={styles.consentGroup}>
+            <div className={styles.consentControls}><label className={styles.consentLabel}><input name="privacy" type="checkbox" required checked={privacyAgreed} onChange={(event) => setPrivacyAgreed(event.target.checked)} /><span>개인정보 수집 및 이용에 동의합니다. <b>필수</b></span></label><button type="button" className={styles.formAgreeLink} onClick={() => { setConsentModalKind("privacy"); setShowPrivacyModal(true); }}>내용 보기</button></div>
+            <div className={styles.consentControls}><label className={styles.consentLabel}><input name="marketing" type="checkbox" checked={marketingAgreed} onChange={(event) => setMarketingAgreed(event.target.checked)} /><span>광고성 정보 수신에 동의합니다. <b>선택</b></span></label><button type="button" className={styles.formAgreeLink} onClick={() => { setConsentModalKind("marketing"); setShowPrivacyModal(true); }}>내용 보기</button></div>
+          </div>
           {submitError && <p className={styles.submitError} role="alert">{submitError}</p>}
           <button type="submit" className={styles.formSubmit} disabled={!isFormValid || loading || done}>{loading ? "신청 내용을 접수하고 있습니다..." : "내 준비 방법 상담 신청하기"}</button>
           <p className={styles.formResponseNote}>상담으로 필요한 기간과 비용을 확인하신 뒤,<br />시작 여부를 결정하셔도 괜찮아요.</p>
@@ -331,7 +340,7 @@ function LandingContent() {
             onClick={(e) => e.stopPropagation()}
           >
             <div className={styles.modalHeader}>
-              <p className={styles.modalTitle} id="consult-privacy-title">개인정보 수집 및 이용</p>
+              <p className={styles.modalTitle} id="consult-privacy-title">{consentModalKind === "marketing" ? "[선택] 광고성 정보 수신 동의" : "개인정보 수집 및 이용"}</p>
               <button
                 className={styles.closeBtn}
                 onClick={() => setShowPrivacyModal(false)}
@@ -348,6 +357,27 @@ function LandingContent() {
                 </svg>
               </button>
             </div>
+            {consentModalKind === "marketing" ? (
+            <div className={styles.modalScroll}>
+              <p className={styles.modalItem}>
+                <strong>1. 목적</strong>
+                교육 과정 · 자격증 · 할인 · 이벤트 등 혜택 안내
+              </p>
+              <p className={styles.modalItem}>
+                <strong>2. 방법</strong>
+                문자(SMS · LMS · MMS), 카카오톡, 전화
+              </p>
+              <p className={styles.modalItem}>
+                <strong>3. 보유 · 이용 기간</strong>
+                동의 철회 시 또는 수집일로부터 5년
+              </p>
+              <p className={styles.modalItem}>
+                <strong>4. 동의 거부 권리</strong>
+                동의하지 않아도 상담 신청은 할 수 있으며, 동의 후에도 언제든
+                무료수신거부로 철회할 수 있습니다.
+              </p>
+            </div>
+            ) : (
             <div className={styles.modalScroll}>
               <p className={styles.modalItem}>
                 <strong>1. 개인정보 수집 및 이용 목적</strong>
@@ -364,7 +394,7 @@ function LandingContent() {
               </p>
               <p className={styles.modalItem}>
                 <strong>3. 보유 및 이용 기간</strong>
-                법령이 정하는 경우를 제외하고는 수집일로부터 1년 또는 동의 철회
+                법령이 정하는 경우를 제외하고는 수집일로부터 5년 또는 동의 철회
                 시까지 보유 및 이용합니다.
               </p>
               <p className={styles.modalItem}>
@@ -373,6 +403,7 @@ function LandingContent() {
                 상담 서비스 이용이 제한됩니다.
               </p>
             </div>
+            )}
           </div>
         </div>
       )}

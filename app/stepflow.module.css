@@ -146,6 +146,17 @@
   user-select: none;
 }
 
+.checkboxStack {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.optionalMark {
+  color: #8b95a1;
+  font-size: 14px;
+}
+
 .checkbox {
   width: 20px;
   height: 20px;
