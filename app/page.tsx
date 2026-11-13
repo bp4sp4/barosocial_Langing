@@ -89,6 +89,12 @@ function LandingContent() {
   const [marketingAgreed, setMarketingAgreed] = useState(false);
   // 같은 팝업 틀을 쓰고 내용만 바꾼다 — 포커스 가두기 · 플로팅 버튼 숨김이 showPrivacyModal 하나에 걸려 있다
   const [consentModalKind, setConsentModalKind] = useState<"privacy" | "marketing">("privacy");
+  // 「모두 동의」 — 필수(개인정보) + 선택(광고성 정보 수신)을 한 번에 켜고 끔. 제출 조건(isFormValid)은 필수만 봄
+  const allConsentsAgreed = privacyAgreed && marketingAgreed;
+  const handleAllConsents = (checked: boolean) => {
+    setPrivacyAgreed(checked);
+    setMarketingAgreed(checked);
+  };
   useEffect(() => {
     const utmSource = searchParams.get("utm_source");
     const materialId = searchParams.get("material_id");
@@ -312,6 +318,7 @@ function LandingContent() {
             </div></details>
           </div></div>
           <div className={styles.consentGroup}>
+            <div className={styles.consentControls}><label className={styles.consentLabel}><input type="checkbox" checked={allConsentsAgreed} onChange={(event) => handleAllConsents(event.target.checked)} /><span>모두 동의합니다 <b>(선택 항목 포함)</b></span></label></div>
             <div className={styles.consentControls}><label className={styles.consentLabel}><input name="privacy" type="checkbox" required checked={privacyAgreed} onChange={(event) => setPrivacyAgreed(event.target.checked)} /><span>개인정보 수집 및 이용에 동의합니다. <b>필수</b></span></label><button type="button" className={styles.formAgreeLink} onClick={() => { setConsentModalKind("privacy"); setShowPrivacyModal(true); }}>내용 보기</button></div>
             <div className={styles.consentControls}><label className={styles.consentLabel}><input name="marketing" type="checkbox" checked={marketingAgreed} onChange={(event) => setMarketingAgreed(event.target.checked)} /><span>광고성 정보 수신에 동의합니다. <b>선택</b></span></label><button type="button" className={styles.formAgreeLink} onClick={() => { setConsentModalKind("marketing"); setShowPrivacyModal(true); }}>내용 보기</button></div>
           </div>
@@ -390,7 +397,7 @@ function LandingContent() {
                 <strong>2. 수집 및 이용하는 개인정보 항목</strong>
                 필수 - 이름, 연락처(휴대전화번호), 최종학력, 상담 과정
                 <br />
-                선택 - 거주 지역, 취득사유, 빠른 상담 여부, 상담 선호 시간, 상담 메모
+                선택 - 거주 지역, 취득사유, 빠른 상담 여부, 상담 선호 시간, 상담 메모, 광고성 정보 수신 동의 여부
               </p>
               <p className={styles.modalItem}>
                 <strong>3. 보유 및 이용 기간</strong>
