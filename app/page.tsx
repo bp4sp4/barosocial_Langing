@@ -85,16 +85,8 @@ function LandingContent() {
   const [submitError, setSubmitError] = useState("");
   const [privacyAgreed, setPrivacyAgreed] = useState(false);
   const [showPrivacyModal, setShowPrivacyModal] = useState(false);
-  // [선택] 광고성 정보 수신 동의 — 기본은 체크 안 됨, 체크 안 해도 신청 가능 (정보통신망법 제50조)
-  const [marketingAgreed, setMarketingAgreed] = useState(false);
-  // 같은 팝업 틀을 쓰고 내용만 바꾼다 — 포커스 가두기 · 플로팅 버튼 숨김이 showPrivacyModal 하나에 걸려 있다
-  const [consentModalKind, setConsentModalKind] = useState<"privacy" | "marketing">("privacy");
-  // 「모두 동의」 — 필수(개인정보) + 선택(광고성 정보 수신)을 한 번에 켜고 끔. 제출 조건(isFormValid)은 필수만 봄
-  const allConsentsAgreed = privacyAgreed && marketingAgreed;
-  const handleAllConsents = (checked: boolean) => {
-    setPrivacyAgreed(checked);
-    setMarketingAgreed(checked);
-  };
+  // 2026-11-25 동의를 개인정보처리방침 하나로 통합(그 안에 「개인정보 수집 · 이용 동의」 — 홍보 · 광고성 정보 제공 목적 포함) — 신청하면 광고 수신 동의(marketingAgreed)도 기록
+  const marketingAgreed = privacyAgreed;
   useEffect(() => {
     const utmSource = searchParams.get("utm_source");
     const materialId = searchParams.get("material_id");
@@ -275,7 +267,6 @@ function LandingContent() {
       setPreferredTimes([]);
       setFastConsult(false);
       setPrivacyAgreed(false);
-      setMarketingAgreed(false);
     } catch (e) {
       setSubmitError(
         e instanceof Error
@@ -318,9 +309,7 @@ function LandingContent() {
             </div></details>
           </div></div>
           <div className={styles.consentGroup}>
-            <div className={styles.consentControls}><label className={styles.consentLabel}><input type="checkbox" checked={allConsentsAgreed} onChange={(event) => handleAllConsents(event.target.checked)} /><span>모두 동의합니다 <b>(선택 항목 포함)</b></span></label></div>
-            <div className={styles.consentControls}><label className={styles.consentLabel}><input name="privacy" type="checkbox" required checked={privacyAgreed} onChange={(event) => setPrivacyAgreed(event.target.checked)} /><span>개인정보 수집 및 이용에 동의합니다. <b>필수</b></span></label><button type="button" className={styles.formAgreeLink} onClick={() => { setConsentModalKind("privacy"); setShowPrivacyModal(true); }}>내용 보기</button></div>
-            <div className={styles.consentControls}><label className={styles.consentLabel}><input name="marketing" type="checkbox" checked={marketingAgreed} onChange={(event) => setMarketingAgreed(event.target.checked)} /><span>광고성 정보 수신에 동의합니다. <b>선택</b></span></label><button type="button" className={styles.formAgreeLink} onClick={() => { setConsentModalKind("marketing"); setShowPrivacyModal(true); }}>내용 보기</button></div>
+            <div className={styles.consentControls}><label className={styles.consentLabel}><input name="privacy" type="checkbox" required checked={privacyAgreed} onChange={(event) => setPrivacyAgreed(event.target.checked)} /><span>개인정보 수집 및 이용에 동의합니다. <b>필수</b></span></label><button type="button" className={styles.formAgreeLink} onClick={() => setShowPrivacyModal(true)}>내용 보기</button></div>
           </div>
           {submitError && <p className={styles.submitError} role="alert">{submitError}</p>}
           <button type="submit" className={styles.formSubmit} disabled={!isFormValid || loading || done}>{loading ? "신청 내용을 접수하고 있습니다..." : "내 준비 방법 상담 신청하기"}</button>
@@ -347,7 +336,7 @@ function LandingContent() {
             onClick={(e) => e.stopPropagation()}
           >
             <div className={styles.modalHeader}>
-              <p className={styles.modalTitle} id="consult-privacy-title">{consentModalKind === "marketing" ? "[선택] 광고성 정보 수신 동의" : "개인정보 수집 및 이용"}</p>
+              <p className={styles.modalTitle} id="consult-privacy-title">개인정보 수집 및 이용</p>
               <button
                 className={styles.closeBtn}
                 onClick={() => setShowPrivacyModal(false)}
@@ -364,33 +353,6 @@ function LandingContent() {
                 </svg>
               </button>
             </div>
-            {consentModalKind === "marketing" ? (
-            <div className={styles.modalScroll}>
-              <p className={styles.modalItem}>
-                (주)한평생그룹은 이벤트 안내를 위해 휴대폰 번호로 광고성 정보를 발송해요. 발송 채널은 SMS, 알림톡이며, 보유 기간은 동의 철회 시까지예요.
-              </p>
-              <p className={styles.modalItem}>
-                <strong>1. 수집 및 이용 목적</strong>
-                이벤트 안내(광고성 정보 발송)
-              </p>
-              <p className={styles.modalItem}>
-                <strong>2. 수집 항목</strong>
-                휴대폰 번호
-              </p>
-              <p className={styles.modalItem}>
-                <strong>3. 발송 채널</strong>
-                SMS, 알림톡
-              </p>
-              <p className={styles.modalItem}>
-                <strong>4. 보유 기간</strong>
-                동의 철회 시까지
-              </p>
-              <p className={styles.modalItem}>
-                <strong>5. 거부 권리 및 거부 시 불이익</strong>
-                동의를 거부할 수 있어요. 거부해도 상담 신청에는 불이익이 없고, 동의한 뒤에도 언제든 무료수신거부로 철회할 수 있어요.
-              </p>
-            </div>
-            ) : (
             <div className={styles.modalScroll}>
               <p className={styles.modalItem}>
                 <strong>1. 개인정보 수집 및 이용 목적</strong>
@@ -403,20 +365,32 @@ function LandingContent() {
                 <strong>2. 수집 및 이용하는 개인정보 항목</strong>
                 필수 - 이름, 연락처(휴대전화번호), 최종학력, 상담 과정
                 <br />
-                선택 - 거주 지역, 취득사유, 빠른 상담 여부, 상담 선호 시간, 상담 메모, 광고성 정보 수신 동의 여부
+                선택 - 거주 지역, 취득사유, 빠른 상담 여부, 상담 선호 시간, 상담 메모
               </p>
               <p className={styles.modalItem}>
-                <strong>3. 보유 및 이용 기간</strong>
-                법령이 정하는 경우를 제외하고는 수집일로부터 5년 또는 동의 철회
-                시까지 보유 및 이용합니다.
-              </p>
-              <p className={styles.modalItem}>
-                <strong>4. 동의 거부 권리</strong>
+                <strong>3. 동의 거부 권리</strong>
                 신청자는 동의를 거부할 권리가 있습니다. 단, 동의를 거부하는 경우
                 상담 서비스 이용이 제한됩니다.
               </p>
+              <p className={styles.modalItem}>
+                <strong>4. 개인정보 수집 · 이용 동의</strong>
+              </p>
+              <p className={styles.modalItem}>
+                회사는 수집한 개인정보를 다음의 목적을 위해 활용합니다.
+              </p>
+              <p className={styles.modalItem}>
+                학점은행제 교육과정 이용에 필요한 사항 제공 및 안내
+                <br />
+                신규 서비스 및 연수과정 홍보, 이벤트 및 광고성 정보 제공 및 참여기회 제공
+              </p>
+              <p className={styles.modalItem}>
+                수집하는 개인 정보 항목 : 이름, 연락처, 관심과정
+                <br />
+                보유 및 이용기간 : 신청일 기준 3년 이내
+                <br />
+                보존근거 : 소비자보호에 관한 법률 시행령 제6조 제3항
+              </p>
             </div>
-            )}
           </div>
         </div>
       )}
